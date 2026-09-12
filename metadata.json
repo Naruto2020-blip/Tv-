@@ -1,0 +1,6 @@
+{
+  "name": "TV Costa Rica",
+  "description": "Canales de televisión en vivo de Costa Rica con reproductor integrado y guía de programación interactiva.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
