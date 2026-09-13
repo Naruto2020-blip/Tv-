@@ -42,8 +42,11 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import com.example.data.epg.EpgSyncStatus
 import com.example.data.model.TvChannel
+import com.example.data.model.TvProgram
 import com.example.data.repository.CostaRicaEpgData
+import com.example.ui.components.EpgSyncHeader
 import com.example.ui.theme.BorderColor
 import com.example.ui.theme.CardBackground
 import com.example.ui.theme.CrBlue
@@ -61,6 +64,10 @@ fun NowOnTvView(
     onTuneInChannel: (TvChannel) -> Unit,
     currentHour: Int? = null,
     currentMinute: Int? = null,
+    syncStatus: EpgSyncStatus? = null,
+    onRefreshEpg: (() -> Unit)? = null,
+    currentProgramResolver: ((TvChannel) -> TvProgram)? = null,
+    nextProgramResolver: ((TvChannel) -> TvProgram?)? = null,
     modifier: Modifier = Modifier
 ) {
     val (hour, minute) = if (currentHour != null && currentMinute != null) {
@@ -74,6 +81,15 @@ fun NowOnTvView(
             .fillMaxSize()
             .background(SurfaceDark)
     ) {
+        // Online EPG sync status indicator banner
+        if (syncStatus != null) {
+            EpgSyncHeader(
+                syncStatus = syncStatus,
+                onRefresh = { onRefreshEpg?.invoke() },
+                modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp)
+            )
+        }
+
         // Header
         Surface(
             color = MaterialTheme.colorScheme.surfaceVariant,
@@ -125,15 +141,19 @@ fun NowOnTvView(
             verticalArrangement = Arrangement.spacedBy(10.dp)
         ) {
             items(channels) { channel ->
-                val currentProgram = CostaRicaEpgData.getCurrentProgram(
+                val currentProgram = currentProgramResolver?.invoke(channel) ?: CostaRicaEpgData.getCurrentProgram(
                     channel.id,
                     channel.name,
-                    channel.category.displayName
+                    channel.category.displayName,
+                    hour,
+                    minute
                 )
-                val nextProgram = CostaRicaEpgData.getNextProgram(
+                val nextProgram = nextProgramResolver?.invoke(channel) ?: CostaRicaEpgData.getNextProgram(
                     channel.id,
                     channel.name,
-                    channel.category.displayName
+                    channel.category.displayName,
+                    hour,
+                    minute
                 )
                 val progress = currentProgram.getProgress(hour, minute)
                 val remaining = currentProgram.remainingMinutes(hour, minute)

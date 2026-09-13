@@ -80,15 +80,10 @@ fun MainTvScreen(
     val reminderIds by viewModel.reminderProgramIds.collectAsState()
     val crTime by viewModel.costaRicaTime.collectAsState()
     val (crHour, crMinute) = crTime
+    val epgSyncStatus by viewModel.epgSyncStatus.collectAsState()
 
     // Current program title for selected channel
-    val currentProg = CostaRicaEpgData.getCurrentProgram(
-        selectedChannel.id,
-        selectedChannel.name,
-        selectedChannel.category.displayName,
-        crHour,
-        crMinute
-    )
+    val currentProg = viewModel.getCurrentProgram(selectedChannel)
 
     // Handle back button when in fullscreen
     BackHandler(enabled = isFullscreen) {
@@ -329,13 +324,7 @@ fun MainTvScreen(
                                 ) {
                                     items(displayedChannels, key = { it.id }) { channel ->
                                         val isSelected = channel.id == selectedChannel.id
-                                        val chProgram = CostaRicaEpgData.getCurrentProgram(
-                                            channel.id,
-                                            channel.name,
-                                            channel.category.displayName,
-                                            crHour,
-                                            crMinute
-                                        )
+                                        val chProgram = viewModel.getCurrentProgram(channel)
 
                                         ChannelCard(
                                             channel = channel,
@@ -361,7 +350,11 @@ fun MainTvScreen(
                                 viewModel.selectChannel(it)
                             },
                             currentHour = crHour,
-                            currentMinute = crMinute
+                            currentMinute = crMinute,
+                            syncStatus = epgSyncStatus,
+                            onRefreshEpg = { viewModel.refreshEpg() },
+                            scheduleResolver = { viewModel.getScheduleForChannel(it) },
+                            currentProgramResolver = { viewModel.getCurrentProgram(it) }
                         )
                     }
 
@@ -373,7 +366,11 @@ fun MainTvScreen(
                                 viewModel.selectChannel(it)
                             },
                             currentHour = crHour,
-                            currentMinute = crMinute
+                            currentMinute = crMinute,
+                            syncStatus = epgSyncStatus,
+                            onRefreshEpg = { viewModel.refreshEpg() },
+                            currentProgramResolver = { viewModel.getCurrentProgram(it) },
+                            nextProgramResolver = { viewModel.getNextProgram(it) }
                         )
                     }
                 }

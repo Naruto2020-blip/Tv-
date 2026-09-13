@@ -3,8 +3,11 @@ package com.example.ui
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.data.epg.EpgSyncStatus
+import com.example.data.epg.OnlineEpgRepository
 import com.example.data.model.ChannelCategory
 import com.example.data.model.TvChannel
+import com.example.data.model.TvProgram
 import com.example.data.repository.CostaRicaChannelsData
 import com.example.data.repository.CostaRicaEpgData
 import com.example.data.repository.FavoritesRepository
@@ -19,6 +22,10 @@ import kotlinx.coroutines.launch
 class TvViewModel(application: Application) : AndroidViewModel(application) {
 
     private val favoritesRepository = FavoritesRepository(application)
+    val onlineEpgRepository = OnlineEpgRepository(application)
+
+    val epgSyncStatus: StateFlow<EpgSyncStatus> = onlineEpgRepository.syncStatus
+    val onlineSchedules: StateFlow<Map<String, List<TvProgram>>> = onlineEpgRepository.onlineSchedules
 
     private val _allChannels = MutableStateFlow(CostaRicaChannelsData.channels)
     val allChannels: StateFlow<List<TvChannel>> = _allChannels
@@ -30,10 +37,24 @@ class TvViewModel(application: Application) : AndroidViewModel(application) {
     val costaRicaTime: StateFlow<Pair<Int, Int>> = _costaRicaTime
 
     init {
+        // Continuous time clock update (every 15s)
         viewModelScope.launch {
             while (true) {
                 delay(15_000)
                 _costaRicaTime.value = CostaRicaEpgData.getCurrentCostaRicaTime()
+            }
+        }
+
+        // Automatic background EPG synchronization engine:
+        // Automatically syncs on launch and refreshes periodically to keep EPG always updated
+        viewModelScope.launch {
+            // Initial sync on startup
+            onlineEpgRepository.syncEpg(force = false)
+
+            // Recurring automatic sync every 30 minutes
+            while (true) {
+                delay(30 * 60 * 1000L)
+                onlineEpgRepository.syncEpg(force = true)
             }
         }
     }
@@ -136,5 +157,37 @@ class TvViewModel(application: Application) : AndroidViewModel(application) {
 
     fun hasReminder(programId: String): Boolean {
         return favoritesRepository.hasReminder(programId)
+    }
+
+    /**
+     * Manually triggers an immediate synchronization of online EPG from sources.
+     */
+    fun refreshEpg() {
+        viewModelScope.launch {
+            onlineEpgRepository.syncEpg(force = true)
+        }
+    }
+
+    /**
+     * Obtains the most up-to-date schedule for a channel (online EPG or tailored fallback).
+     */
+    fun getScheduleForChannel(channel: TvChannel): List<TvProgram> {
+        return onlineEpgRepository.getScheduleForChannel(channel.id, channel.name, channel.category.displayName)
+    }
+
+    /**
+     * Resolves the current playing program for a channel.
+     */
+    fun getCurrentProgram(channel: TvChannel): TvProgram {
+        val (h, m) = _costaRicaTime.value
+        return onlineEpgRepository.getCurrentProgram(channel.id, channel.name, channel.category.displayName, h, m)
+    }
+
+    /**
+     * Resolves the next upcoming program for a channel.
+     */
+    fun getNextProgram(channel: TvChannel): TvProgram? {
+        val (h, m) = _costaRicaTime.value
+        return onlineEpgRepository.getNextProgram(channel.id, channel.name, channel.category.displayName, h, m)
     }
 }

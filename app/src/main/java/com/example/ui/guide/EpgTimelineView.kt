@@ -57,9 +57,11 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import com.example.data.epg.EpgSyncStatus
 import com.example.data.model.TvChannel
 import com.example.data.model.TvProgram
 import com.example.data.repository.CostaRicaEpgData
+import com.example.ui.components.EpgSyncHeader
 import com.example.ui.theme.BorderColor
 import com.example.ui.theme.CardBackground
 import com.example.ui.theme.CrBlue
@@ -81,6 +83,10 @@ fun EpgTimelineView(
     onTuneInChannel: (TvChannel) -> Unit,
     currentHour: Int? = null,
     currentMinute: Int? = null,
+    syncStatus: EpgSyncStatus? = null,
+    onRefreshEpg: (() -> Unit)? = null,
+    scheduleResolver: ((TvChannel) -> List<TvProgram>)? = null,
+    currentProgramResolver: ((TvChannel) -> TvProgram)? = null,
     modifier: Modifier = Modifier
 ) {
     var selectedProgramForDetail by remember { mutableStateOf<TvProgram?>(null) }
@@ -89,12 +95,12 @@ fun EpgTimelineView(
     } else {
         CostaRicaEpgData.getCurrentCostaRicaTime()
     }
-    val schedule = CostaRicaEpgData.getScheduleForChannel(
+    val schedule = scheduleResolver?.invoke(selectedChannel) ?: CostaRicaEpgData.getScheduleForChannel(
         selectedChannel.id,
         selectedChannel.name,
         selectedChannel.category.displayName
     )
-    val currentProgram = CostaRicaEpgData.getCurrentProgram(
+    val currentProgram = currentProgramResolver?.invoke(selectedChannel) ?: CostaRicaEpgData.getCurrentProgram(
         selectedChannel.id,
         selectedChannel.name,
         selectedChannel.category.displayName,
@@ -107,6 +113,15 @@ fun EpgTimelineView(
             .fillMaxSize()
             .background(SurfaceDark)
     ) {
+        // Online EPG sync status indicator banner
+        if (syncStatus != null) {
+            EpgSyncHeader(
+                syncStatus = syncStatus,
+                onRefresh = { onRefreshEpg?.invoke() },
+                modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp)
+            )
+        }
+
         // Channel Selector Carousel
         Surface(
             color = MaterialTheme.colorScheme.surfaceVariant,
