@@ -1,28 +1,27 @@
 package com.example
 
-import androidx.compose.ui.test.junit4.createComposeRule
-import androidx.compose.ui.test.onRoot
-import com.example.ui.theme.MyApplicationTheme
-import com.github.takahirom.roborazzi.RobolectricDeviceQualifiers
-import com.github.takahirom.roborazzi.captureRoboImage
-import org.junit.Rule
+import com.example.data.repository.CostaRicaEpgData
+import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
-import org.robolectric.annotation.GraphicsMode
 
 @RunWith(RobolectricTestRunner::class)
-@GraphicsMode(GraphicsMode.Mode.NATIVE)
-@Config(qualifiers = RobolectricDeviceQualifiers.Pixel8, sdk = [36])
-class GreetingScreenshotTest {
-
-  @get:Rule val composeTestRule = createComposeRule()
+@Config(sdk = [36])
+class EpgDataTest {
 
   @Test
-  fun greeting_screenshot() {
-    composeTestRule.setContent { MyApplicationTheme { Greeting("Robolectric") } }
+  fun testEpgScheduleNotEmpty() {
+    val schedule = CostaRicaEpgData.getScheduleForChannel("teletica", "Teletica Canal 7", "General")
+    assertTrue(schedule.isNotEmpty())
+  }
 
-    composeTestRule.onRoot().captureRoboImage(filePath = "src/test/screenshots/greeting.png")
+  @Test
+  fun testGetCurrentProgramReturnsValidProgram() {
+    val prog = CostaRicaEpgData.getCurrentProgram("teletica", "Teletica Canal 7", "General", 12, 30)
+    assertNotNull(prog)
+    assertTrue(prog.title.isNotBlank())
   }
 }

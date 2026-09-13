@@ -17,6 +17,15 @@ object CostaRicaEpgData {
     }
 
     /**
+     * Obtains the day of week in Costa Rica
+     */
+    fun getCostaRicaDayOfWeek(): Int {
+        val tz = TimeZone.getTimeZone("America/Costa_Rica")
+        val calendar = Calendar.getInstance(tz)
+        return calendar.get(Calendar.DAY_OF_WEEK)
+    }
+
+    /**
      * Obtains the current Costa Rica time (UTC-6)
      */
     fun getCurrentCostaRicaTime(): Pair<Int, Int> {
@@ -45,7 +54,7 @@ object CostaRicaEpgData {
         }
     }
 
-    // Standard Weekday Schedules
+    // Standard Weekday Schedules (Lunes a Viernes)
     private val weekdayProgramsByChannel: Map<String, List<TvProgram>> = mapOf(
         "teletica7" to listOf(
             TvProgram("t7_w1", "teletica7", "Telenoticias Primera Hora", "El despertar informativo de Costa Rica con cobertura nacional, clima y tránsito.", 5, 45, 8, 0, "Noticias"),
@@ -56,8 +65,8 @@ object CostaRicaEpgData {
             TvProgram("t7_w6", "teletica7", "Cine de la Tarde", "Grandes producciones y películas familiares para disfrutar en casa.", 13, 30, 15, 30, "Cine"),
             TvProgram("t7_w7", "teletica7", "Laura Sin Censura", "Casos de la vida real analizados con franqueza y debate familiar.", 15, 30, 17, 0, "Entretenimiento"),
             TvProgram("t7_w8", "teletica7", "Calle 7 Informativo", "Periodismo ágil y cercano que recorre las calles del país para contar historias cotidianas.", 17, 0, 19, 0, "Noticias"),
-            TvProgram("t7_w9", "teletica7", "Telenoticias Edición Estelar", "El noticiero estelar con las noticias de mayor impacto político, social y económico de Costa Rica.", 19, 0, 20, 30, "Noticias"),
-            TvProgram("t7_w10", "teletica7", "7 Días / Formato Estelar", "Periodismo de investigación profunda, reportajes especiales y transmisiones estelares.", 20, 30, 22, 0, "Opinión"),
+            TvProgram("t7_w9", "teletica7", "Telenoticias Edición Estelar", "El noticiero estelar con las noticias de mayor impacto político, social y económico de Costa Rica.", 19, 0, 20, 0, "Noticias"),
+            TvProgram("t7_w10", "teletica7", "7 Días / Formato Estelar", "Periodismo de investigación profunda, reportajes especiales y programas estelares.", 20, 0, 22, 0, "Opinión"),
             TvProgram("t7_w11", "teletica7", "Novela Prime Time", "Producciones dramáticas estelares en horario estelar.", 22, 0, 23, 0, "Novela"),
             TvProgram("t7_w12", "teletica7", "Telenoticias Medianoche", "El cierre de la jornada con el resumen de última hora y previsiones de mañana.", 23, 0, 23, 45, "Noticias"),
             TvProgram("t7_w13", "teletica7", "Cine Nocturno de Madrugada", "Películas de acción, suspenso y drama para la madrugada.", 23, 45, 5, 45, "Cine")
@@ -66,17 +75,16 @@ object CostaRicaEpgData {
         "canal6repretel" to listOf(
             TvProgram("c6_w1", "canal6repretel", "Legado de Amor", "Telenovela matutina y reflexiones para el inicio de jornada.", 6, 0, 6, 50, "Novela"),
             TvProgram("c6_w2", "canal6repretel", "Noticias Repretel Matutina", "Las noticias más tempranas para salir informado a todo Costa Rica.", 6, 50, 9, 0, "Noticias"),
-            TvProgram("c6_w3", "canal6repretel", "Giros de la Mañana", "Revista con consejos para el hogar, nutrición, salud y bienestar familiar.", 9, 0, 12, 0, "Revista"),
-            TvProgram("c6_w4", "canal6repretel", "Dos Mujeres, Un Camino", "Clásica telenovela romántica del mediodía.", 12, 0, 12, 55, "Novela"),
-            TvProgram("c6_w5", "canal6repretel", "Noticias Repretel Meridiana", "El acontecer nacional con reportajes en vivo y cobertura al instante.", 12, 55, 15, 0, "Noticias"),
-            TvProgram("c6_w6", "canal6repretel", "Amor de Familia", "Drama internacional aclamado para la tarde.", 15, 0, 16, 0, "Novela"),
-            TvProgram("c6_w7", "canal6repretel", "Como Dice el Dicho", "Casos y lecciones de vida basados en dichos populares.", 16, 0, 17, 0, "Drama"),
-            TvProgram("c6_w8", "canal6repretel", "Caso Cerrado con la Dra. Polo", "Conflictos humanos, demandas legales y decisiones sorprendentes.", 17, 0, 18, 0, "Entretenimiento"),
-            TvProgram("c6_w9", "canal6repretel", "Conexión Fútbol en Vivo", "Juegos, retos, humor y debate futbolero con exfutbolistas ticos.", 18, 0, 19, 55, "Deportes"),
-            TvProgram("c6_w10", "canal6repretel", "Noticias Repretel Edición Central", "El noticiero nocturno con las noticias más comentadas en el país.", 19, 55, 21, 0, "Noticias"),
-            TvProgram("c6_w11", "canal6repretel", "Fruto Prohibido / Novela Estelar", "Grandes producciones internacionales de drama e intriga.", 21, 0, 22, 0, "Novela"),
-            TvProgram("c6_w12", "canal6repretel", "Todo por mi Familia", "Dramático desenlace familiar para el cierre de la noche.", 22, 0, 23, 0, "Novela"),
-            TvProgram("c6_w13", "canal6repretel", "Cine de Medianoche Repretel", "Películas y series en la madrugada.", 23, 0, 6, 0, "Cine")
+            TvProgram("c6_w3", "canal6repretel", "Giros de la Mañana", "Revista con consejos para el hogar, nutrición, salud y bienestar familiar.", 9, 0, 11, 45, "Revista"),
+            TvProgram("c6_w4", "canal6repretel", "Noticias Repretel Meridiana", "El acontecer nacional con reportajes en vivo y cobertura al instante.", 11, 45, 13, 45, "Noticias"),
+            TvProgram("c6_w5", "canal6repretel", "Telenovela Internacional", "Melodramas internacionales y romance para la sobremesa.", 13, 45, 15, 30, "Novela"),
+            TvProgram("c6_w6", "canal6repretel", "Como Dice el Dicho", "Casos y lecciones de vida basados en dichos populares.", 15, 30, 17, 0, "Drama"),
+            TvProgram("c6_w7", "canal6repretel", "Caso Cerrado", "Conflictos humanos, demandas legales y decisiones con la Dra. Polo.", 17, 0, 18, 0, "Entretenimiento"),
+            TvProgram("c6_w8", "canal6repretel", "Conexión Fútbol Previa", "La previa de la jornada deportiva con panelistas costarricenses.", 18, 0, 19, 0, "Deportes"),
+            TvProgram("c6_w9", "canal6repretel", "Noticias Repretel Edición Central", "El noticiero estelar con los acontecimientos del país.", 19, 0, 20, 30, "Noticias"),
+            TvProgram("c6_w10", "canal6repretel", "Telenovela Estelar Prime", "Grandes producciones internacionales de drama e intriga.", 20, 30, 22, 0, "Novela"),
+            TvProgram("c6_w11", "canal6repretel", "Conexión Fútbol en Vivo", "Juegos, retos, humor y debate futbolero con exfutbolistas ticos.", 22, 0, 23, 0, "Deportes"),
+            TvProgram("c6_w12", "canal6repretel", "Cine de Medianoche Repretel", "Películas y series en la madrugada.", 23, 0, 6, 0, "Cine")
         ),
 
         "futv" to listOf(
@@ -88,51 +96,92 @@ object CostaRicaEpgData {
             TvProgram("fu_w6", "futv", "Repetición del Partido Estelar", "Revive el encuentro más emocionante de la jornada anterior.", 15, 0, 17, 0, "Deportes"),
             TvProgram("fu_w7", "futv", "Previa y Actualidad de los Clubes", "Novedades, bajas y alineaciones de los equipos de primera división.", 17, 0, 18, 30, "Deportes"),
             TvProgram("fu_w8", "futv", "Pasión Tica: Especial de Fútbol", "Documentales sobre las glorias del fútbol costarricense.", 18, 30, 20, 0, "Deportes"),
-            TvProgram("fu_w9", "futv", "Fútbol en Vivo / Partido Re-emisión", "Transmisión de fútbol con narración oficial y estadísticas en pantalla.", 20, 0, 21, 30, "Deportes"),
-            TvProgram("fu_w10", "futv", "La Jornada al Detalle", "Estadísticas, tabla de posiciones y tabla del no descenso.", 21, 30, 23, 0, "Deportes"),
+            TvProgram("fu_w9", "futv", "FUTV Hoy: Noche de Fútbol", "Transmisión de fútbol con narración oficial y estadísticas en pantalla.", 20, 0, 21, 30, "Deportes"),
+            TvProgram("fu_w10", "futv", "La Jornada al Detalle", "Estadísticas, tabla de posiciones y tabla acumulada.", 21, 30, 23, 0, "Deportes"),
             TvProgram("fu_w11", "futv", "Goles y Jugadas de la Historia", "Los mejores momentos del balompié tico de todas las épocas.", 23, 0, 6, 0, "Deportes")
         )
     )
 
-    // Dedicated Weekend Schedules (Sábado y Domingo en Costa Rica)
-    private val weekendProgramsByChannel: Map<String, List<TvProgram>> = mapOf(
+    // Saturday-specific Schedules (Sábados)
+    private val saturdayProgramsByChannel: Map<String, List<TvProgram>> = mapOf(
         "teletica7" to listOf(
-            TvProgram("t7_e1", "teletica7", "Aventuras Animadas Matinales", "Dibujos animados clásicos y series familiares para comenzar el fin de semana.", 6, 0, 8, 0, "Infantil"),
-            TvProgram("t7_e2", "teletica7", "Santa Misa / Espacio Espiritual", "Celebración de fe y mensaje de paz para las familias costarricenses.", 8, 0, 9, 0, "Religión"),
-            TvProgram("t7_e3", "teletica7", "Cine Familiar Fin de Semana", "Películas de aventura y animación para disfrutar en familia.", 9, 0, 11, 30, "Cine"),
-            TvProgram("t7_e4", "teletica7", "Especial de Teletica / Orgullo Tico", "Reportajes sobre la naturaleza, tradiciones y costumbres de Costa Rica.", 11, 30, 13, 30, "Cultura"),
-            TvProgram("t7_e5", "teletica7", "Super Cine de la Tarde", "Grandes producciones cinematográficas y comedia familiar.", 13, 30, 16, 0, "Cine"),
-            TvProgram("t7_e6", "teletica7", "Sábado Feliz / Fiesta Tica en Vivo", "El legendario programa de concursos, premios, música bailable y alegría en vivo.", 16, 0, 19, 0, "Entretenimiento"),
-            TvProgram("t7_e7", "teletica7", "Telenoticias Fin de Semana Estelar", "Edición completa con el balance noticioso y deportivo de los sábados y domingos.", 19, 0, 20, 30, "Noticias"),
-            TvProgram("t7_e8", "teletica7", "7 Días / Noche de Gala Estelar", "Periodismo de investigación, grandes documentales y programas especiales de noche.", 20, 30, 22, 0, "Opinión"),
-            TvProgram("t7_e9", "teletica7", "Cine Éxito de Hollywood", "Película estelar de acción, romance o suspenso en horario prime time.", 22, 0, 0, 0, "Cine"),
-            TvProgram("t7_e10", "teletica7", "Cine Nocturno de Madrugada", "Películas y series continuas durante la madrugada.", 0, 0, 5, 45, "Cine"),
-            TvProgram("t7_e11", "teletica7", "Amanecer de Fin de Semana", "Música instrumental costarricense y apertura de transmisiones.", 5, 45, 6, 0, "Música")
+            TvProgram("t7_sat1", "teletica7", "Aventuras Animadas Matinales", "Dibujos animados clásicos y series familiares para comenzar el sábado.", 6, 0, 8, 30, "Infantil"),
+            TvProgram("t7_sat2", "teletica7", "Cine Sabatino Familiar", "Películas de aventura y animación para disfrutar en familia.", 8, 30, 11, 0, "Cine"),
+            TvProgram("t7_sat3", "teletica7", "Más Que Noticias (+QN Especial)", "Historias inspiradoras de comunidades y personajes de Costa Rica.", 11, 0, 12, 0, "Revista"),
+            TvProgram("t7_sat4", "teletica7", "Telenoticias Fin de Semana Meridiana", "El acontecer noticioso del sábado con reportes en vivo.", 12, 0, 13, 0, "Noticias"),
+            TvProgram("t7_sat5", "teletica7", "Super Cine de Sábado", "Grandes producciones cinematográficas y comedia para la tarde.", 13, 0, 16, 0, "Cine"),
+            TvProgram("t7_sat6", "teletica7", "Sábado Feliz en Vivo", "El legendario programa sabatino de concursos, música bailable, artistas y premios en vivo por Canal 7.", 16, 0, 19, 0, "Entretenimiento"),
+            TvProgram("t7_sat7", "teletica7", "Telenoticias Fin de Semana Estelar", "Edición completa con el balance noticioso y deportivo del sábado.", 19, 0, 20, 0, "Noticias"),
+            TvProgram("t7_sat8", "teletica7", "Noche Estelar Teletica", "Grandes programas especiales, conciertos y formatos estelares de Teletica.", 20, 0, 22, 0, "Entretenimiento"),
+            TvProgram("t7_sat9", "teletica7", "Cine Éxito de Hollywood", "Película estelar de acción y suspenso en horario prime time.", 22, 0, 0, 0, "Cine"),
+            TvProgram("t7_sat10", "teletica7", "Cine Nocturno de Madrugada", "Películas y series continuas durante la madrugada.", 0, 0, 5, 45, "Cine"),
+            TvProgram("t7_sat11", "teletica7", "Amanecer de Fin de Semana", "Música instrumental costarricense y apertura de transmisiones.", 5, 45, 6, 0, "Música")
         ),
 
         "canal6repretel" to listOf(
-            TvProgram("c6_e1", "canal6repretel", "Clásicos Animados Familiares", "Las caricaturas más queridas para iniciar el fin de semana.", 6, 0, 9, 0, "Infantil"),
-            TvProgram("c6_e2", "canal6repretel", "Cine Aventura de la Mañana", "Películas para toda la familia y diversión sin pausas.", 9, 0, 11, 30, "Cine"),
-            TvProgram("c6_e3", "canal6repretel", "Noticias Repretel Fin de Semana", "La actualidad del país, deportes y sucesos de las últimas horas.", 11, 30, 13, 30, "Noticias"),
-            TvProgram("c6_e4", "canal6repretel", "Super Cine Familiar Repretel", "Historias emocionantes de acción y fantasía.", 13, 30, 16, 0, "Cine"),
-            TvProgram("c6_e5", "canal6repretel", "Cine Estelar de la Tarde", "Producciones taquilleras internacionales.", 16, 0, 18, 0, "Cine"),
-            TvProgram("c6_e6", "canal6repretel", "Conexión Fútbol Fin de Semana", "Edición especial con la previa de los partidos y polémica en vivo.", 18, 0, 19, 55, "Deportes"),
-            TvProgram("c6_e7", "canal6repretel", "Noticias Repretel Edición Central", "El noticiero principal de fin de semana con el resumen de la jornada.", 19, 55, 21, 0, "Noticias"),
-            TvProgram("c6_e8", "canal6repretel", "Película de Gala Repretel", "El gran estreno cinematográfico de la noche.", 21, 0, 23, 0, "Cine"),
-            TvProgram("c6_e9", "canal6repretel", "Cine de Medianoche Repretel", "Películas y suspenso para la madrugada.", 23, 0, 6, 0, "Cine")
+            TvProgram("c6_sat1", "canal6repretel", "Clásicos Animados Sabatinos", "Las caricaturas más queridas para iniciar el fin de semana.", 6, 0, 9, 0, "Infantil"),
+            TvProgram("c6_sat2", "canal6repretel", "Cine Aventura de la Mañana", "Películas para toda la familia y diversión sin pausas.", 9, 0, 11, 30, "Cine"),
+            TvProgram("c6_sat3", "canal6repretel", "Noticias Repretel Fin de Semana", "La actualidad del país, deportes y sucesos de las últimas horas.", 11, 30, 13, 0, "Noticias"),
+            TvProgram("c6_sat4", "canal6repretel", "Super Cine Familiar Repretel", "Historias emocionantes de acción y fantasía.", 13, 0, 16, 0, "Cine"),
+            TvProgram("c6_sat5", "canal6repretel", "Cine Estelar de la Tarde", "Producciones taquilleras internacionales.", 16, 0, 18, 0, "Cine"),
+            TvProgram("c6_sat6", "canal6repretel", "Conexión Fútbol Sabatino", "Edición especial con la previa de los partidos y polémica en vivo.", 18, 0, 19, 0, "Deportes"),
+            TvProgram("c6_sat7", "canal6repretel", "Noticias Repretel Central Fin de Semana", "El noticiero principal del sábado con el resumen de la jornada.", 19, 0, 20, 30, "Noticias"),
+            TvProgram("c6_sat8", "canal6repretel", "Mega Película Repretel", "El gran estreno cinematográfico del sábado por la noche.", 20, 30, 23, 0, "Cine"),
+            TvProgram("c6_sat9", "canal6repretel", "Cine de Medianoche Repretel", "Películas y suspenso para la madrugada.", 23, 0, 6, 0, "Cine")
         ),
 
         "futv" to listOf(
-            TvProgram("fu_e1", "futv", "Goles de la Liga Promerica", "Todas las anotaciones del torneo nacional de primera división.", 6, 0, 8, 0, "Deportes"),
-            TvProgram("fu_e2", "futv", "Conexión Promerica Fin de Semana", "Alineaciones confirmadas, ambiente de estadio y previa de los partidos.", 8, 0, 10, 0, "Deportes"),
-            TvProgram("fu_e3", "futv", "Previa de la Jornada de Fútbol Tico", "Conexión directa con los estadios: Saprissa, Morera Soto, Fello Meza y más.", 10, 0, 11, 0, "Deportes"),
-            TvProgram("fu_e4", "futv", "Partido en Vivo: Liga Promerica (Jornada)", "Fútbol costarricense de primera división en directo con los mejores relatores.", 11, 0, 13, 15, "Deportes"),
-            TvProgram("fu_e5", "futv", "Análisis y Polémica en Cancha", "Entrevistas en caliente desde el terreno de juego.", 13, 15, 15, 0, "Deportes"),
-            TvProgram("fu_e6", "futv", "Partido en Vivo: Liga Promerica (Tarde)", "Transmisión en directo del segundo partido de la jornada futbolera tica.", 15, 0, 17, 15, "Deportes"),
-            TvProgram("fu_e7", "futv", "Zona Técnica Especial", "Revisión arbitral de jugadas polémicas y estadísticas del encuentro.", 17, 15, 18, 0, "Deportes"),
-            TvProgram("fu_e8", "futv", "Partido Estelar en Vivo: Liga Promerica", "El clásico o choque estelar de la noche con cobertura total en directo.", 18, 0, 20, 15, "Deportes"),
-            TvProgram("fu_e9", "futv", "Tercer Tiempo y Mesa Redonda FUTV", "Debate ardiente, conferencias de prensa y la tabla de posiciones.", 20, 15, 22, 0, "Deportes"),
-            TvProgram("fu_e10", "futv", "Repeticiones y Momentos Históricos", "Los mejores partidos y clásicos de la historia del fútbol costarricense.", 22, 0, 6, 0, "Deportes")
+            TvProgram("fu_sat1", "futv", "Goles de la Liga Promerica", "Todas las anotaciones del torneo nacional de primera división.", 6, 0, 8, 30, "Deportes"),
+            TvProgram("fu_sat2", "futv", "Conexión Promerica Sábado", "Alineaciones confirmadas, ambiente de estadio y previa de los partidos.", 8, 30, 11, 0, "Deportes"),
+            TvProgram("fu_sat3", "futv", "Partido en Directo: Liga Promerica (Matutino)", "Fútbol costarricense de primera división en vivo.", 11, 0, 13, 30, "Deportes"),
+            TvProgram("fu_sat4", "futv", "Análisis y Marcador al Minuto", "Entrevistas en caliente desde el terreno de juego.", 13, 30, 15, 0, "Deportes"),
+            TvProgram("fu_sat5", "futv", "Partido en Directo: Liga Promerica (Tarde)", "Transmisión en directo del segundo choque de la jornada sabatina.", 15, 0, 17, 30, "Deportes"),
+            TvProgram("fu_sat6", "futv", "Zona Técnica Sabatina", "Revisión arbitral de jugadas polémicas y estadísticas.", 17, 30, 19, 0, "Deportes"),
+            TvProgram("fu_sat7", "futv", "Partido Estelar: Liga Promerica en Vivo", "El partido estelar de la noche con narración oficial en directo.", 19, 0, 21, 30, "Deportes"),
+            TvProgram("fu_sat8", "futv", "Línea de 4 / Análisis de la Jornada", "Debate ardiente, conferencias de prensa y la tabla de posiciones.", 21, 30, 23, 0, "Deportes"),
+            TvProgram("fu_sat9", "futv", "Repeticiones y Momentos Históricos", "Los mejores partidos y clásicos de la historia del fútbol costarricense.", 23, 0, 6, 0, "Deportes")
+        )
+    )
+
+    // Sunday-specific Schedules (Domingos)
+    private val sundayProgramsByChannel: Map<String, List<TvProgram>> = mapOf(
+        "teletica7" to listOf(
+            TvProgram("t7_sun1", "teletica7", "Caricaturas Clásicas Dominicales", "Aventuras animadas y series infantiles para el amanecer dominical.", 6, 0, 8, 0, "Infantil"),
+            TvProgram("t7_sun2", "teletica7", "Santa Misa Dominical en Directo", "Celebración eucarística solemne de domingo para las familias de Costa Rica.", 8, 0, 9, 0, "Religión"),
+            TvProgram("t7_sun3", "teletica7", "Cine Infantil Dominical", "Películas de animación, magia y aventura familiar.", 9, 0, 11, 30, "Cine"),
+            TvProgram("t7_sun4", "teletica7", "Orgullo Tico / Más Que Noticias", "Costumbres, paisajes y gastronomía tradicional de Costa Rica.", 11, 30, 12, 0, "Cultura"),
+            TvProgram("t7_sun5", "teletica7", "Telenoticias Fin de Semana Meridiana", "Resumen de los sucesos de la mañana y previa deportiva.", 12, 0, 13, 0, "Noticias"),
+            TvProgram("t7_sun6", "teletica7", "Super Cine Dominical de la Tarde", "Grandes estrenos del cine internacional para disfrutar en casa.", 13, 0, 16, 0, "Cine"),
+            TvProgram("t7_sun7", "teletica7", "Deporte Más / Torneo Nacional", "Cobertura de los partidos de la Liga Promerica y goles del domingo.", 16, 0, 18, 30, "Deportes"),
+            TvProgram("t7_sun8", "teletica7", "7 Días / Resumen de Fondo", "Periodismo de investigación y reportajes especiales de la semana.", 18, 30, 19, 0, "Opinión"),
+            TvProgram("t7_sun9", "teletica7", "Telenoticias Fin de Semana Estelar", "Edición estelar dominical con toda la actualidad de Costa Rica y el mundo.", 19, 0, 20, 0, "Noticias"),
+            TvProgram("t7_sun10", "teletica7", "Gran Formato Familiar Dominical", "Producción estelar de entretenimiento familiar (Mira Quién Baila / Nace una Estrella / Tu Cara Me Suena).", 20, 0, 22, 30, "Entretenimiento"),
+            TvProgram("t7_sun11", "teletica7", "Cine Éxito Prime Dominical", "Película estelar de acción y drama para cerrar el fin de semana.", 22, 30, 0, 30, "Cine"),
+            TvProgram("t7_sun12", "teletica7", "Cine de Madrugada", "Programación cinematográfica continua durante la madrugada.", 0, 30, 6, 0, "Cine")
+        ),
+
+        "canal6repretel" to listOf(
+            TvProgram("c6_sun1", "canal6repretel", "Caricaturas Dominicales", "Las mejores animaciones clásicas para los más pequeños.", 6, 0, 8, 0, "Infantil"),
+            TvProgram("c6_sun2", "canal6repretel", "Santa Misa Dominical", "Celebración eucarística dominical con reflexión y cantos.", 8, 0, 9, 0, "Religión"),
+            TvProgram("c6_sun3", "canal6repretel", "Cine Familiar Dominical", "Películas para compartir en familia durante la mañana.", 9, 0, 11, 30, "Cine"),
+            TvProgram("c6_sun4", "canal6repretel", "Noticias Repretel Fin de Semana", "La información de sucesos, clima y deportes de Costa Rica.", 11, 30, 13, 0, "Noticias"),
+            TvProgram("c6_sun5", "canal6repretel", "Cine de Acción Dominical", "Películas de aventura y emoción para la tarde.", 13, 0, 16, 0, "Cine"),
+            TvProgram("c6_sun6", "canal6repretel", "Fútbol y Deportes Canal 6", "Análisis de los partidos de la jornada futbolera costarricense.", 16, 0, 19, 0, "Deportes"),
+            TvProgram("c6_sun7", "canal6repretel", "Noticias Repretel Edición Central Fin de Semana", "El noticiero estelar del domingo con toda la información.", 19, 0, 20, 30, "Noticias"),
+            TvProgram("c6_sun8", "canal6repretel", "Cine Blockbuster Dominical", "El gran estreno cinematográfico de la noche de Repretel.", 20, 30, 23, 0, "Cine"),
+            TvProgram("c6_sun9", "canal6repretel", "Cine de Medianoche Repretel", "Películas continuas para la madrugada.", 23, 0, 6, 0, "Cine")
+        ),
+
+        "futv" to listOf(
+            TvProgram("fu_sun1", "futv", "Goles de la Liga Promerica", "Repaso de todas las anotaciones del fútbol nacional.", 6, 0, 8, 30, "Deportes"),
+            TvProgram("fu_sun2", "futv", "La Gran Previa Dominical", "Conexión con los estadios ticos para los encuentros de hoy.", 8, 30, 11, 0, "Deportes"),
+            TvProgram("fu_sun3", "futv", "Partido en Directo: Liga Promerica (Mediodía)", "Transmisión en vivo del fútbol de primera división de Costa Rica.", 11, 0, 13, 30, "Deportes"),
+            TvProgram("fu_sun4", "futv", "Marcador y Análisis de Cancha", "Entrevistas y estadísticas al finalizar el primer partido.", 13, 30, 15, 0, "Deportes"),
+            TvProgram("fu_sun5", "futv", "Partido en Directo: Liga Promerica (Tarde)", "Transmisión en directo del encuentro dominical de la tarde.", 15, 0, 17, 30, "Deportes"),
+            TvProgram("fu_sun6", "futv", "Zona Técnica Dominical", "Desglose táctico, polémica y jugadas decisivas.", 17, 30, 18, 30, "Deportes"),
+            TvProgram("fu_sun7", "futv", "Partido Estelar Dominical en Vivo", "El clásico o partido de mayor expectativa con cobertura total.", 18, 30, 21, 0, "Deportes"),
+            TvProgram("fu_sun8", "futv", "Tercer Tiempo y Tabla de Posiciones", "Resumen de toda la jornada, posiciones y declaraciones de los técnicos.", 21, 0, 23, 0, "Deportes"),
+            TvProgram("fu_sun9", "futv", "Repeticiones y Momentos Históricos", "Grandes clásicos del balompié costarricense.", 23, 0, 6, 0, "Deportes")
         )
     )
 
@@ -305,17 +354,6 @@ object CostaRicaEpgData {
             TvProgram("crc_6", "costaricachannel", "Maravillas Naturales de Costa Rica", "El 5% de la biodiversidad del planeta resumido en alta definición.", 21, 0, 6, 0, "Naturaleza")
         ),
 
-        "tdtv" to listOf(
-            TvProgram("td_1", "tdtv", "Despertar Deportivo Nacional", "Resumen de las competencias deportivas de Costa Rica.", 6, 0, 8, 30, "Deportes"),
-            TvProgram("td_2", "tdtv", "Ciclismo de Ruta y Montaña Tico", "Cobertura de la Vuelta a Costa Rica y eventos de mountain bike.", 8, 30, 11, 0, "Ciclismo"),
-            TvProgram("td_3", "tdtv", "TDtv Noticias Mediodía", "Actualidad del atletismo, natación y disciplinas olímpicas costarricenses.", 11, 0, 12, 30, "Noticias"),
-            TvProgram("td_4", "tdtv", "Deporte Federado y Ligas Menores", "El semillero de atletas y futbolistas en los cantones del país.", 12, 30, 15, 30, "Deportes"),
-            TvProgram("td_5", "tdtv", "Fútbol Femenino y Sala en Directo", "Las emociones del fútbol sala y la liga femenina de Costa Rica.", 15, 30, 18, 0, "Deportes"),
-            TvProgram("td_6", "tdtv", "TDtv Central de Deportes", "El programa líder en cobertura deportiva multidisciplinaria.", 18, 0, 20, 0, "Deportes"),
-            TvProgram("td_7", "tdtv", "Tertulia y Análisis Deportivo", "Especialistas debaten sobre el alto rendimiento en Costa Rica.", 20, 0, 22, 0, "Opinión"),
-            TvProgram("td_8", "tdtv", "Repeticiones Estelares del Deporte", "Revive las mejores hazañas de los atletas costarricenses.", 22, 0, 6, 0, "Deportes")
-        ),
-
         "soyplanchatv" to listOf(
             TvProgram("sp_1", "soyplanchatv", "Baladas del Despertar", "Música suave en español para comenzar la mañana con nostalgia.", 6, 0, 9, 0, "Música"),
             TvProgram("sp_2", "soyplanchatv", "Los Reyes de la Plancha", "Grandes baladas de Juan Gabriel, Amanda Miguel, Rocío Dúrcal y Camilo Sesto.", 9, 0, 12, 0, "Música"),
@@ -418,28 +456,36 @@ object CostaRicaEpgData {
     )
 
     /**
-     * Gets the full day programming for a channel, taking into account weekdays vs weekends.
+     * Gets the full day programming for a channel, taking into account weekdays, Saturdays and Sundays.
      */
     fun getScheduleForChannel(channelId: String, channelName: String, categoryName: String): List<TvProgram> {
-        val isWeekend = isCostaRicaWeekend()
+        val dayOfWeek = getCostaRicaDayOfWeek()
+        val isSaturday = dayOfWeek == Calendar.SATURDAY
+        val isSunday = dayOfWeek == Calendar.SUNDAY
+        val isWeekday = !isSaturday && !isSunday
 
-        // 1. Check weekend-specific schedule if applicable
-        if (isWeekend && weekendProgramsByChannel.containsKey(channelId)) {
-            return weekendProgramsByChannel[channelId]!!
+        // 1. Saturday-specific schedule
+        if (isSaturday && saturdayProgramsByChannel.containsKey(channelId)) {
+            return saturdayProgramsByChannel[channelId]!!
         }
 
-        // 2. Check weekday-specific schedule if applicable
-        if (!isWeekend && weekdayProgramsByChannel.containsKey(channelId)) {
+        // 2. Sunday-specific schedule
+        if (isSunday && sundayProgramsByChannel.containsKey(channelId)) {
+            return sundayProgramsByChannel[channelId]!!
+        }
+
+        // 3. Weekday-specific schedule
+        if (isWeekday && weekdayProgramsByChannel.containsKey(channelId)) {
             return weekdayProgramsByChannel[channelId]!!
         }
 
-        // 3. Check general specific schedule across all channels
+        // 4. Check general specific schedule across all channels
         val specific = allChannelsBaseSchedules[channelId]
         if (specific != null && specific.isNotEmpty()) {
             return specific
         }
 
-        // 4. Guaranteed continuous tailored schedule
+        // 5. Guaranteed continuous tailored schedule
         return listOf(
             TvProgram("${channelId}_1", channelId, "Amanecer en $channelName", "Inicio de transmisiones y música de apertura.", 6, 0, 8, 30, categoryName),
             TvProgram("${channelId}_2", channelId, "Revista Matinal de Costa Rica", "Consejos de salud, cocina tica y entrevistas comunitarias.", 8, 30, 11, 0, "Revista"),

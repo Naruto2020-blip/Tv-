@@ -15,13 +15,11 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Star
-import androidx.compose.material.icons.outlined.StarBorder
+import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.outlined.Tv
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -41,7 +39,6 @@ import coil.compose.AsyncImage
 import com.example.data.model.TvChannel
 import com.example.data.model.TvProgram
 import com.example.ui.theme.CardBackground
-import com.example.ui.theme.CrGold
 import com.example.ui.theme.LiveRed
 import com.example.ui.theme.TextMuted
 import com.example.ui.theme.TextPrimary
@@ -52,9 +49,7 @@ fun ChannelCard(
     channel: TvChannel,
     currentProgram: TvProgram?,
     isSelected: Boolean,
-    isFavorite: Boolean,
     onSelectChannel: () -> Unit,
-    onToggleFavorite: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val borderColor = if (isSelected) MaterialTheme.colorScheme.primary else Color.Transparent
@@ -186,18 +181,22 @@ fun ChannelCard(
                 }
             }
 
-            // Favorite star button
-            IconButton(
-                onClick = onToggleFavorite,
-                modifier = Modifier
-                    .size(40.dp)
-                    .testTag("fav_btn_${channel.id}")
-            ) {
-                Icon(
-                    imageVector = if (isFavorite) Icons.Default.Star else Icons.Outlined.StarBorder,
-                    contentDescription = if (isFavorite) "Quitar de favoritos" else "Agregar a favoritos",
-                    tint = if (isFavorite) CrGold else TextMuted
-                )
+            // Tune-in indicator icon
+            if (isSelected) {
+                Surface(
+                    shape = CircleShape,
+                    color = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier.size(32.dp)
+                ) {
+                    Box(contentAlignment = Alignment.Center) {
+                        Icon(
+                            Icons.Filled.PlayArrow,
+                            contentDescription = "Sintonizado ahora",
+                            tint = Color.White,
+                            modifier = Modifier.size(18.dp)
+                        )
+                    }
+                }
             }
         }
     }

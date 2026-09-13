@@ -269,19 +269,6 @@ object CostaRicaChannelsData {
             quality = "576p SD"
         ),
         TvChannel(
-            id = "tdtv",
-            name = "TDtv Deportes",
-            callsign = "TDtv",
-            category = ChannelCategory.DEPORTES,
-            streamUrls = listOf(
-                "https://cloudvideo.servers10.com:8081/8230/index.m3u8"
-            ),
-            logoUrl = "https://i.imgur.com/OFSOvpd.jpg",
-            description = "Cobertura del deporte nacional: ciclismo tico, atletismo, boxeo y torneos deportivos regionales.",
-            location = "San José",
-            quality = "720p HD"
-        ),
-        TvChannel(
             id = "enlacejuvenil",
             name = "Enlace Juvenil (EJTV)",
             callsign = "EJTV",
@@ -322,17 +309,15 @@ object CostaRicaChannelsData {
         ),
         TvChannel(
             id = "cotobrustv",
-            name = "Coto Brus TV (San Vito TV)",
-            callsign = "CBTV 5",
+            name = "Coto Brus TV",
+            callsign = "Canal 5",
             category = ChannelCategory.REGIONALES,
             streamUrls = listOf(
-                "https://stmv.streamingvip.click/sanvitotv/sanvitotv/playlist.m3u8",
-                "http://streamingcws20.com:1935/cbtv/videocbtv/playlist.m3u8",
-                "https://stmv1.srvif.com/sanvitotv/sanvitotv/playlist.m3u8"
+                "https://cloudvideo.servers10.com:8081/8030/index.m3u8"
             ),
             logoUrl = "https://i.ibb.co/vJZqrFY/a4ed367c69c23110d458a332af95be0be64566f288ccb5f261689344e6ba5e0d.png",
-            description = "Canal oficial de San Vito de Coto Brus y la Zona Sur de Costa Rica. Noticias del cantón, cultura cafetalera, vida comunal y frontera con Panamá.",
-            location = "San Vito, Coto Brus",
+            description = "Transmisión oficial de Coto Brus TV. Noticias locales de San Vito, cultura cafetalera, información comunal y frontera sur de Costa Rica.",
+            location = "Coto Brus, Puntarenas",
             quality = "720p HD"
         ),
         TvChannel(

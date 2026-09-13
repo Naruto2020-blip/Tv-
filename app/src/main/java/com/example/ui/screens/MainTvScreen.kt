@@ -23,12 +23,10 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CalendarMonth
 import androidx.compose.material.icons.filled.LiveTv
-import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.filled.Tv
 import androidx.compose.material.icons.outlined.CalendarMonth
 import androidx.compose.material.icons.outlined.LiveTv
 import androidx.compose.material.icons.outlined.SearchOff
-import androidx.compose.material.icons.outlined.StarBorder
 import androidx.compose.material.icons.outlined.Tv
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -79,14 +77,17 @@ fun MainTvScreen(
     val searchQuery by viewModel.searchQuery.collectAsState()
     val selectedTab by viewModel.selectedTab.collectAsState()
     val isFullscreen by viewModel.isFullscreen.collectAsState()
-    val favoriteIds by viewModel.favoriteChannelIds.collectAsState()
     val reminderIds by viewModel.reminderProgramIds.collectAsState()
+    val crTime by viewModel.costaRicaTime.collectAsState()
+    val (crHour, crMinute) = crTime
 
     // Current program title for selected channel
     val currentProg = CostaRicaEpgData.getCurrentProgram(
         selectedChannel.id,
         selectedChannel.name,
-        selectedChannel.category.displayName
+        selectedChannel.category.displayName,
+        crHour,
+        crMinute
     )
 
     // Handle back button when in fullscreen
@@ -128,8 +129,7 @@ fun MainTvScreen(
                     val items = listOf(
                         Triple(0, "Canales", Icons.Filled.Tv to Icons.Outlined.Tv),
                         Triple(1, "Guía EPG", Icons.Filled.CalendarMonth to Icons.Outlined.CalendarMonth),
-                        Triple(2, "En Vivo", Icons.Filled.LiveTv to Icons.Outlined.LiveTv),
-                        Triple(3, "Favoritos", Icons.Filled.Star to Icons.Outlined.StarBorder)
+                        Triple(2, "En Vivo", Icons.Filled.LiveTv to Icons.Outlined.LiveTv)
                     )
 
                     items.forEach { (index, title, icons) ->
@@ -291,11 +291,6 @@ fun MainTvScreen(
                                     fontSize = 12.sp,
                                     fontWeight = FontWeight.Medium
                                 )
-                                Text(
-                                    text = "Reproducción continua",
-                                    color = TextMuted,
-                                    fontSize = 11.sp
-                                )
                             }
 
                             if (displayedChannels.isEmpty()) {
@@ -334,20 +329,19 @@ fun MainTvScreen(
                                 ) {
                                     items(displayedChannels, key = { it.id }) { channel ->
                                         val isSelected = channel.id == selectedChannel.id
-                                        val isFav = favoriteIds.contains(channel.id)
                                         val chProgram = CostaRicaEpgData.getCurrentProgram(
                                             channel.id,
                                             channel.name,
-                                            channel.category.displayName
+                                            channel.category.displayName,
+                                            crHour,
+                                            crMinute
                                         )
 
                                         ChannelCard(
                                             channel = channel,
                                             currentProgram = chProgram,
                                             isSelected = isSelected,
-                                            isFavorite = isFav,
-                                            onSelectChannel = { viewModel.selectChannel(channel) },
-                                            onToggleFavorite = { viewModel.toggleFavorite(channel.id) }
+                                            onSelectChannel = { viewModel.selectChannel(channel) }
                                         )
                                     }
                                 }
@@ -365,7 +359,9 @@ fun MainTvScreen(
                             onToggleReminder = { viewModel.toggleReminder(it) },
                             onTuneInChannel = {
                                 viewModel.selectChannel(it)
-                            }
+                            },
+                            currentHour = crHour,
+                            currentMinute = crMinute
                         )
                     }
 
@@ -375,98 +371,10 @@ fun MainTvScreen(
                             channels = allChannels,
                             onTuneInChannel = {
                                 viewModel.selectChannel(it)
-                            }
+                            },
+                            currentHour = crHour,
+                            currentMinute = crMinute
                         )
-                    }
-
-                    3 -> {
-                        // "Favoritos" Tab
-                        val favChannels = allChannels.filter { favoriteIds.contains(it.id) }
-
-                        Column(modifier = Modifier.fillMaxSize()) {
-                            Surface(
-                                color = MaterialTheme.colorScheme.surfaceVariant,
-                                modifier = Modifier.fillMaxWidth()
-                            ) {
-                                Row(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .padding(horizontal = 16.dp, vertical = 10.dp),
-                                    verticalAlignment = Alignment.CenterVertically
-                                ) {
-                                    Icon(
-                                        Icons.Default.Star,
-                                        contentDescription = null,
-                                        tint = CrGold,
-                                        modifier = Modifier.size(18.dp)
-                                    )
-                                    Spacer(modifier = Modifier.width(8.dp))
-                                    Text(
-                                        text = "TUS CANALES FAVORITOS (${favChannels.size})",
-                                        color = TextPrimary,
-                                        fontSize = 12.sp,
-                                        fontWeight = FontWeight.Bold,
-                                        letterSpacing = 0.5.sp
-                                    )
-                                }
-                            }
-
-                            if (favChannels.isEmpty()) {
-                                Box(
-                                    modifier = Modifier
-                                        .fillMaxSize()
-                                        .padding(32.dp),
-                                    contentAlignment = Alignment.Center
-                                ) {
-                                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                                        Icon(
-                                            Icons.Outlined.StarBorder,
-                                            contentDescription = null,
-                                            tint = TextMuted,
-                                            modifier = Modifier.size(56.dp)
-                                        )
-                                        Spacer(modifier = Modifier.height(12.dp))
-                                        Text(
-                                            text = "Aún no tienes canales favoritos",
-                                            color = TextPrimary,
-                                            fontSize = 15.sp,
-                                            fontWeight = FontWeight.Bold
-                                        )
-                                        Spacer(modifier = Modifier.height(4.dp))
-                                        Text(
-                                            text = "Toca la estrella en cualquier canal para agregarlo a esta lista de acceso rápido.",
-                                            color = TextSecondary,
-                                            fontSize = 12.sp,
-                                            modifier = Modifier.padding(horizontal = 24.dp)
-                                        )
-                                    }
-                                }
-                            } else {
-                                LazyColumn(
-                                    modifier = Modifier.fillMaxSize(),
-                                    contentPadding = PaddingValues(16.dp),
-                                    verticalArrangement = Arrangement.spacedBy(8.dp)
-                                ) {
-                                    items(favChannels, key = { it.id }) { channel ->
-                                        val isSelected = channel.id == selectedChannel.id
-                                        val chProgram = CostaRicaEpgData.getCurrentProgram(
-                                            channel.id,
-                                            channel.name,
-                                            channel.category.displayName
-                                        )
-
-                                        ChannelCard(
-                                            channel = channel,
-                                            currentProgram = chProgram,
-                                            isSelected = isSelected,
-                                            isFavorite = true,
-                                            onSelectChannel = { viewModel.selectChannel(channel) },
-                                            onToggleFavorite = { viewModel.toggleFavorite(channel.id) }
-                                        )
-                                    }
-                                }
-                            }
-                        }
                     }
                 }
             }

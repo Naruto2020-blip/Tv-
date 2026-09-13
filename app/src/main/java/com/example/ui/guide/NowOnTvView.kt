@@ -59,9 +59,15 @@ import java.util.Locale
 fun NowOnTvView(
     channels: List<TvChannel>,
     onTuneInChannel: (TvChannel) -> Unit,
+    currentHour: Int? = null,
+    currentMinute: Int? = null,
     modifier: Modifier = Modifier
 ) {
-    val (hour, minute) = CostaRicaEpgData.getCurrentCostaRicaTime()
+    val (hour, minute) = if (currentHour != null && currentMinute != null) {
+        Pair(currentHour, currentMinute)
+    } else {
+        CostaRicaEpgData.getCurrentCostaRicaTime()
+    }
 
     Column(
         modifier = modifier

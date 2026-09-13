@@ -18,6 +18,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -78,16 +79,28 @@ fun EpgTimelineView(
     hasReminder: (String) -> Boolean,
     onToggleReminder: (String) -> Unit,
     onTuneInChannel: (TvChannel) -> Unit,
+    currentHour: Int? = null,
+    currentMinute: Int? = null,
     modifier: Modifier = Modifier
 ) {
     var selectedProgramForDetail by remember { mutableStateOf<TvProgram?>(null) }
-    val (hour, minute) = CostaRicaEpgData.getCurrentCostaRicaTime()
+    val (liveHour, liveMinute) = if (currentHour != null && currentMinute != null) {
+        Pair(currentHour, currentMinute)
+    } else {
+        CostaRicaEpgData.getCurrentCostaRicaTime()
+    }
     val schedule = CostaRicaEpgData.getScheduleForChannel(
         selectedChannel.id,
         selectedChannel.name,
         selectedChannel.category.displayName
     )
-    val currentProgram = schedule.firstOrNull { it.isLiveAt(hour, minute) } ?: schedule.firstOrNull()
+    val currentProgram = CostaRicaEpgData.getCurrentProgram(
+        selectedChannel.id,
+        selectedChannel.name,
+        selectedChannel.category.displayName,
+        liveHour,
+        liveMinute
+    )
 
     Column(
         modifier = modifier
@@ -124,7 +137,7 @@ fun EpgTimelineView(
                         )
                         Spacer(modifier = Modifier.width(4.dp))
                         Text(
-                            text = String.format(Locale.US, "CR %02d:%02d UTC-6", hour, minute),
+                            text = String.format(Locale.US, "CR %02d:%02d UTC-6", liveHour, liveMinute),
                             color = CrGold,
                             fontSize = 11.sp,
                             fontWeight = FontWeight.Bold
@@ -275,8 +288,8 @@ fun EpgTimelineView(
                             Spacer(modifier = Modifier.height(12.dp))
 
                             // Progress
-                            val progress = currentProgram.getProgress(hour, minute)
-                            val remaining = currentProgram.remainingMinutes(hour, minute)
+                            val progress = currentProgram.getProgress(liveHour, liveMinute)
+                            val remaining = currentProgram.remainingMinutes(liveHour, liveMinute)
 
                             Row(
                                 modifier = Modifier.fillMaxWidth(),
@@ -345,7 +358,7 @@ fun EpgTimelineView(
 
             // Schedule Items
             items(schedule) { program ->
-                val isLive = program.isLiveAt(hour, minute)
+                val isLive = program.id == currentProgram.id || program.isLiveAt(liveHour, liveMinute)
                 val programHasReminder = hasReminder(program.id)
 
                 Card(
