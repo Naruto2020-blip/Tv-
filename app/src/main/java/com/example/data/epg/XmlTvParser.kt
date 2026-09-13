@@ -297,7 +297,7 @@ object XmlTvParser {
             norm.contains("vintage") -> "vintagemusic"
 
             // 88 Stereo TV
-            norm.contains("88 stereo") -> "88stereotv"
+            norm.contains("88 stereo") || norm.contains("88stereo") || idLower == "88stereo.cr" -> "88stereotv"
 
             // San José TV
             norm.contains("san jose tv") || norm.contains("catedral") -> "sanjosetv"
