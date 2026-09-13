@@ -113,6 +113,20 @@ object CostaRicaChannelsData {
             quality = "720p HD"
         ),
         TvChannel(
+            id = "canal13sinart",
+            name = "Trece Costa Rica (SINART)",
+            callsign = "Canal 13",
+            category = ChannelCategory.NACIONALES,
+            streamUrls = listOf(
+                "https://59ef525c24caa.streamlock.net/sinart/sinart/playlist.m3u8",
+                "https://stream.sinart.go.cr/live/canal13.m3u8"
+            ),
+            logoUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Trece_Costa_Rica_Televisi%C3%B3n_logo.svg/800px-Trece_Costa_Rica_Televisi%C3%B3n_logo.svg.png",
+            description = "Televisión pública de Costa Rica con Trece Noticias, Arte 13, Fuera de Juego, cultura, ciencia e historia nacional.",
+            location = "La Uruca, San José",
+            quality = "1080p HD"
+        ),
+        TvChannel(
             id = "vmlatino",
             name = "VM Latino",
             callsign = "VM Latino",

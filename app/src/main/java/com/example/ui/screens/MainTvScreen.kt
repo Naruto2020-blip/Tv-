@@ -81,6 +81,7 @@ fun MainTvScreen(
     val crTime by viewModel.costaRicaTime.collectAsState()
     val (crHour, crMinute) = crTime
     val epgSyncStatus by viewModel.epgSyncStatus.collectAsState()
+    val epgMode by viewModel.epgMode.collectAsState()
 
     // Current program title for selected channel
     val currentProg = viewModel.getCurrentProgram(selectedChannel)
@@ -353,6 +354,8 @@ fun MainTvScreen(
                             currentMinute = crMinute,
                             syncStatus = epgSyncStatus,
                             onRefreshEpg = { viewModel.refreshEpg() },
+                            epgMode = epgMode,
+                            onToggleEpgMode = { viewModel.toggleEpgMode() },
                             scheduleResolver = { viewModel.getScheduleForChannel(it) },
                             currentProgramResolver = { viewModel.getCurrentProgram(it) }
                         )

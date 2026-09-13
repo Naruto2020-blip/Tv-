@@ -3,6 +3,7 @@ package com.example.ui
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.data.epg.EpgMode
 import com.example.data.epg.EpgSyncStatus
 import com.example.data.epg.OnlineEpgRepository
 import com.example.data.model.ChannelCategory
@@ -26,6 +27,15 @@ class TvViewModel(application: Application) : AndroidViewModel(application) {
 
     val epgSyncStatus: StateFlow<EpgSyncStatus> = onlineEpgRepository.syncStatus
     val onlineSchedules: StateFlow<Map<String, List<TvProgram>>> = onlineEpgRepository.onlineSchedules
+    val epgMode: StateFlow<EpgMode> = onlineEpgRepository.epgMode
+
+    fun toggleEpgMode() {
+        onlineEpgRepository.toggleEpgMode()
+    }
+
+    fun setEpgMode(mode: EpgMode) {
+        onlineEpgRepository.setEpgMode(mode)
+    }
 
     private val _allChannels = MutableStateFlow(CostaRicaChannelsData.channels)
     val allChannels: StateFlow<List<TvChannel>> = _allChannels

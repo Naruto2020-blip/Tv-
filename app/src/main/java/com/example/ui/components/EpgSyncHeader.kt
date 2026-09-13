@@ -1,16 +1,14 @@
 package com.example.ui.components
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -19,7 +17,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CloudDone
 import androidx.compose.material.icons.filled.Refresh
-import androidx.compose.material.icons.filled.Sync
+import androidx.compose.material.icons.filled.Verified
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -35,12 +33,11 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.data.epg.EpgMode
 import com.example.data.epg.EpgSyncStatus
 import com.example.ui.theme.CrGold
-import com.example.ui.theme.LiveRed
 import com.example.ui.theme.TextMuted
 import com.example.ui.theme.TextPrimary
-import com.example.ui.theme.TextSecondary
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -50,6 +47,8 @@ import java.util.TimeZone
 fun EpgSyncHeader(
     syncStatus: EpgSyncStatus,
     onRefresh: () -> Unit,
+    epgMode: EpgMode = EpgMode.OFFICIAL,
+    onToggleMode: (() -> Unit)? = null,
     modifier: Modifier = Modifier
 ) {
     Surface(
@@ -59,103 +58,168 @@ fun EpgSyncHeader(
             .fillMaxWidth()
             .testTag("epg_sync_header")
     ) {
-        Row(
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 12.dp, vertical = 8.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
+                .padding(horizontal = 12.dp, vertical = 8.dp)
         ) {
             Row(
+                modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.weight(1f)
+                horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                if (syncStatus.isSyncing) {
-                    CircularProgressIndicator(
-                        modifier = Modifier.size(16.dp),
-                        strokeWidth = 2.dp,
-                        color = MaterialTheme.colorScheme.primary
-                    )
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Column {
-                        Text(
-                            text = "Actualizando EPG automáticamente...",
-                            color = TextPrimary,
-                            fontSize = 11.sp,
-                            fontWeight = FontWeight.Bold
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.weight(1f)
+                ) {
+                    if (epgMode == EpgMode.OFFICIAL) {
+                        // Official channels programming badge
+                        Box(
+                            modifier = Modifier
+                                .size(10.dp)
+                                .clip(CircleShape)
+                                .background(Color(0xFF00C853))
                         )
-                        Text(
-                            text = "Consultando ${syncStatus.activeSource ?: "fuentes en línea (IPTV-org, EPGShare01, EPG.lat)"}",
-                            color = TextMuted,
-                            fontSize = 10.sp,
-                            maxLines = 1
-                        )
-                    }
-                } else {
-                    // Pulsing status dot
-                    val isOnline = syncStatus.lastSyncTimeMillis > 0L
-                    Box(
-                        modifier = Modifier
-                            .size(10.dp)
-                            .clip(CircleShape)
-                            .background(if (isOnline) Color(0xFF4CAF50) else CrGold)
-                    )
-                    Spacer(modifier = Modifier.width(8.dp))
-
-                    Column {
-                        Row(verticalAlignment = Alignment.CenterVertically) {
-                            Text(
-                                text = if (isOnline) "EPG Automática Sincronizada" else "EPG Costa Rica En Vivo",
-                                color = TextPrimary,
-                                fontSize = 11.sp,
-                                fontWeight = FontWeight.Bold
-                            )
-                            if (isOnline) {
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Column {
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Text(
+                                    text = "Parrilla Oficial de Canales de Costa Rica",
+                                    color = TextPrimary,
+                                    fontSize = 11.sp,
+                                    fontWeight = FontWeight.Bold
+                                )
                                 Spacer(modifier = Modifier.width(4.dp))
                                 Icon(
-                                    imageVector = Icons.Default.CloudDone,
-                                    contentDescription = null,
-                                    tint = Color(0xFF4CAF50),
-                                    modifier = Modifier.size(12.dp)
+                                    imageVector = Icons.Default.Verified,
+                                    contentDescription = "Verificado",
+                                    tint = Color(0xFF00C853),
+                                    modifier = Modifier.size(13.dp)
+                                )
+                            }
+                            Text(
+                                text = "Páginas oficiales: teletica.com · repretel.com · sinartdigital.com · telediario.cr · futvcr.com",
+                                color = TextMuted,
+                                fontSize = 9.5.sp,
+                                maxLines = 1
+                            )
+                        }
+                    } else {
+                        // Online XMLTV mode
+                        if (syncStatus.isSyncing) {
+                            CircularProgressIndicator(
+                                modifier = Modifier.size(16.dp),
+                                strokeWidth = 2.dp,
+                                color = MaterialTheme.colorScheme.primary
+                            )
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Column {
+                                Text(
+                                    text = "Sincronizando fuentes XMLTV online...",
+                                    color = TextPrimary,
+                                    fontSize = 11.sp,
+                                    fontWeight = FontWeight.Bold
+                                )
+                                Text(
+                                    text = "Consultando ${syncStatus.activeSource ?: "IPTV-org, EPGShare, EPG.lat..."}",
+                                    color = TextMuted,
+                                    fontSize = 9.5.sp,
+                                    maxLines = 1
+                                )
+                            }
+                        } else {
+                            val isOnline = syncStatus.lastSyncTimeMillis > 0L
+                            Box(
+                                modifier = Modifier
+                                    .size(10.dp)
+                                    .clip(CircleShape)
+                                    .background(if (isOnline) Color(0xFF29B6F6) else CrGold)
+                            )
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Column {
+                                Row(verticalAlignment = Alignment.CenterVertically) {
+                                    Text(
+                                        text = if (isOnline) "Fuentes XMLTV Online Sincronizadas" else "Fuentes Online",
+                                        color = TextPrimary,
+                                        fontSize = 11.sp,
+                                        fontWeight = FontWeight.Bold
+                                    )
+                                    if (isOnline) {
+                                        Spacer(modifier = Modifier.width(4.dp))
+                                        Icon(
+                                            imageVector = Icons.Default.CloudDone,
+                                            contentDescription = null,
+                                            tint = Color(0xFF29B6F6),
+                                            modifier = Modifier.size(13.dp)
+                                        )
+                                    }
+                                }
+                                val lastUpdatedStr = if (syncStatus.lastSyncTimeMillis > 0L) {
+                                    val sdf = SimpleDateFormat("hh:mm a", Locale.US).apply {
+                                        timeZone = TimeZone.getTimeZone("America/Costa_Rica")
+                                    }
+                                    val timeStr = sdf.format(Date(syncStatus.lastSyncTimeMillis))
+                                    val src = syncStatus.activeSource ?: "EPG.lat"
+                                    "Fuente: $src • $timeStr (${syncStatus.totalProgramsLoaded} programas)"
+                                } else {
+                                    "Fuentes: EPG.lat, EPGShare01, IPTV-org, Open-EPG, TDTChannels"
+                                }
+                                Text(
+                                    text = lastUpdatedStr,
+                                    color = TextMuted,
+                                    fontSize = 9.5.sp,
+                                    maxLines = 1
                                 )
                             }
                         }
+                    }
+                }
 
-                        val lastUpdatedStr = if (syncStatus.lastSyncTimeMillis > 0L) {
-                            val sdf = SimpleDateFormat("hh:mm a", Locale.US).apply {
-                                timeZone = TimeZone.getTimeZone("America/Costa_Rica")
-                            }
-                            val timeStr = sdf.format(Date(syncStatus.lastSyncTimeMillis))
-                            val src = syncStatus.activeSource ?: "EPG.lat / EPGShare01 / IPTV-org"
-                            "Fuente: $src • $timeStr (${syncStatus.totalProgramsLoaded} programas)"
-                        } else {
-                            "Fuentes: IPTV-org, EPGShare01, EPG.lat, Open-EPG, TDTChannels"
+                // Action buttons: toggle mode + refresh
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    if (onToggleMode != null) {
+                        Box(
+                            modifier = Modifier
+                                .clip(RoundedCornerShape(6.dp))
+                                .background(
+                                    if (epgMode == EpgMode.OFFICIAL) Color(0xFF00C853).copy(alpha = 0.2f)
+                                    else Color(0xFF29B6F6).copy(alpha = 0.2f)
+                                )
+                                .border(
+                                    width = 1.dp,
+                                    color = if (epgMode == EpgMode.OFFICIAL) Color(0xFF00C853).copy(alpha = 0.5f)
+                                    else Color(0xFF29B6F6).copy(alpha = 0.5f),
+                                    shape = RoundedCornerShape(6.dp)
+                                )
+                                .clickable { onToggleMode() }
+                                .padding(horizontal = 8.dp, vertical = 4.dp)
+                        ) {
+                            Text(
+                                text = if (epgMode == EpgMode.OFFICIAL) "Modo Oficial" else "Modo Online",
+                                color = if (epgMode == EpgMode.OFFICIAL) Color(0xFF00E676) else Color(0xFF81D4FA),
+                                fontSize = 10.sp,
+                                fontWeight = FontWeight.Bold
+                            )
                         }
+                        Spacer(modifier = Modifier.width(6.dp))
+                    }
 
-                        Text(
-                            text = lastUpdatedStr,
-                            color = TextMuted,
-                            fontSize = 10.sp,
-                            maxLines = 1
+                    // Refresh button
+                    IconButton(
+                        onClick = onRefresh,
+                        enabled = !syncStatus.isSyncing,
+                        modifier = Modifier
+                            .size(30.dp)
+                            .testTag("refresh_epg_button")
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Refresh,
+                            contentDescription = "Actualizar EPG ahora",
+                            tint = if (syncStatus.isSyncing) TextMuted else MaterialTheme.colorScheme.primary,
+                            modifier = Modifier.size(16.dp)
                         )
                     }
                 }
-            }
-
-            // Manual refresh button
-            IconButton(
-                onClick = onRefresh,
-                enabled = !syncStatus.isSyncing,
-                modifier = Modifier
-                    .size(32.dp)
-                    .testTag("refresh_epg_button")
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Refresh,
-                    contentDescription = "Actualizar EPG ahora",
-                    tint = if (syncStatus.isSyncing) TextMuted else MaterialTheme.colorScheme.primary,
-                    modifier = Modifier.size(18.dp)
-                )
             }
         }
     }

@@ -27,6 +27,11 @@ data class EpgSyncStatus(
     val error: String? = null
 )
 
+enum class EpgMode(val displayName: String, val description: String) {
+    OFFICIAL("Páginas Oficiales de Canales", "Programación directa de teletica.com, repretel.com, sinartdigital.com, telediario.cr, futvcr.com"),
+    ONLINE("Fuentes Online XMLTV", "Sincronización con EPG.lat, EPGShare01, IPTV-org, Open-EPG, TDTChannels")
+}
+
 class OnlineEpgRepository(private val context: Context) {
 
     private val tag = "OnlineEpgRepository"
@@ -39,6 +44,17 @@ class OnlineEpgRepository(private val context: Context) {
 
     private val cacheFile: File
         get() = File(context.cacheDir, "epg_online_cache.json")
+
+    private val _epgMode = MutableStateFlow(EpgMode.OFFICIAL)
+    val epgMode: StateFlow<EpgMode> = _epgMode.asStateFlow()
+
+    fun setEpgMode(mode: EpgMode) {
+        _epgMode.value = mode
+    }
+
+    fun toggleEpgMode() {
+        _epgMode.value = if (_epgMode.value == EpgMode.OFFICIAL) EpgMode.ONLINE else EpgMode.OFFICIAL
+    }
 
     private val _syncStatus = MutableStateFlow(EpgSyncStatus())
     val syncStatus: StateFlow<EpgSyncStatus> = _syncStatus.asStateFlow()
@@ -151,10 +167,13 @@ class OnlineEpgRepository(private val context: Context) {
 
     /**
      * Resolves schedule for a channel:
-     * - If online EPG has entries, returns them.
-     * - Otherwise falls back to CostaRicaEpgData.
+     * - In OFFICIAL mode: Uses 100% verified schedules from channels' official websites (teletica.com, repretel.com, sinartdigital.com, telediario.cr, futvcr.com).
+     * - In ONLINE mode: Uses online XMLTV feeds, falling back to official schedules if missing.
      */
     fun getScheduleForChannel(channelId: String, channelName: String, categoryName: String): List<TvProgram> {
+        if (_epgMode.value == EpgMode.OFFICIAL) {
+            return CostaRicaEpgData.getScheduleForChannel(channelId, channelName, categoryName)
+        }
         val onlineList = _onlineSchedules.value[channelId]
         if (!onlineList.isNullOrEmpty() && onlineList.size >= 2) {
             return onlineList

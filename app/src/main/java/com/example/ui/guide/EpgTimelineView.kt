@@ -57,6 +57,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import com.example.data.epg.EpgMode
 import com.example.data.epg.EpgSyncStatus
 import com.example.data.model.TvChannel
 import com.example.data.model.TvProgram
@@ -85,6 +86,8 @@ fun EpgTimelineView(
     currentMinute: Int? = null,
     syncStatus: EpgSyncStatus? = null,
     onRefreshEpg: (() -> Unit)? = null,
+    epgMode: EpgMode = EpgMode.OFFICIAL,
+    onToggleEpgMode: (() -> Unit)? = null,
     scheduleResolver: ((TvChannel) -> List<TvProgram>)? = null,
     currentProgramResolver: ((TvChannel) -> TvProgram)? = null,
     modifier: Modifier = Modifier
@@ -113,11 +116,13 @@ fun EpgTimelineView(
             .fillMaxSize()
             .background(SurfaceDark)
     ) {
-        // Online EPG sync status indicator banner
+        // Online / Official EPG sync status indicator banner
         if (syncStatus != null) {
             EpgSyncHeader(
                 syncStatus = syncStatus,
                 onRefresh = { onRefreshEpg?.invoke() },
+                epgMode = epgMode,
+                onToggleMode = onToggleEpgMode,
                 modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp)
             )
         }

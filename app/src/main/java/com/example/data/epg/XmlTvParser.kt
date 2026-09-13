@@ -47,7 +47,9 @@ object XmlTvParser {
             set(Calendar.MILLISECOND, 0)
         }.timeInMillis - (4 * 3600 * 1000) // Include late night from previous day
 
-        val futureLimitMillis = todayStartMillis + (3 * 86400 * 1000) // Up to 3 days ahead
+        val todayCalendar = Calendar.getInstance(crTimeZone)
+        val todayYear = todayCalendar.get(Calendar.YEAR)
+        val todayDayOfYear = todayCalendar.get(Calendar.DAY_OF_YEAR)
 
         while (eventType != XmlPullParser.END_DOCUMENT) {
             when (eventType) {
@@ -118,9 +120,12 @@ object XmlTvParser {
                                 val stopCal = progStopStr?.let { parseXmlTvDate(it) }
 
                                 if (startCal != null) {
-                                    val startMillis = startCal.timeInMillis
-                                    // Only keep relevant programs around today
-                                    if (startMillis in todayStartMillis..futureLimitMillis) {
+                                    val progYear = startCal.get(Calendar.YEAR)
+                                    val progDayOfYear = startCal.get(Calendar.DAY_OF_YEAR)
+
+                                    // Strictly keep programs corresponding to today in Costa Rica time (UTC-6)
+                                    if (progYear == todayYear && progDayOfYear == todayDayOfYear) {
+                                        val startMillis = startCal.timeInMillis
                                         val endCal = stopCal ?: Calendar.getInstance(crTimeZone).apply {
                                             timeInMillis = startMillis + 3600_000 // default 1 hour
                                         }
@@ -255,50 +260,59 @@ object XmlTvParser {
             // VM Latino
             norm.contains("vm latino") || (norm.contains("canal 29") && norm.contains("latino")) -> "vmlatino"
 
-            // Enlace
-            norm.contains("enlace") && (norm.contains("tbn") || norm.contains("cr") || norm.contains("costa")) -> "enlaceti"
+            // Colosal TV Canal 54
+            norm.contains("colosal") || norm.contains("canal 54") || norm.contains("canal 49") -> "colosaltv"
 
-            // Canal 36 Anexión Guanacaste
-            norm.contains("canal 36") || norm.contains("anexion") -> "canal36anexiotv"
+            // TV Sur Canal 14 Pérez Zeledón
+            norm.contains("tvsur") || norm.contains("tv sur") || norm.contains("zeledon") -> "tvsur14"
 
             // TV Norte San Carlos Canal 14
-            (norm.contains("canal 14") || norm.contains("tv norte")) && norm.contains("carlos") -> "tvnorte14"
+            (norm.contains("canal 14") || norm.contains("tv norte") || norm.contains("tvn")) && norm.contains("carlos") -> "canal14sancarlos"
 
-            // Coto Brus Canal 14 / San Vito
-            norm.contains("coto brus") || norm.contains("san vito") -> "canal14sanvito"
+            // Coto Brus TV Canal 5 / San Vito
+            norm.contains("coto brus") || norm.contains("san vito") -> "cotobrustv"
 
-            // Colosal TV Canal 49
-            norm.contains("colosal") || norm.contains("canal 49") -> "colosaltv"
+            // Canal 1 Costa Rica
+            norm.contains("canal 1") && (norm.contains("costa") || norm.contains("cr")) -> "canal1cr"
 
-            // Telemar Canal 28
-            norm.contains("telemar") || norm.contains("canal 28") -> "telemarcanal28"
+            // Los Santos TV
+            norm.contains("los santos") || norm.contains("lstv") || norm.contains("tarrazu") -> "lossantostv"
 
-            // Telenova Canal 40
-            norm.contains("telenova") || norm.contains("canal 40") -> "telenovapuntarenas"
+            // Garabito TV
+            norm.contains("garabito") || norm.contains("jaco") -> "garabitotv"
 
-            // TVSur Canal 14 Pérez Zeledón
-            norm.contains("tvsur") || norm.contains("tv sur") || norm.contains("zeledon") -> "tvsurcanal14"
+            // Costa Rica Channel
+            norm.contains("costa rica channel") || norm.contains("cr channel") -> "costaricachannel"
 
-            // Canal 67 Guatuso
-            norm.contains("canal 67") || norm.contains("guatuso") || norm.contains("rio frio") -> "canal67guatuso"
+            // SOY Plancha TV
+            norm.contains("plancha") -> "soyplanchatv"
 
-            // ACTV Canal 19 San Ramón
-            norm.contains("actv") || norm.contains("canal 19") -> "actvcanal19"
+            // Urbano TV
+            norm.contains("urbano") -> "urbanotv"
 
-            // Canal 2 San Carlos
-            norm.contains("canal 2") && norm.contains("carlos") -> "canal2sancarlos"
+            // Gex TV
+            norm.contains("gex") -> "gextv"
 
-            // Cristovision
-            norm.contains("cristovision") -> "cristovision"
+            // Vintage Music TV
+            norm.contains("vintage") -> "vintagemusic"
 
-            // Esperanza TV
-            norm.contains("esperanza") -> "esperanzatv"
+            // 88 Stereo TV
+            norm.contains("88 stereo") -> "88stereotv"
 
-            // Visión América
-            norm.contains("vision america") -> "visionamericatv"
+            // San José TV
+            norm.contains("san jose tv") || norm.contains("catedral") -> "sanjosetv"
 
-            // Canal 33 San Isidro
-            norm.contains("canal 33") || norm.contains("san isidro") -> "canal33sanisidro"
+            // Cristo Visión Canal 31
+            norm.contains("cristovision") || norm.contains("cristo vision") -> "cristovision31"
+
+            // Enlace Juvenil EJTV
+            norm.contains("ejtv") || (norm.contains("enlace") && norm.contains("juvenil")) -> "enlacejuvenil"
+
+            // Extrema Kids TV
+            norm.contains("extrema kids") || norm.contains("kids") -> "extremakids"
+
+            // Zurquí TV
+            norm.contains("zurqui") -> "zurquitv"
 
             else -> null
         }
