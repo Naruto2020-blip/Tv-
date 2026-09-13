@@ -6,12 +6,15 @@ import androidx.lifecycle.viewModelScope
 import com.example.data.model.ChannelCategory
 import com.example.data.model.TvChannel
 import com.example.data.repository.CostaRicaChannelsData
+import com.example.data.repository.CostaRicaEpgData
 import com.example.data.repository.FavoritesRepository
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 
 class TvViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -22,6 +25,18 @@ class TvViewModel(application: Application) : AndroidViewModel(application) {
 
     private val _selectedChannel = MutableStateFlow(CostaRicaChannelsData.channels.first())
     val selectedChannel: StateFlow<TvChannel> = _selectedChannel
+
+    private val _costaRicaTime = MutableStateFlow(CostaRicaEpgData.getCurrentCostaRicaTime())
+    val costaRicaTime: StateFlow<Pair<Int, Int>> = _costaRicaTime
+
+    init {
+        viewModelScope.launch {
+            while (true) {
+                delay(15_000)
+                _costaRicaTime.value = CostaRicaEpgData.getCurrentCostaRicaTime()
+            }
+        }
+    }
 
     private val _selectedCategory = MutableStateFlow(ChannelCategory.TODOS)
     val selectedCategory: StateFlow<ChannelCategory> = _selectedCategory

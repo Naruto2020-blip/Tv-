@@ -322,14 +322,16 @@ object CostaRicaChannelsData {
         ),
         TvChannel(
             id = "cotobrustv",
-            name = "Coto Brus TV",
-            callsign = "CBTV",
+            name = "Coto Brus TV (San Vito TV)",
+            callsign = "CBTV 5",
             category = ChannelCategory.REGIONALES,
             streamUrls = listOf(
-                "https://cloudvideo.servers10.com:8081/8030/index.m3u8"
+                "https://stmv.streamingvip.click/sanvitotv/sanvitotv/playlist.m3u8",
+                "http://streamingcws20.com:1935/cbtv/videocbtv/playlist.m3u8",
+                "https://stmv1.srvif.com/sanvitotv/sanvitotv/playlist.m3u8"
             ),
             logoUrl = "https://i.ibb.co/vJZqrFY/a4ed367c69c23110d458a332af95be0be64566f288ccb5f261689344e6ba5e0d.png",
-            description = "Canal de San Vito de Coto Brus y la frontera sur. Tradición italo-costarricense y vida de montaña.",
+            description = "Canal oficial de San Vito de Coto Brus y la Zona Sur de Costa Rica. Noticias del cantón, cultura cafetalera, vida comunal y frontera con Panamá.",
             location = "San Vito, Coto Brus",
             quality = "720p HD"
         ),

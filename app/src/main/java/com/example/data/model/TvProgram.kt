@@ -15,61 +15,56 @@ data class TvProgram(
     val rating: String = "TP" // Todo Público
 ) {
     fun isLiveAt(hour: Int, minute: Int): Boolean {
-        val currentTotal = hour * 60 + minute
-        val startTotal = startHour * 60 + startMinute
-        val endTotal = if (endHour < startHour || (endHour == startHour && endMinute < startMinute)) {
-            (endHour + 24) * 60 + endMinute
-        } else {
-            endHour * 60 + endMinute
-        }
+        val currentMins = hour * 60 + minute
+        val startMins = startHour * 60 + startMinute
+        val endMins = endHour * 60 + endMinute
 
-        val adjustedCurrent = if (endTotal >= 24 * 60 && currentTotal < startTotal) {
-            currentTotal + 24 * 60
+        return if (startMins < endMins) {
+            // Normal program during the same calendar day (e.g. 08:00 to 10:00)
+            currentMins in startMins until endMins
         } else {
-            currentTotal
+            // Program crosses midnight (e.g. 22:30 to 06:00, or 23:00 to 00:00)
+            currentMins >= startMins || (endMins > 0 && currentMins < endMins)
         }
-
-        return adjustedCurrent in startTotal until endTotal
     }
 
     fun getProgress(hour: Int, minute: Int): Float {
-        val currentTotal = hour * 60 + minute
-        val startTotal = startHour * 60 + startMinute
-        val endTotal = if (endHour < startHour || (endHour == startHour && endMinute < startMinute)) {
-            (endHour + 24) * 60 + endMinute
+        val currentMins = hour * 60 + minute
+        val startMins = startHour * 60 + startMinute
+        val endMins = endHour * 60 + endMinute
+
+        val (duration, elapsed) = if (startMins < endMins) {
+            val dur = endMins - startMins
+            val el = currentMins - startMins
+            Pair(dur, el)
         } else {
-            endHour * 60 + endMinute
+            val totalEnd = if (endMins == 0) 1440 else endMins + 1440
+            val dur = totalEnd - startMins
+            val el = if (currentMins < startMins) (currentMins + 1440) - startMins else currentMins - startMins
+            Pair(dur, el)
         }
 
-        val adjustedCurrent = if (endTotal >= 24 * 60 && currentTotal < startTotal) {
-            currentTotal + 24 * 60
-        } else {
-            currentTotal
-        }
-
-        if (adjustedCurrent < startTotal) return 0f
-        if (adjustedCurrent >= endTotal) return 1f
-        val duration = endTotal - startTotal
         if (duration <= 0) return 0f
-        return (adjustedCurrent - startTotal).toFloat() / duration.toFloat()
+        return (elapsed.toFloat() / duration.toFloat()).coerceIn(0f, 1f)
     }
 
     fun remainingMinutes(hour: Int, minute: Int): Int {
-        val currentTotal = hour * 60 + minute
-        val startTotal = startHour * 60 + startMinute
-        val endTotal = if (endHour < startHour || (endHour == startHour && endMinute < startMinute)) {
-            (endHour + 24) * 60 + endMinute
+        val currentMins = hour * 60 + minute
+        val startMins = startHour * 60 + startMinute
+        val endMins = endHour * 60 + endMinute
+
+        val (duration, elapsed) = if (startMins < endMins) {
+            val dur = endMins - startMins
+            val el = currentMins - startMins
+            Pair(dur, el)
         } else {
-            endHour * 60 + endMinute
+            val totalEnd = if (endMins == 0) 1440 else endMins + 1440
+            val dur = totalEnd - startMins
+            val el = if (currentMins < startMins) (currentMins + 1440) - startMins else currentMins - startMins
+            Pair(dur, el)
         }
 
-        val adjustedCurrent = if (endTotal >= 24 * 60 && currentTotal < startTotal) {
-            currentTotal + 24 * 60
-        } else {
-            currentTotal
-        }
-
-        return (endTotal - adjustedCurrent).coerceAtLeast(0)
+        return (duration - elapsed).coerceAtLeast(0)
     }
 
     val timeSpanFormatted: String
