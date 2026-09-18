@@ -16,11 +16,9 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CloudDone
-import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Verified
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -46,7 +44,7 @@ import java.util.TimeZone
 @Composable
 fun EpgSyncHeader(
     syncStatus: EpgSyncStatus,
-    onRefresh: () -> Unit,
+    onRefresh: (() -> Unit)? = null,
     epgMode: EpgMode = EpgMode.OFFICIAL,
     onToggleMode: (() -> Unit)? = null,
     modifier: Modifier = Modifier
@@ -175,7 +173,7 @@ fun EpgSyncHeader(
                     }
                 }
 
-                // Action buttons: toggle mode + refresh
+                // Action buttons: toggle mode (actualización automática activa)
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     if (onToggleMode != null) {
                         Box(
@@ -201,23 +199,6 @@ fun EpgSyncHeader(
                                 fontWeight = FontWeight.Bold
                             )
                         }
-                        Spacer(modifier = Modifier.width(6.dp))
-                    }
-
-                    // Refresh button
-                    IconButton(
-                        onClick = onRefresh,
-                        enabled = !syncStatus.isSyncing,
-                        modifier = Modifier
-                            .size(30.dp)
-                            .testTag("refresh_epg_button")
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.Refresh,
-                            contentDescription = "Actualizar EPG ahora",
-                            tint = if (syncStatus.isSyncing) TextMuted else MaterialTheme.colorScheme.primary,
-                            modifier = Modifier.size(16.dp)
-                        )
                     }
                 }
             }
