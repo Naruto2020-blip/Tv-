@@ -162,7 +162,7 @@ fun EpgSyncHeader(
                                     val src = syncStatus.activeSource ?: "EPG.lat"
                                     "Fuente: $src • $timeStr (${syncStatus.totalProgramsLoaded} programas)"
                                 } else {
-                                    "Fuentes: EPG.lat, EPGShare01, IPTV-org, Open-EPG, TDTChannels"
+                                    "Fuentes: GatoTV, AmericaTVGuide, EPG.lat, EPGShare, TDTChannels"
                                 }
                                 Text(
                                     text = lastUpdatedStr,

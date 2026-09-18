@@ -45,7 +45,7 @@ class OnlineEpgRepository(private val context: Context) {
     private val cacheFile: File
         get() = File(context.cacheDir, "epg_online_cache.json")
 
-    private val _epgMode = MutableStateFlow(EpgMode.OFFICIAL)
+    private val _epgMode = MutableStateFlow(EpgMode.ONLINE)
     val epgMode: StateFlow<EpgMode> = _epgMode.asStateFlow()
 
     fun setEpgMode(mode: EpgMode) {
@@ -93,6 +93,7 @@ class OnlineEpgRepository(private val context: Context) {
         val sources = OnlineEpgSources.allSources
         var success = false
         var lastError: String? = null
+        val aggregatedSchedules = mutableMapOf<String, List<TvProgram>>()
 
         for (source in sources) {
             try {
@@ -131,21 +132,15 @@ class OnlineEpgRepository(private val context: Context) {
 
                 if (parsed.isNotEmpty()) {
                     val totalProgs = parsed.values.sumOf { it.size }
-                    Log.d(tag, "Successfully synced ${parsed.size} channels, $totalProgs programs from ${source.name}")
+                    Log.d(tag, "Parsed ${parsed.size} channels, $totalProgs programs from ${source.name}")
 
-                    _onlineSchedules.value = parsed
-                    saveToDiskCache(source.name, parsed)
-
-                    _syncStatus.value = EpgSyncStatus(
-                        isSyncing = false,
-                        activeSource = source.name,
-                        lastSyncTimeMillis = System.currentTimeMillis(),
-                        channelCountWithOnlineData = parsed.size,
-                        totalProgramsLoaded = totalProgs,
-                        error = null
-                    )
+                    // Merge: if a channel does not have programs yet, populate it from this source
+                    for ((chanId, progs) in parsed) {
+                        if (!aggregatedSchedules.containsKey(chanId) && progs.isNotEmpty()) {
+                            aggregatedSchedules[chanId] = progs
+                        }
+                    }
                     success = true
-                    break
                 } else {
                     Log.w(tag, "Parsed 0 Costa Rican channels from ${source.name}, trying next source...")
                 }
@@ -153,6 +148,24 @@ class OnlineEpgRepository(private val context: Context) {
                 Log.e(tag, "Failed to sync from ${source.name}: ${e.message}")
                 lastError = e.message ?: "Error al conectar con ${source.name}"
             }
+        }
+
+        if (aggregatedSchedules.isNotEmpty()) {
+            val totalProgs = aggregatedSchedules.values.sumOf { it.size }
+            Log.d(tag, "Total aggregated EPG: ${aggregatedSchedules.size} channels, $totalProgs programs")
+
+            _onlineSchedules.value = aggregatedSchedules
+            saveToDiskCache("GatoTV + AmericaTVGuide + EPG.lat", aggregatedSchedules)
+
+            _syncStatus.value = EpgSyncStatus(
+                isSyncing = false,
+                activeSource = "GatoTV / AmericaTVGuide / EPG.lat",
+                lastSyncTimeMillis = System.currentTimeMillis(),
+                channelCountWithOnlineData = aggregatedSchedules.size,
+                totalProgramsLoaded = totalProgs,
+                error = null
+            )
+            success = true
         }
 
         if (!success) {

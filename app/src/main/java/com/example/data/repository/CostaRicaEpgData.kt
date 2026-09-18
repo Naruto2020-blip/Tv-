@@ -70,23 +70,29 @@ object CostaRicaEpgData {
     // LUNES A VIERNES (WEEKDAY SCHEDULES) - FUENTES OFICIALES DE LOS CANALES
     // =========================================================================
     private val weekdayProgramsByChannel: Map<String, List<TvProgram>> = mapOf(
-        // TELETICA CANAL 7 (teletica.com)
+        // TELETICA CANAL 7 (GatoTV / teletica.com)
         "teletica7" to listOf(
-            TvProgram("t7_w1", "teletica7", "Telenoticias Primera Hora", "El despertar informativo de Costa Rica con cobertura nacional, clima y tránsito.", 5, 45, 8, 0, "Noticias"),
-            TvProgram("t7_w2", "teletica7", "Buen Día", "La revista matutina líder con consejos de salud, hogar, bienestar, cocina costarricense y motivación.", 8, 0, 10, 0, "Revista"),
-            TvProgram("t7_w3", "teletica7", "Telenovela Matutina", "Historias apasionantes y melodramas internacionales de gran audiencia.", 10, 0, 11, 30, "Novela"),
-            TvProgram("t7_w4", "teletica7", "De Boca en Boca", "El acontecer del espectáculo y farándula de Costa Rica con humor y entrevistas exclusivas.", 11, 30, 12, 0, "Farándula"),
-            TvProgram("t7_w5", "teletica7", "Telenoticias Edición Meridiana", "El resumen informativo más completo a mitad del día con reportes en vivo de todo el país.", 12, 0, 13, 30, "Noticias"),
-            TvProgram("t7_w6", "teletica7", "Cine para Todos / Telenovela", "Grandes producciones y telenovelas para la sobremesa en el hogar.", 13, 30, 15, 30, "Novela"),
-            TvProgram("t7_w7", "teletica7", "¡Qué Buena Tarde!", "El show más divertido de las tardes con Keyla Sánchez, Yiyo Alfaro, juegos, risas y notas curiosas.", 15, 30, 17, 0, "Entretenimiento"),
-            TvProgram("t7_w8", "teletica7", "Calle 7 Informativo", "Periodismo ágil y cercano que recorre las calles del país para contar historias cotidianas.", 17, 0, 18, 0, "Noticias"),
-            TvProgram("t7_w9", "teletica7", "100 Latinos Dijeron", "Concurso familiar lleno de emoción, preguntas de cultura popular y premios.", 18, 0, 19, 0, "Concurso"),
-            TvProgram("t7_w10", "teletica7", "Telenoticias Edición Estelar", "El noticiero estelar con las noticias de mayor impacto político, social y económico de Costa Rica.", 19, 0, 20, 0, "Noticias"),
-            TvProgram("t7_w11", "teletica7", "7 Días / 7 Estrellas", "Periodismo de investigación profunda, reportajes de fondo y actualidad de espectáculos.", 20, 0, 21, 0, "Opinión"),
-            TvProgram("t7_w12", "teletica7", "Novela Prime Time", "Producciones dramáticas internacionales de horario estelar.", 21, 0, 22, 30, "Novela"),
-            TvProgram("t7_w13", "teletica7", "Teletica Deportes / Edición Nocturna", "El acontecer deportivo nacional y el resumen de última hora de la jornada.", 22, 30, 23, 30, "Deportes"),
-            TvProgram("t7_w14", "teletica7", "Cine de Medianoche", "Películas y series en la noche para cerrar el día.", 23, 30, 1, 0, "Cine"),
-            TvProgram("t7_w15", "teletica7", "Bloque Retro y Madrugada Teletica", "Programación continua durante la madrugada hasta el amanecer.", 1, 0, 5, 45, "Variedades")
+            TvProgram("t7_w0", "teletica7", "Series de Madrugada", "Series internacionales y repetición nocturna.", 0, 0, 1, 30, "Series"),
+            TvProgram("t7_w0b", "teletica7", "De Boca en Boca (Repetición)", "Lo mejor del espectáculo nacional y entrevistas exclusivas.", 1, 30, 2, 30, "Farándula"),
+            TvProgram("t7_w0c", "teletica7", "¡Qué Buena Tarde! (Repetición)", "Diversión y entretenimiento para la madrugada.", 2, 30, 3, 30, "Entretenimiento"),
+            TvProgram("t7_w0d", "teletica7", "100 Latinos Dijeron", "Concurso de preguntas y respuestas de cultura popular.", 3, 30, 4, 30, "Concurso"),
+            TvProgram("t7_w0e", "teletica7", "Series y Bloque Matutino", "Series clásicas antes del amanecer.", 4, 30, 6, 30, "Series"),
+            TvProgram("t7_w1", "teletica7", "Más Que Noticias (+QN)", "Historias positivas, reportajes humanos y emprendimientos de Costa Rica.", 6, 30, 7, 0, "Noticias"),
+            TvProgram("t7_w2", "teletica7", "Telenoticias Matutina", "El primer contacto con las noticias más relevantes de Costa Rica y el mundo.", 7, 0, 9, 0, "Noticias"),
+            TvProgram("t7_w3", "teletica7", "Buen Día", "La revista matutina con salud, cocina costarricense, consejos del hogar y bienestar.", 9, 0, 11, 0, "Revista"),
+            TvProgram("t7_w4", "teletica7", "Los Doctores", "Especialistas médicos respondiendo consultas de salud y estilo de vida.", 11, 0, 12, 0, "Salud"),
+            TvProgram("t7_w5", "teletica7", "Calle 7 Informativo", "Periodismo en vivo en las calles de Costa Rica con temas de interés ciudadano.", 12, 0, 13, 0, "Noticias"),
+            TvProgram("t7_w6", "teletica7", "Telenoticias Edición Meridiana", "El resumen informativo de mediodía más visto del país.", 13, 0, 14, 30, "Noticias"),
+            TvProgram("t7_w7", "teletica7", "De Boca en Boca", "Farándula, notas del espectáculo tico, entrevistas y buen humor.", 14, 30, 15, 30, "Farándula"),
+            TvProgram("t7_w8", "teletica7", "Bahar / Novela de la Tarde", "Historias de superación, romance y drama familiar.", 15, 30, 16, 30, "Novela"),
+            TvProgram("t7_w9", "teletica7", "MasterChef Celebrity / Reality", "La cocina más famosa con retos culinarios entre celebridades.", 16, 30, 17, 30, "Reality"),
+            TvProgram("t7_w10", "teletica7", "100 Latinos Dijeron", "Divertido concurso familiar con premios y dinámicas.", 17, 30, 18, 30, "Concurso"),
+            TvProgram("t7_w11", "teletica7", "¡Qué Buena Tarde!", "El show consentido de las tardes con juegos, risas e invitados en vivo.", 18, 30, 19, 30, "Entretenimiento"),
+            TvProgram("t7_w12", "teletica7", "Más Que Noticias (+QN)", "Relatos inspiradores y rostros que dejan en alto a Costa Rica.", 19, 30, 20, 0, "Noticias"),
+            TvProgram("t7_w13", "teletica7", "Telenoticias Edición Estelar", "Edición estelar con la información más trascendental del país.", 20, 0, 21, 0, "Noticias"),
+            TvProgram("t7_w14", "teletica7", "7 Estrellas / 7 Días", "Revista de espectáculos y reportajes de investigación profunda.", 21, 0, 22, 0, "Opinión"),
+            TvProgram("t7_w15", "teletica7", "Leyla / Telenovela Prime Time", "Superproducción dramática estelar de la noche.", 22, 0, 23, 0, "Novela"),
+            TvProgram("t7_w16", "teletica7", "9-1-1 / Series de Acción", "Casos de emergencia, policías, paramédicos y bomberos en acción.", 23, 0, 0, 0, "Series")
         ),
 
         // REPRETEL CANAL 6 (repretel.com)
@@ -111,7 +117,7 @@ object CostaRicaEpgData {
             TvProgram("c6_w13", "canal6repretel", "Noticias Repretel Última Hora", "Resumen informativo al cierre de la noche con sucesos y deportes.", 23, 0, 0, 0, "Noticias")
         ),
 
-        // REPRETEL CANAL 11 (repretel.com)
+        // REPRETEL CANAL 11 (GatoTV / repretel.com)
         "canal11repretel" to listOf(
             TvProgram("c11_w0", "canal11repretel", "Madrugada Clásica Canal 11", "Series retro y documentales durante la madrugada.", 0, 0, 6, 0, "Series"),
             TvProgram("c11_w1", "canal11repretel", "NC Once Noticias Mañana", "Noticiero con noticias frescas y reportajes comunitarios.", 6, 0, 8, 0, "Noticias"),
@@ -119,7 +125,7 @@ object CostaRicaEpgData {
             TvProgram("c11_w3", "canal11repretel", "El Gordo y la Flaca", "La actualidad del espectáculo internacional con Raúl de Molina y Lili Estefan.", 10, 0, 11, 30, "Farándula"),
             TvProgram("c11_w4", "canal11repretel", "Primer Impacto", "Reportajes impactantes de investigación, sucesos y misterio mundial.", 11, 30, 12, 30, "Noticias"),
             TvProgram("c11_w5", "canal11repretel", "NC Once Edición Mediodía", "Actualidad nacional con periodismo ágil y denuncias del pueblo.", 12, 30, 14, 0, "Noticias"),
-            TvProgram("c11_w6", "canal11repretel", "El Hombre Nuclear", "La legendaria serie de acción protagonizada por Lee Majors.", 14, 0, 15, 30, "Series"),
+            TvProgram("c11_w6", "canal11repretel", "Starsky y Hutch", "La emblemática pareja de detectives en persecuciones y acción policiaca clásica.", 14, 0, 15, 30, "Series"),
             TvProgram("c11_w7", "canal11repretel", "El Auto Fantástico", "Michael Knight y su auto inteligente KITT combaten el crimen.", 15, 30, 17, 0, "Series"),
             TvProgram("c11_w8", "canal11repretel", "Escape Perfecto", "Divertido show de concursos contrarreloj para ganar grandes premios.", 17, 0, 18, 0, "Concurso"),
             TvProgram("c11_w9", "canal11repretel", "Informe 11 Las Historias", "Historias de personajes pintorescos, leyendas costarricenses y pueblos con encanto.", 18, 0, 19, 30, "Cultura"),
@@ -446,16 +452,20 @@ object CostaRicaEpgData {
         ),
 
         "canal1cr" to listOf(
-            TvProgram("c1cr_0", "canal1cr", "Madrugada Ciudadana", "Repetición de programas de debate.", 0, 0, 6, 0, "Opinión"),
-            TvProgram("c1cr_1", "canal1cr", "Amanecer Ciudadano", "Información fresca de la política nacional, tránsito y clima de Costa Rica.", 6, 0, 8, 0, "Noticias"),
-            TvProgram("c1cr_2", "canal1cr", "Pulso Nacional y Análisis", "Entrevistas de fondo sobre economía, trabajo y actualidad tica.", 8, 0, 10, 30, "Opinión"),
-            TvProgram("c1cr_3", "canal1cr", "Voces de Costa Rica", "Reportajes sobre comunidades, emprendedores y desarrollo social.", 10, 30, 12, 30, "Cultura"),
-            TvProgram("c1cr_4", "canal1cr", "Noticias Canal 1 Mediodía", "El resumen informativo de mitad de jornada con objetividad y rigor.", 12, 30, 14, 0, "Noticias"),
-            TvProgram("c1cr_5", "canal1cr", "Ventana Cultural y Social", "Documentales sobre historia, artes y tradiciones costarricenses.", 14, 0, 17, 0, "Educativo"),
-            TvProgram("c1cr_6", "canal1cr", "Debate Costa Rica en Directo", "Mesa redonda con analistas sobre temas legislativos y de gobierno.", 17, 0, 19, 0, "Debate"),
-            TvProgram("c1cr_7", "canal1cr", "Noticias Canal 1 Estelar", "Edición central con las noticias más determinantes de la República.", 19, 0, 20, 30, "Noticias"),
-            TvProgram("c1cr_8", "canal1cr", "Mesa de Análisis Político de Fondo", "Entrevistas exclusivas a figuras públicas y analistas.", 20, 30, 22, 30, "Opinión"),
-            TvProgram("c1cr_9", "canal1cr", "Cierre Informativo Canal 1", "Resumen del acontecer del día.", 22, 30, 0, 0, "Noticias")
+            TvProgram("c1cr_0", "canal1cr", "Serie Retro", "Clásicos televisivos y series legendarias para la madrugada.", 0, 0, 1, 0, "Series"),
+            TvProgram("c1cr_1", "canal1cr", "Dramas Internacionales", "Grandes producciones dramáticas y suspenso.", 1, 0, 2, 0, "Drama"),
+            TvProgram("c1cr_2", "canal1cr", "Cómo Han Pasado Los Años", "Recorrido nostálgico por la historia, música y momentos que marcaron época.", 2, 0, 3, 0, "Cultura"),
+            TvProgram("c1cr_3", "canal1cr", "Musicales del 1", "Videoclips de baladas, pop latino y música del recuerdo.", 3, 0, 6, 0, "Música"),
+            TvProgram("c1cr_4", "canal1cr", "Amanecer Ciudadano & Dibujos Retro", "Animaciones clásicas para iniciar la mañana y noticias matutinas.", 6, 0, 7, 30, "Infantil"),
+            TvProgram("c1cr_5", "canal1cr", "Primero Noticias (Primera Emisión)", "El primer contacto informativo del día en Canal 1 con las noticias del país.", 7, 30, 9, 30, "Noticias"),
+            TvProgram("c1cr_6", "canal1cr", "Revista Mañanera del 1", "Salud, cocina costarricense, consejos del hogar y entrevistas de actualidad.", 9, 30, 12, 0, "Revista"),
+            TvProgram("c1cr_7", "canal1cr", "Pulso y Voces de Costa Rica", "Reportajes sobre comunidades, pequeñas y medianas empresas y turismo.", 12, 0, 13, 30, "Cultura"),
+            TvProgram("c1cr_8", "canal1cr", "Primero Noticias (Edición Mediodía)", "Toda la actualidad nacional, economía y deportes de mitad de jornada.", 13, 30, 15, 0, "Noticias"),
+            TvProgram("c1cr_9", "canal1cr", "Las Tardes del 1", "El programa vespertino de entretenimiento, entrevistas en vivo y farándula.", 15, 0, 18, 0, "Entretenimiento"),
+            TvProgram("c1cr_10", "canal1cr", "Primero Noticias (Vespertina)", "Resumen informativo al final de la tarde antes del horario estelar.", 18, 0, 19, 0, "Noticias"),
+            TvProgram("c1cr_11", "canal1cr", "Debate Costa Rica & Opinión", "Mesa redonda sobre política, leyes, asamblea legislativa y economía.", 19, 0, 21, 0, "Debate"),
+            TvProgram("c1cr_12", "canal1cr", "Primero Noticias (Edición Estelar)", "El noticiero principal de Canal 1 con Paul Ulloa y los hechos de fondo.", 21, 0, 22, 30, "Noticias"),
+            TvProgram("c1cr_13", "canal1cr", "Noche de Opinión y Cierre", "Análisis con analistas políticos y resumen del acontecer nacional.", 22, 30, 0, 0, "Opinión")
         ),
 
         "lossantostv" to listOf(

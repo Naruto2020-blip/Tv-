@@ -22,6 +22,8 @@ class XmlTvParserTest {
         assertEquals("futv", XmlTvParser.matchChannelId("futv.cr", "FUTV"))
         assertEquals("cotobrustv", XmlTvParser.matchChannelId("coto_brus_tv", "Coto Brus TV Canal 14"))
         assertEquals("88stereotv", XmlTvParser.matchChannelId("88Stereo.cr", "88 Stereo TV"))
+        assertEquals("canal1cr", XmlTvParser.matchChannelId("Canal1.cr", "Canal 1 Costa Rica"))
+        assertEquals("canal1cr", XmlTvParser.matchChannelId("canal1cr", "Canal 1 CR"))
     }
 
     @Test
