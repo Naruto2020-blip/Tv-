@@ -238,17 +238,17 @@ object CostaRicaEpgData {
             TvProgram("opa_w11", "opacanal38", "Cierre y Madrugada OPA", "Música continua y especiales.", 23, 30, 0, 0, "Variedades")
         ),
 
-        // VM LATINO (vmlatino.com)
+        // VM LATINO (Canal 29 - vmlatino.com)
         "vmlatino" to listOf(
             TvProgram("vm_w0", "vmlatino", "After Party VM Latino", "Música continua sin pausas para la madrugada.", 0, 0, 6, 0, "Música"),
-            TvProgram("vm_w1", "vmlatino", "El Despertador Musical VM", "Los videos más prendidos para iniciar el día con toda la energía.", 6, 0, 9, 0, "Música"),
-            TvProgram("vm_w2", "vmlatino", "Top 10 Tico", "Los 10 temas musicales más sonados en Costa Rica votados por el público.", 9, 0, 11, 0, "Música"),
-            TvProgram("vm_w3", "vmlatino", "Pop & Urban Mix", "Los éxitos internacionales del pop latino y la música urbana actual.", 11, 0, 13, 30, "Música"),
-            TvProgram("vm_w4", "vmlatino", "Los Más Pedidos de Costa Rica", "El playlist armado en vivo con los mensajes y peticiones de los televidentes.", 13, 30, 16, 0, "Música"),
-            TvProgram("vm_w5", "vmlatino", "Talento Nacional Costarricense", "Espacio exclusivo para bandas, solistas y productores ticos.", 16, 0, 18, 0, "Música"),
-            TvProgram("vm_w6", "vmlatino", "VM Golden Hour", "Los mejores himnos de reggaetón clásico, trap y remixes.", 18, 0, 21, 0, "Música"),
-            TvProgram("vm_w7", "vmlatino", "Conciertos VM Latino", "Grabaciones en directo de las mejores giras internacionales.", 21, 0, 23, 0, "Música"),
-            TvProgram("vm_w8", "vmlatino", "Noche Electrónica & Urbana", "Sesiones ininterrumpidas de videoclips de vanguardia.", 23, 0, 0, 0, "Música")
+            TvProgram("vm_w1", "vmlatino", "Iniciando VM / El Despertador", "Los videos más prendidos para iniciar el día con toda la energía.", 6, 0, 9, 0, "Música"),
+            TvProgram("vm_w2", "vmlatino", "El Brunch Musical & Top Latino", "Los éxitos más sonados del pop latino y novedades musicales.", 9, 0, 11, 30, "Música"),
+            TvProgram("vm_w3", "vmlatino", "La Micro / Los + Pedidos", "El playlist interactivo armado en vivo con los mensajes y peticiones de la audiencia.", 11, 30, 14, 0, "Música"),
+            TvProgram("vm_w4", "vmlatino", "La Mancha VM / Tarde Urbana", "Espacio juvenil con reggaetón, trap, tendencias virales y farándula.", 14, 0, 16, 30, "Música"),
+            TvProgram("vm_w5", "vmlatino", "Talento Nacional Tico", "Espacio exclusivo dedicado a bandas, solistas y productores costarricenses.", 16, 30, 18, 30, "Música"),
+            TvProgram("vm_w6", "vmlatino", "El Bunker VM", "Los mejores himnos de reggaetón clásico, remixes y perreo intenso.", 18, 30, 20, 30, "Música"),
+            TvProgram("vm_w7", "vmlatino", "A la Kma Con... / Estelares VM", "Programa estelar de entrevistas, chismes juveniles y exclusivas con los VJs.", 20, 30, 22, 30, "Variedades"),
+            TvProgram("vm_w8", "vmlatino", "Noche de Plancha & Pop Latino", "Grandes baladas y pop latino para cerrar la noche.", 22, 30, 0, 0, "Música")
         )
     )
 
@@ -399,29 +399,46 @@ object CostaRicaEpgData {
     // PARRILLAS COMPLETAS DE TODOS LOS CANALES REGIONALES Y TEMÁTICOS
     // =========================================================================
     private val allChannelsBaseSchedules: Map<String, List<TvProgram>> = mapOf(
+        "vmlatino" to listOf(
+            TvProgram("vm_b0", "vmlatino", "After Party VM Latino", "Música continua sin pausas para la madrugada.", 0, 0, 6, 0, "Música"),
+            TvProgram("vm_b1", "vmlatino", "Iniciando VM / El Despertador", "Los videos más prendidos para iniciar el día con toda la energía.", 6, 0, 9, 0, "Música"),
+            TvProgram("vm_b2", "vmlatino", "El Brunch Musical & Top Latino", "Los éxitos más sonados del pop latino y novedades musicales.", 9, 0, 11, 30, "Música"),
+            TvProgram("vm_b3", "vmlatino", "La Micro / Los + Pedidos", "El playlist interactivo armado en vivo con los mensajes y peticiones de la audiencia.", 11, 30, 14, 0, "Música"),
+            TvProgram("vm_b4", "vmlatino", "La Mancha VM / Tarde Urbana", "Espacio juvenil con reggaetón, trap, tendencias virales y farándula.", 14, 0, 16, 30, "Música"),
+            TvProgram("vm_b5", "vmlatino", "Talento Nacional Tico", "Espacio exclusivo dedicado a bandas, solistas y productores costarricenses.", 16, 30, 18, 30, "Música"),
+            TvProgram("vm_b6", "vmlatino", "El Bunker VM", "Los mejores himnos de reggaetón clásico, remixes y perreo intenso.", 18, 30, 20, 30, "Música"),
+            TvProgram("vm_b7", "vmlatino", "A la Kma Con... / Estelares VM", "Programa estelar de entrevistas, chismes juveniles y exclusivas con los VJs.", 20, 30, 22, 30, "Variedades"),
+            TvProgram("vm_b8", "vmlatino", "Noche de Plancha & Pop Latino", "Grandes baladas y pop latino para cerrar la noche.", 22, 30, 0, 0, "Música")
+        ),
+
         "colosaltv" to listOf(
             TvProgram("co_0", "colosaltv", "Madrugada Colosal", "Música y repeticiones de interés comunitario.", 0, 0, 6, 0, "Música"),
-            TvProgram("co_1", "colosaltv", "Amanecer en la Zona Sur", "Paisajes, café y noticias de Ciudad Neily, Corredores y Golfito.", 6, 0, 8, 30, "Regional"),
-            TvProgram("co_2", "colosaltv", "Revista Sur y Campo", "Agricultura, palma, cacao y vida campesina en el sur de Costa Rica.", 8, 30, 11, 0, "Cultura"),
-            TvProgram("co_3", "colosaltv", "Colosal Noticias Mediodía", "Información comunitaria y fronteriza al instante.", 11, 0, 12, 30, "Noticias"),
-            TvProgram("co_4", "colosaltv", "Música del Sur", "Selección de baladas y música popular regional.", 12, 30, 15, 0, "Música"),
-            TvProgram("co_5", "colosaltv", "Encuentro Comunal", "Los líderes de las comunidades del cantón plantean sus soluciones.", 15, 0, 18, 0, "Comunidad"),
-            TvProgram("co_6", "colosaltv", "Colosal Noticias Estelar", "Edición central con cobertura de los cantones del sur.", 18, 0, 19, 30, "Noticias"),
-            TvProgram("co_7", "colosaltv", "Deportes de la Zona Sur", "Fútbol regional, torneos locales y ligas cantonales.", 19, 30, 21, 0, "Deportes"),
-            TvProgram("co_8", "colosaltv", "Noche Colosal", "Entretenimiento y transmisiones especiales.", 21, 0, 0, 0, "Variedades")
+            TvProgram("co_1", "colosaltv", "Amanecer Sureño", "Pronóstico del tiempo, mareas en Golfito y noticias de la frontera sur.", 6, 0, 8, 0, "Regional"),
+            TvProgram("co_2", "colosaltv", "Revista Colosal de la Mañana", "Agricultura, cooperativas de Corredores y emprendimientos de la Zona Sur.", 8, 0, 10, 30, "Revista"),
+            TvProgram("co_3", "colosaltv", "Frontera y Comunidad", "Espacio comunitario con líderes de Paso Canoas, Ciudad Neily y Golfito.", 10, 30, 12, 0, "Comunidad"),
+            TvProgram("co_4", "colosaltv", "Colosal Informa Edición Mediodía en Vivo", "Noticiero principal con los sucesos de la Zona Sur de Costa Rica.", 12, 0, 13, 30, "Noticias"),
+            TvProgram("co_5", "colosaltv", "Música del Sur", "Selección de baladas populares y música de nuestra región.", 13, 30, 15, 30, "Música"),
+            TvProgram("co_6", "colosaltv", "Colosal Deportes", "Fútbol regional, torneos de canchas abiertas y ligas cantonales.", 15, 30, 18, 0, "Deportes"),
+            TvProgram("co_7", "colosaltv", "Colosal Informa Edición Estelar en Vivo", "Edición nocturna con la información de mayor impacto de la Región Brunca.", 18, 0, 19, 30, "Noticias"),
+            TvProgram("co_8", "colosaltv", "Colosal en su Cantón", "Reportajes de Osa, Golfito, Corredores y Coto Brus.", 19, 30, 21, 30, "Variedades"),
+            TvProgram("co_9", "colosaltv", "Noche Colosal", "Variedades, cultura sureña y música para cerrar la noche.", 21, 30, 0, 0, "Variedades")
         ),
 
         "tvsur14" to listOf(
-            TvProgram("sur_0", "tvsur14", "Noche de la Región Brunca", "Música y documentales durante la noche.", 0, 0, 6, 0, "Música"),
-            TvProgram("sur_1", "tvsur14", "Despertar del Valle", "Noticias y clima del Valle de El General y Pérez Zeledón.", 6, 0, 8, 0, "Noticias"),
-            TvProgram("sur_2", "tvsur14", "PZ Hoy Revista", "Emprendimientos generaleños, salud y cocina con sabor del sur.", 8, 0, 10, 30, "Revista"),
-            TvProgram("sur_3", "tvsur14", "Tradición y Tierra Brunca", "Reportajes sobre las montañas del Chirripó y los pueblos del valle.", 10, 30, 12, 0, "Cultura"),
-            TvProgram("sur_4", "tvsur14", "TV Sur Noticias Mediodía", "La información de Pérez Zeledón y la Región Brunca en vivo.", 12, 0, 13, 30, "Noticias"),
-            TvProgram("sur_5", "tvsur14", "Fútbol y Pasión Sureña", "Seguimiento al Municipal Pérez Zeledón y equipos locales.", 13, 30, 15, 30, "Deportes"),
-            TvProgram("sur_6", "tvsur14", "La Tarde en TV Sur", "Música, arte y cultura local.", 15, 30, 18, 30, "Variedades"),
-            TvProgram("sur_7", "tvsur14", "TV Sur Noticias Central", "La edición estelar con las noticias de mayor impacto en la región.", 18, 30, 20, 0, "Noticias"),
-            TvProgram("sur_8", "tvsur14", "Diálogos del Sur", "Entrevistas de fondo con alcaldes, productores y ciudadanos.", 20, 0, 21, 30, "Opinión"),
-            TvProgram("sur_9", "tvsur14", "Música de Nuestra Tierra", "Música costarricense para cerrar la noche.", 21, 30, 0, 0, "Música")
+            TvProgram("sur_0", "tvsur14", "Madrugada Musical & Clásicos de TV Sur", "Selección musical ininterrumpida y repeticiones de programas culturales.", 0, 0, 6, 0, "Música"),
+            TvProgram("sur_1", "tvsur14", "Santo Rosario & Oración Matutina", "Espacio de devoción y reflexión para comenzar la jornada.", 6, 0, 7, 0, "Religión"),
+            TvProgram("sur_2", "tvsur14", "Despertar del Valle", "Noticias del Valle de El General, clima, café y producción agropecuaria.", 7, 0, 8, 30, "Noticias"),
+            TvProgram("sur_3", "tvsur14", "Revista PZ Actual", "Emprendimientos generaleños, salud comunitaria, gastronomía y hogar.", 8, 30, 10, 0, "Revista"),
+            TvProgram("sur_4", "tvsur14", "ConCiencia & Documentales", "Producciones científicas, historia y educación en convenio con universidades.", 10, 0, 11, 30, "Educativo"),
+            TvProgram("sur_5", "tvsur14", "Avances Informativos TV Sur", "Resumen rápido con los hechos más recientes en Pérez Zeledón.", 11, 30, 12, 0, "Noticias"),
+            TvProgram("sur_6", "tvsur14", "TV Sur Noticias Edición Mediodía en Vivo", "El noticiero principal de la Región Brunca con cobertura en directo.", 12, 0, 13, 30, "Noticias"),
+            TvProgram("sur_7", "tvsur14", "Complacencias Musicales TV Sur", "Peticiones de videos de la audiencia vía WhatsApp y mensajes en vivo.", 13, 30, 15, 0, "Música"),
+            TvProgram("sur_8", "tvsur14", "Nexos & Una Mirada", "Cultura, derechos humanos, inclusión y debates de interés social.", 15, 0, 16, 30, "Cultura"),
+            TvProgram("sur_9", "tvsur14", "Tardes del Valle Brunca", "Música costarricense, deportes comunales y seguimiento al Municipal Pérez Zeledón.", 16, 30, 18, 0, "Variedades"),
+            TvProgram("sur_10", "tvsur14", "TV Sur Noticias Edición Estelar en Vivo", "Edición central informativa con los acontecimientos del sur costarricense.", 18, 0, 19, 30, "Noticias"),
+            TvProgram("sur_11", "tvsur14", "Economía y Sociedad & Diálogos del Sur", "Entrevistas en profundidad con alcaldes, productores y líderes del cantón.", 19, 30, 21, 0, "Opinión"),
+            TvProgram("sur_12", "tvsur14", "TV Sur Noticias Edición Nocturna", "Balance nocturno de informaciones y análisis de los sucesos.", 21, 0, 22, 30, "Noticias"),
+            TvProgram("sur_13", "tvsur14", "Santa Misa & Coronilla de la Divina Misericordia", "Celebración eucarística y oración para el descanso nocturno.", 22, 30, 0, 0, "Santa Misa")
         ),
 
         "canal14sancarlos" to listOf(
@@ -637,15 +654,15 @@ object CostaRicaEpgData {
             return weekdayProgramsByChannel[channelId]!!
         }
 
-        // 4. Check Saturday/Sunday fallback to weekday if weekend not defined specifically
-        if (weekdayProgramsByChannel.containsKey(channelId)) {
-            return weekdayProgramsByChannel[channelId]!!
-        }
-
-        // 5. Check general specific schedule across all channels
+        // 4. Specific schedule across all regional and thematic channels
         val specific = allChannelsBaseSchedules[channelId]
         if (specific != null && specific.isNotEmpty()) {
             return specific
+        }
+
+        // 5. Check Saturday/Sunday fallback to weekday if weekend not defined specifically
+        if (weekdayProgramsByChannel.containsKey(channelId)) {
+            return weekdayProgramsByChannel[channelId]!!
         }
 
         // 6. Guaranteed continuous tailored schedule

@@ -34,6 +34,22 @@ enum class EpgMode(val displayName: String, val description: String) {
 
 class OnlineEpgRepository(private val context: Context) {
 
+    companion object {
+        val PROTECTED_ONLINE_CHANNELS = setOf(
+            "teletica7",
+            "canal6repretel",
+            "canal11repretel",
+            "canal4repretel",
+            "canal8multimedios",
+            "opacanal38",
+            "futv",
+            "extratv42",
+            "canal1cr",
+            "canal13sinart",
+            "canal14sancarlos"
+        )
+    }
+
     private val tag = "OnlineEpgRepository"
 
     private val httpClient = OkHttpClient.Builder()
@@ -134,9 +150,9 @@ class OnlineEpgRepository(private val context: Context) {
                     val totalProgs = parsed.values.sumOf { it.size }
                     Log.d(tag, "Parsed ${parsed.size} channels, $totalProgs programs from ${source.name}")
 
-                    // Merge: if a channel does not have programs yet, populate it from this source
+                    // Merge: if a channel does not have programs yet, populate it from this source (only for verified channels)
                     for ((chanId, progs) in parsed) {
-                        if (!aggregatedSchedules.containsKey(chanId) && progs.isNotEmpty()) {
+                        if (PROTECTED_ONLINE_CHANNELS.contains(chanId) && !aggregatedSchedules.containsKey(chanId) && progs.isNotEmpty()) {
                             aggregatedSchedules[chanId] = progs
                         }
                     }
@@ -180,16 +196,17 @@ class OnlineEpgRepository(private val context: Context) {
 
     /**
      * Resolves schedule for a channel:
-     * - In OFFICIAL mode: Uses 100% verified schedules from channels' official websites (teletica.com, repretel.com, sinartdigital.com, telediario.cr, futvcr.com).
-     * - In ONLINE mode: Uses online XMLTV feeds, falling back to official schedules if missing.
+     * - Only the 11 verified national channels can use online feeds.
+     * - All other channels strictly use verified Costa Rican programming from CostaRicaEpgData.
      */
     fun getScheduleForChannel(channelId: String, channelName: String, categoryName: String): List<TvProgram> {
-        if (_epgMode.value == EpgMode.OFFICIAL) {
-            return CostaRicaEpgData.getScheduleForChannel(channelId, channelName, categoryName)
-        }
-        val onlineList = _onlineSchedules.value[channelId]
-        if (!onlineList.isNullOrEmpty() && onlineList.size >= 2) {
-            return onlineList
+        if (PROTECTED_ONLINE_CHANNELS.contains(channelId)) {
+            if (_epgMode.value == EpgMode.ONLINE) {
+                val onlineList = _onlineSchedules.value[channelId]
+                if (!onlineList.isNullOrEmpty() && onlineList.size >= 2) {
+                    return onlineList
+                }
+            }
         }
         return CostaRicaEpgData.getScheduleForChannel(channelId, channelName, categoryName)
     }
@@ -289,6 +306,7 @@ class OnlineEpgRepository(private val context: Context) {
             val keys = channelsObj.keys()
             while (keys.hasNext()) {
                 val channelId = keys.next()
+                if (!PROTECTED_ONLINE_CHANNELS.contains(channelId)) continue
                 val array = channelsObj.optJSONArray(channelId) ?: continue
                 val progs = mutableListOf<TvProgram>()
                 for (i in 0 until array.length()) {

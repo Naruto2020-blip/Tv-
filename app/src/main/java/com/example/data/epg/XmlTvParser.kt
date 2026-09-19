@@ -257,62 +257,11 @@ object XmlTvParser {
             // OPA Canal 38
             norm.contains("opa") || (norm.contains("canal 38") && (norm.contains("costa") || norm.contains("cr"))) -> "opacanal38"
 
-            // VM Latino
-            norm.contains("vm latino") || (norm.contains("canal 29") && norm.contains("latino")) -> "vmlatino"
-
-            // Colosal TV Canal 54
-            norm.contains("colosal") || norm.contains("canal 54") || norm.contains("canal 49") -> "colosaltv"
-
-            // TV Sur Canal 14 Pérez Zeledón
-            norm.contains("tvsur") || norm.contains("tv sur") || norm.contains("zeledon") -> "tvsur14"
-
-            // TV Norte San Carlos Canal 14
-            (norm.contains("canal 14") || norm.contains("tv norte") || norm.contains("tvn")) && norm.contains("carlos") -> "canal14sancarlos"
-
-            // Coto Brus TV Canal 5 / San Vito
-            norm.contains("coto brus") || norm.contains("san vito") -> "cotobrustv"
-
             // Canal 1 Costa Rica
             norm.contains("canal 1") && (norm.contains("costa") || norm.contains("cr")) -> "canal1cr"
 
-            // Los Santos TV
-            norm.contains("los santos") || norm.contains("lstv") || norm.contains("tarrazu") -> "lossantostv"
-
-            // Garabito TV
-            norm.contains("garabito") || norm.contains("jaco") -> "garabitotv"
-
-            // Costa Rica Channel
-            norm.contains("costa rica channel") || norm.contains("cr channel") -> "costaricachannel"
-
-            // SOY Plancha TV
-            norm.contains("plancha") -> "soyplanchatv"
-
-            // Urbano TV
-            norm.contains("urbano") -> "urbanotv"
-
-            // Gex TV
-            norm.contains("gex") -> "gextv"
-
-            // Vintage Music TV
-            norm.contains("vintage") -> "vintagemusic"
-
-            // 88 Stereo TV
-            norm.contains("88 stereo") || norm.contains("88stereo") || idLower == "88stereo.cr" -> "88stereotv"
-
-            // San José TV
-            norm.contains("san jose tv") || norm.contains("catedral") -> "sanjosetv"
-
-            // Cristo Visión Canal 31
-            norm.contains("cristovision") || norm.contains("cristo vision") -> "cristovision31"
-
-            // Enlace Juvenil EJTV
-            norm.contains("ejtv") || (norm.contains("enlace") && norm.contains("juvenil")) -> "enlacejuvenil"
-
-            // Extrema Kids TV
-            norm.contains("extrema kids") || norm.contains("kids") -> "extremakids"
-
-            // Zurquí TV
-            norm.contains("zurqui") -> "zurquitv"
+            // TV Norte San Carlos Canal 14
+            (norm.contains("canal 14") || norm.contains("tv norte") || norm.contains("tvn")) && norm.contains("carlos") -> "canal14sancarlos"
 
             else -> null
         }
