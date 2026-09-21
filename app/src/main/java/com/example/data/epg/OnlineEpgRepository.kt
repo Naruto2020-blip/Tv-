@@ -29,7 +29,7 @@ data class EpgSyncStatus(
 
 enum class EpgMode(val displayName: String, val description: String) {
     OFFICIAL("Páginas Oficiales de Canales", "Programación directa de teletica.com, repretel.com, sinartdigital.com, telediario.cr, futvcr.com"),
-    ONLINE("Fuentes Online XMLTV", "Sincronización con EPG.lat, EPGShare01, IPTV-org, Open-EPG, TDTChannels")
+    ONLINE("AmericaTVGuide & Online EPG", "Sincronización en vivo con americatvguide.com y fuentes XMLTV")
 }
 
 class OnlineEpgRepository(private val context: Context) {
@@ -46,7 +46,11 @@ class OnlineEpgRepository(private val context: Context) {
             "extratv42",
             "canal1cr",
             "canal13sinart",
-            "canal14sancarlos"
+            "canal14sancarlos",
+            "vmlatino",
+            "sanjosetv",
+            "cristovision31",
+            "enlacejuvenil"
         )
     }
 
@@ -86,11 +90,10 @@ class OnlineEpgRepository(private val context: Context) {
 
     /**
      * Executes automatic synchronization against public online EPG sources in priority order:
-     * 1. EPG.lat Costa Rica
-     * 2. EPGShare01
-     * 3. IPTV-org / GitHub
-     * 4. Open-EPG
-     * 5. TDTChannels
+     * 1. AmericaTVGuide (americatvguide.com) - Direct live scraping of verified Costa Rican channels
+     * 2. EPG.lat Costa Rica
+     * 3. EPGShare01
+     * 4. IPTV-org / GitHub
      */
     suspend fun syncEpg(force: Boolean = false): Boolean = withContext(Dispatchers.IO) {
         val now = System.currentTimeMillis()
@@ -106,14 +109,39 @@ class OnlineEpgRepository(private val context: Context) {
             error = null
         )
 
-        val sources = OnlineEpgSources.allSources
         var success = false
         var lastError: String? = null
         val aggregatedSchedules = mutableMapOf<String, List<TvProgram>>()
 
+        // 1. PRIMARY LIVE SOURCE: AmericaTVGuide (americatvguide.com)
+        try {
+            Log.d(tag, "Attempting live EPG sync from AmericaTVGuide (americatvguide.com)...")
+            _syncStatus.value = _syncStatus.value.copy(activeSource = "AmericaTVGuide")
+            val atvgSchedules = AmericaTvGuideScraper.fetchAllCostaRicaChannels(httpClient)
+            if (atvgSchedules.isNotEmpty()) {
+                val atvgCount = atvgSchedules.values.sumOf { it.size }
+                Log.d(tag, "Scraped ${atvgSchedules.size} channels, $atvgCount programs from AmericaTVGuide")
+                for ((chanId, progs) in atvgSchedules) {
+                    if (progs.isNotEmpty()) {
+                        aggregatedSchedules[chanId] = progs
+                    }
+                }
+                success = true
+            }
+        } catch (e: Exception) {
+            Log.w(tag, "AmericaTVGuide sync error: ${e.message}")
+            lastError = e.message
+        }
+
+        // 2. SECONDARY / SUPPLEMENTARY SOURCES: XMLTV Feeds
+        val sources = OnlineEpgSources.allSources
         for (source in sources) {
+            // If all protected channels already have schedules, stop early
+            val allProtectedCovered = PROTECTED_ONLINE_CHANNELS.all { aggregatedSchedules.containsKey(it) }
+            if (allProtectedCovered) break
+
             try {
-                Log.d(tag, "Attempting EPG sync from: ${source.name} (${source.url})")
+                Log.d(tag, "Attempting supplemental EPG sync from: ${source.name} (${source.url})")
                 _syncStatus.value = _syncStatus.value.copy(activeSource = source.name)
 
                 val request = Request.Builder()
@@ -125,7 +153,6 @@ class OnlineEpgRepository(private val context: Context) {
                 if (!response.isSuccessful) {
                     val msg = "HTTP ${response.code} from ${source.name}"
                     Log.w(tag, msg)
-                    lastError = msg
                     response.close()
                     continue
                 }
@@ -150,19 +177,17 @@ class OnlineEpgRepository(private val context: Context) {
                     val totalProgs = parsed.values.sumOf { it.size }
                     Log.d(tag, "Parsed ${parsed.size} channels, $totalProgs programs from ${source.name}")
 
-                    // Merge: if a channel does not have programs yet, populate it from this source (only for verified channels)
+                    // Merge only for channels not already populated
                     for ((chanId, progs) in parsed) {
                         if (PROTECTED_ONLINE_CHANNELS.contains(chanId) && !aggregatedSchedules.containsKey(chanId) && progs.isNotEmpty()) {
                             aggregatedSchedules[chanId] = progs
                         }
                     }
                     success = true
-                } else {
-                    Log.w(tag, "Parsed 0 Costa Rican channels from ${source.name}, trying next source...")
                 }
             } catch (e: Exception) {
                 Log.e(tag, "Failed to sync from ${source.name}: ${e.message}")
-                lastError = e.message ?: "Error al conectar con ${source.name}"
+                if (lastError == null) lastError = e.message
             }
         }
 
@@ -171,11 +196,11 @@ class OnlineEpgRepository(private val context: Context) {
             Log.d(tag, "Total aggregated EPG: ${aggregatedSchedules.size} channels, $totalProgs programs")
 
             _onlineSchedules.value = aggregatedSchedules
-            saveToDiskCache("GatoTV + AmericaTVGuide + EPG.lat", aggregatedSchedules)
+            saveToDiskCache("AmericaTVGuide", aggregatedSchedules)
 
             _syncStatus.value = EpgSyncStatus(
                 isSyncing = false,
-                activeSource = "GatoTV / AmericaTVGuide / EPG.lat",
+                activeSource = "AmericaTVGuide",
                 lastSyncTimeMillis = System.currentTimeMillis(),
                 channelCountWithOnlineData = aggregatedSchedules.size,
                 totalProgramsLoaded = totalProgs,
@@ -196,16 +221,14 @@ class OnlineEpgRepository(private val context: Context) {
 
     /**
      * Resolves schedule for a channel:
-     * - Only the 11 verified national channels can use online feeds.
-     * - All other channels strictly use verified Costa Rican programming from CostaRicaEpgData.
+     * - Checks for AmericaTVGuide live scraped / online cached schedule first.
+     * - Falls back to verified Costa Rican programming from CostaRicaEpgData.
      */
     fun getScheduleForChannel(channelId: String, channelName: String, categoryName: String): List<TvProgram> {
-        if (PROTECTED_ONLINE_CHANNELS.contains(channelId)) {
-            if (_epgMode.value == EpgMode.ONLINE) {
-                val onlineList = _onlineSchedules.value[channelId]
-                if (!onlineList.isNullOrEmpty() && onlineList.size >= 2) {
-                    return onlineList
-                }
+        if (_epgMode.value == EpgMode.ONLINE) {
+            val onlineList = _onlineSchedules.value[channelId]
+            if (!onlineList.isNullOrEmpty() && onlineList.size >= 2) {
+                return onlineList
             }
         }
         return CostaRicaEpgData.getScheduleForChannel(channelId, channelName, categoryName)

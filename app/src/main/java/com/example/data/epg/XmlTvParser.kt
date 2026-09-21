@@ -258,10 +258,28 @@ object XmlTvParser {
             norm.contains("opa") || (norm.contains("canal 38") && (norm.contains("costa") || norm.contains("cr"))) -> "opacanal38"
 
             // Canal 1 Costa Rica
-            norm.contains("canal 1") && (norm.contains("costa") || norm.contains("cr")) -> "canal1cr"
+            (norm.contains("canal 1") || norm.contains("canal1")) && (norm.contains("costa") || norm.contains("cr") || norm.startsWith("canal1")) -> "canal1cr"
 
             // TV Norte San Carlos Canal 14
             (norm.contains("canal 14") || norm.contains("tv norte") || norm.contains("tvn")) && norm.contains("carlos") -> "canal14sancarlos"
+
+            // Coto Brus TV
+            norm.contains("coto brus") -> "cotobrustv"
+
+            // 88 Stereo TV
+            norm.contains("88 stereo") || norm.contains("88stereo") -> "88stereotv"
+
+            // VM Latino
+            norm.contains("vm latino") || norm.contains("vmlatino") -> "vmlatino"
+
+            // San José TV
+            norm.contains("san jose tv") || norm.contains("sanjosetv") -> "sanjosetv"
+
+            // Cristovisión
+            norm.contains("cristovision") -> "cristovision31"
+
+            // Enlace Juvenil
+            norm.contains("enlace juvenil") || norm.contains("enlacejuvenil") -> "enlacejuvenil"
 
             else -> null
         }

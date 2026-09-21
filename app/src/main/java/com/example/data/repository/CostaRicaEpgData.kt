@@ -249,6 +249,38 @@ object CostaRicaEpgData {
             TvProgram("vm_w6", "vmlatino", "El Bunker VM", "Los mejores himnos de reggaetón clásico, remixes y perreo intenso.", 18, 30, 20, 30, "Música"),
             TvProgram("vm_w7", "vmlatino", "A la Kma Con... / Estelares VM", "Programa estelar de entrevistas, chismes juveniles y exclusivas con los VJs.", 20, 30, 22, 30, "Variedades"),
             TvProgram("vm_w8", "vmlatino", "Noche de Plancha & Pop Latino", "Grandes baladas y pop latino para cerrar la noche.", 22, 30, 0, 0, "Música")
+        ),
+
+        // CANAL 1 COSTA RICA (canal1cr.com)
+        "canal1cr" to listOf(
+            TvProgram("c1cr_w0", "canal1cr", "Madrugada Canal 1", "Música continua y retransmisiones especiales.", 0, 0, 6, 0, "Variedades"),
+            TvProgram("c1cr_w1", "canal1cr", "Amanecer Noticias Canal 1", "El despertar informativo del país con análisis dinámico.", 6, 0, 8, 0, "Noticias"),
+            TvProgram("c1cr_w2", "canal1cr", "Revista Matinal Canal 1", "Cocina, salud, entrevistas con expertos y consejos del día.", 8, 0, 10, 30, "Revista"),
+            TvProgram("c1cr_w3", "canal1cr", "Foro Ciudadano", "Espacio de discusión sobre problemáticas nacionales y comunitarias.", 10, 30, 12, 0, "Opinión"),
+            TvProgram("c1cr_w4", "canal1cr", "Noticias Canal 1 - Mediodía", "Edición meridiana de noticias en directo.", 12, 0, 13, 30, "Noticias"),
+            TvProgram("c1cr_w5", "canal1cr", "Tarde de Película", "Cine clásico y contemporáneo para disfrutar en casa.", 13, 30, 15, 0, "Cine"),
+            TvProgram("c1cr_w6", "canal1cr", "Zona Musical y Tendencias", "Lo último en música, espectáculos y tecnología.", 15, 0, 17, 0, "Música"),
+            TvProgram("c1cr_w7", "canal1cr", "El Mirador Deportivo", "Previa de la fecha futbolera y análisis de las disciplinas ticas.", 17, 0, 18, 30, "Deportes"),
+            TvProgram("c1cr_w8", "canal1cr", "Noticias Canal 1 - Edición Central", "Edición estelar con los acontecimientos del día.", 18, 30, 20, 0, "Noticias"),
+            TvProgram("c1cr_w9", "canal1cr", "Mesa de Debate y Política", "Diálogo de fondo con invitados de la vida pública.", 20, 0, 22, 0, "Opinión"),
+            TvProgram("c1cr_w10", "canal1cr", "Hora 22 de Análisis", "Investigación periodística y contexto nacional.", 22, 0, 23, 30, "Opinión"),
+            TvProgram("c1cr_w11", "canal1cr", "Resumen Nocturno", "Último balance informativo de la jornada.", 23, 30, 0, 0, "Noticias")
+        ),
+
+        // CANAL 14 SAN CARLOS (tvn14.com)
+        "canal14sancarlos" to listOf(
+            TvProgram("c14_w0", "canal14sancarlos", "Madrugada Norteña", "Música costarricense y serenata campesina.", 0, 0, 6, 0, "Música"),
+            TvProgram("c14_w1", "canal14sancarlos", "Despertar Sancarleño", "El amanecer en la Región Huetar Norte, clima y café matutino.", 6, 0, 7, 30, "Regional"),
+            TvProgram("c14_w2", "canal14sancarlos", "Noticias En Contacto Matutina", "Noticias locales de Ciudad Quesada, Los Chiles, Upala y Guatuso.", 7, 30, 9, 0, "Noticias"),
+            TvProgram("c14_w3", "canal14sancarlos", "San Carlos y su Gente", "Historias de esfuerzo, cooperativas, emprendimientos y tradiciones.", 9, 0, 11, 30, "Comunidad"),
+            TvProgram("c14_w4", "canal14sancarlos", "Noticias En Contacto Mediodía", "Edición del mediodía con las noticias de la región norte.", 11, 30, 13, 0, "Noticias"),
+            TvProgram("c14_w5", "canal14sancarlos", "Campo y Ganadería del Norte", "Técnicas agrícolas, subastas ganaderas y precios de cosechas.", 13, 0, 14, 30, "Agro"),
+            TvProgram("c14_w6", "canal14sancarlos", "Tardes de la Zona Norte", "Música, llamadas al aire y felicitaciones comunales.", 14, 30, 16, 30, "Variedades"),
+            TvProgram("c14_w7", "canal14sancarlos", "Cultura y Raíces Norteñas", "Folclore sancarleño, bailes típicos y recuerdos de pioneros.", 16, 30, 18, 0, "Cultura"),
+            TvProgram("c14_w8", "canal14sancarlos", "Noticias En Contacto Central", "El noticiero estelar más influyente de la zona norte.", 18, 0, 19, 30, "Noticias"),
+            TvProgram("c14_w9", "canal14sancarlos", "Pasión Deportiva Norteña", "Cobertura de AD San Carlos en Primera División y ligas cantonales.", 19, 30, 21, 0, "Deportes"),
+            TvProgram("c14_w10", "canal14sancarlos", "Diálogo Abierto Regional", "Debates con alcaldes, diputados y líderes comunales de la zona.", 21, 0, 22, 30, "Opinión"),
+            TvProgram("c14_w11", "canal14sancarlos", "Cierre y Serenata del Arenal", "Melodías relajantes para despedir la noche.", 22, 30, 0, 0, "Música")
         )
     )
 
