@@ -251,20 +251,33 @@ object CostaRicaEpgData {
             TvProgram("vm_w8", "vmlatino", "Noche de Plancha & Pop Latino", "Grandes baladas y pop latino para cerrar la noche.", 22, 30, 0, 0, "Música")
         ),
 
-        // CANAL 1 COSTA RICA (canal1cr.com)
+        // CANAL 1 COSTA RICA (canal1cr.com/programacion/)
         "canal1cr" to listOf(
-            TvProgram("c1cr_w0", "canal1cr", "Madrugada Canal 1", "Música continua y retransmisiones especiales.", 0, 0, 6, 0, "Variedades"),
-            TvProgram("c1cr_w1", "canal1cr", "Amanecer Noticias Canal 1", "El despertar informativo del país con análisis dinámico.", 6, 0, 8, 0, "Noticias"),
-            TvProgram("c1cr_w2", "canal1cr", "Revista Matinal Canal 1", "Cocina, salud, entrevistas con expertos y consejos del día.", 8, 0, 10, 30, "Revista"),
-            TvProgram("c1cr_w3", "canal1cr", "Foro Ciudadano", "Espacio de discusión sobre problemáticas nacionales y comunitarias.", 10, 30, 12, 0, "Opinión"),
-            TvProgram("c1cr_w4", "canal1cr", "Noticias Canal 1 - Mediodía", "Edición meridiana de noticias en directo.", 12, 0, 13, 30, "Noticias"),
-            TvProgram("c1cr_w5", "canal1cr", "Tarde de Película", "Cine clásico y contemporáneo para disfrutar en casa.", 13, 30, 15, 0, "Cine"),
-            TvProgram("c1cr_w6", "canal1cr", "Zona Musical y Tendencias", "Lo último en música, espectáculos y tecnología.", 15, 0, 17, 0, "Música"),
-            TvProgram("c1cr_w7", "canal1cr", "El Mirador Deportivo", "Previa de la fecha futbolera y análisis de las disciplinas ticas.", 17, 0, 18, 30, "Deportes"),
-            TvProgram("c1cr_w8", "canal1cr", "Noticias Canal 1 - Edición Central", "Edición estelar con los acontecimientos del día.", 18, 30, 20, 0, "Noticias"),
-            TvProgram("c1cr_w9", "canal1cr", "Mesa de Debate y Política", "Diálogo de fondo con invitados de la vida pública.", 20, 0, 22, 0, "Opinión"),
-            TvProgram("c1cr_w10", "canal1cr", "Hora 22 de Análisis", "Investigación periodística y contexto nacional.", 22, 0, 23, 30, "Opinión"),
-            TvProgram("c1cr_w11", "canal1cr", "Resumen Nocturno", "Último balance informativo de la jornada.", 23, 30, 0, 0, "Noticias")
+            TvProgram("c1cr_w0", "canal1cr", "Serie Retro", "Las mejores series clásicas y producciones retro de la televisión internacional.", 0, 0, 1, 0, "Series"),
+            TvProgram("c1cr_w1", "canal1cr", "Dramas", "Producciones dramáticas y telenovelas internacionales de gran audiencia.", 1, 0, 2, 0, "Novela"),
+            TvProgram("c1cr_w2", "canal1cr", "Cómo Han Pasado Los Años", "Recorrido nostálgico con historia, música y recuerdos inolvidables.", 2, 0, 3, 0, "Cultura"),
+            TvProgram("c1cr_w3", "canal1cr", "Musicales", "Los mejores videoclips y música variada para disfrutar la madrugada.", 3, 0, 6, 0, "Música"),
+            TvProgram("c1cr_w4", "canal1cr", "Santa Misa", "Celebración eucarística matutina.", 6, 0, 7, 30, "Religión"),
+            TvProgram("c1cr_w5", "canal1cr", "Animado Retro", "Dibujos animados y caricaturas clásicas familiares.", 7, 30, 8, 0, "Infantil"),
+            TvProgram("c1cr_w6", "canal1cr", "RT En Vivo", "Noticias internacionales y actualidad en directo.", 8, 0, 8, 30, "Noticias"),
+            TvProgram("c1cr_w7", "canal1cr", "Cómo Han Pasado Los Años", "Historias de antaño, anécdotas y música del recuerdo.", 8, 30, 9, 30, "Cultura"),
+            TvProgram("c1cr_w8", "canal1cr", "Animado Retro", "Aventuras animadas clásicas para la mañana.", 9, 30, 10, 0, "Infantil"),
+            TvProgram("c1cr_w9", "canal1cr", "Reinventados", "Espacio de innovación, emprendimientos y superación en Costa Rica.", 10, 0, 11, 0, "Revista"),
+            TvProgram("c1cr_w10", "canal1cr", "Novela China", "Superproducción dramática y romance de época.", 11, 0, 12, 0, "Novela"),
+            TvProgram("c1cr_w11", "canal1cr", "RT En Vivo", "Transmisión informativa internacional al mediodía.", 12, 0, 12, 30, "Noticias"),
+            TvProgram("c1cr_w12", "canal1cr", "Primero Deportes", "Toda la actualidad del fútbol nacional y deportes ticos.", 12, 30, 13, 0, "Deportes"),
+            TvProgram("c1cr_w13", "canal1cr", "Serie Retro", "Clásicos televisivos de la pantalla chica.", 13, 0, 13, 30, "Series"),
+            TvProgram("c1cr_w14", "canal1cr", "Primero Noticias - Mediodía", "Noticiero con las noticias clave de la jornada.", 13, 30, 14, 0, "Noticias"),
+            TvProgram("c1cr_w15", "canal1cr", "Dramas", "Emisión vespertina de telenovela dramática internacional.", 14, 0, 15, 0, "Novela"),
+            TvProgram("c1cr_w16", "canal1cr", "Serie Retro", "Historias, acción y comedia de series de culto.", 15, 0, 16, 0, "Series"),
+            TvProgram("c1cr_w17", "canal1cr", "Animado Retro", "Bloque infantil y juvenil de la tarde.", 16, 0, 17, 0, "Infantil"),
+            TvProgram("c1cr_w18", "canal1cr", "Cómo Han Pasado Los Años", "Crónicas y momentos históricos inolvidables.", 17, 0, 18, 0, "Cultura"),
+            TvProgram("c1cr_w19", "canal1cr", "Primero Noticias - Edición Central", "Edición estelar del noticiero principal de Canal 1.", 18, 0, 20, 0, "Noticias"),
+            TvProgram("c1cr_w20", "canal1cr", "Primero Deportes Estelar", "Análisis, debate deportivo y polémica futbolera.", 20, 0, 20, 30, "Deportes"),
+            TvProgram("c1cr_w21", "canal1cr", "Marcelo Castro Presenta", "Entrevistas de fondo e investigación con Marcelo Castro.", 20, 30, 21, 0, "Opinión"),
+            TvProgram("c1cr_w22", "canal1cr", "Primero Noticias - Resumen Noche", "La información de cierre y acontecimientos de última hora.", 21, 0, 22, 0, "Noticias"),
+            TvProgram("c1cr_w23", "canal1cr", "Kick Off", "Fútbol nacional, debate picante y análisis de fondo.", 22, 0, 23, 0, "Deportes"),
+            TvProgram("c1cr_w24", "canal1cr", "CGTN En Vivo", "Noticias internacionales y actualidad global en directo.", 23, 0, 0, 0, "Noticias")
         ),
 
         // CANAL 14 SAN CARLOS (tvn14.com)
@@ -360,6 +373,29 @@ object CostaRicaEpgData {
             TvProgram("fu_s7", "futv", "Partido Estelar en Vivo: Liga Promerica", "El partido estelar de la noche con narración oficial.", 19, 0, 21, 30, "Deportes"),
             TvProgram("fu_s8", "futv", "Línea de 4 / Análisis de la Jornada", "Debate ardiente, conferencias de prensa y tabla de posiciones.", 21, 30, 23, 0, "Deportes"),
             TvProgram("fu_s9", "futv", "Lo Mejor de la Jornada Sabatina", "Resumen de goles y momentos destacados.", 23, 0, 0, 0, "Deportes")
+        ),
+
+        // CANAL 1 COSTA RICA - SÁBADO (canal1cr.com/programacion/)
+        "canal1cr" to listOf(
+            TvProgram("c1cr_s0", "canal1cr", "Fiesta La Tica", "Música bailable y fiesta sabatina costarricense.", 0, 0, 1, 0, "Música"),
+            TvProgram("c1cr_s1", "canal1cr", "Dramas", "Producciones dramáticas en la madrugada.", 1, 0, 2, 0, "Novela"),
+            TvProgram("c1cr_s2", "canal1cr", "Serie Retro", "Series clásicas de la televisión.", 2, 0, 3, 0, "Series"),
+            TvProgram("c1cr_s3", "canal1cr", "Musicales", "Selección musical continua para amanecer.", 3, 0, 6, 0, "Música"),
+            TvProgram("c1cr_s4", "canal1cr", "Conciertos", "Presentaciones en vivo y recitales especiales.", 6, 0, 8, 0, "Música"),
+            TvProgram("c1cr_s5", "canal1cr", "Animado Retro", "Caricaturas clásicas para la mañana sabatina.", 8, 0, 10, 30, "Infantil"),
+            TvProgram("c1cr_s6", "canal1cr", "Back Up", "Música y entretenimiento juvenil.", 10, 30, 11, 0, "Variedades"),
+            TvProgram("c1cr_s7", "canal1cr", "Más Que Música", "Especiales musicales, estrenos y entrevistas.", 11, 0, 12, 0, "Música"),
+            TvProgram("c1cr_s8", "canal1cr", "Primero Deportes Sabatino", "Previa futbolera y actualidad deportiva.", 12, 0, 12, 30, "Deportes"),
+            TvProgram("c1cr_s9", "canal1cr", "Serie Retro", "Aventuras y clásicos retro.", 12, 30, 13, 0, "Series"),
+            TvProgram("c1cr_s10", "canal1cr", "Retro Hits", "Los grandes éxitos musicales de siempre.", 13, 0, 14, 0, "Música"),
+            TvProgram("c1cr_s11", "canal1cr", "Cine del 1", "Películas para disfrutar el sábado en casa.", 14, 0, 16, 0, "Cine"),
+            TvProgram("c1cr_s12", "canal1cr", "Serie Retro", "Series legendarias para la sobremesa.", 16, 0, 17, 0, "Series"),
+            TvProgram("c1cr_s13", "canal1cr", "Cosas Que Pasas", "Historias humanas y anécdotas curiosas.", 17, 0, 17, 30, "Variedades"),
+            TvProgram("c1cr_s14", "canal1cr", "Movilidad Sin Mitos", "Cultura vial, transporte y movilidad en Costa Rica.", 17, 30, 18, 0, "Cultura"),
+            TvProgram("c1cr_s15", "canal1cr", "Cómo Han Pasado Los Años", "Recuerdos históricos, música y vivencias del ayer.", 18, 0, 19, 0, "Cultura"),
+            TvProgram("c1cr_s16", "canal1cr", "Marcelo Castro Presenta", "Entrevistas estelares con Marcelo Castro.", 19, 0, 20, 0, "Opinión"),
+            TvProgram("c1cr_s17", "canal1cr", "Cine del 1 Prime", "El gran estreno cinematográfico de la noche sabatina.", 20, 0, 23, 0, "Cine"),
+            TvProgram("c1cr_s18", "canal1cr", "Retro Hits Noche", "Clásicos musicales para cerrar el sábado.", 23, 0, 0, 0, "Música")
         )
     )
 
@@ -424,6 +460,31 @@ object CostaRicaEpgData {
             TvProgram("fu_su7", "futv", "Partido Estelar Dominical en Vivo", "El clásico o partido de mayor expectativa con cobertura total.", 18, 30, 21, 0, "Deportes"),
             TvProgram("fu_su8", "futv", "Tercer Tiempo y Tabla de Posiciones", "Resumen de toda la jornada, posiciones y declaraciones de los técnicos.", 21, 0, 23, 0, "Deportes"),
             TvProgram("fu_su9", "futv", "Repaso Dominical del Campeonato", "Los mejores goles y atajadas de la fecha.", 23, 0, 0, 0, "Deportes")
+        ),
+
+        // CANAL 1 COSTA RICA - DOMINGO (canal1cr.com/programacion/)
+        "canal1cr" to listOf(
+            TvProgram("c1cr_su0", "canal1cr", "Fiesta La Tica", "Música popular y ritmos bailables.", 0, 0, 1, 0, "Música"),
+            TvProgram("c1cr_su1", "canal1cr", "Dramas", "Dramas internacionales de madrugada.", 1, 0, 2, 0, "Novela"),
+            TvProgram("c1cr_su2", "canal1cr", "Serie Retro", "Series clásicas inolvidables.", 2, 0, 3, 0, "Series"),
+            TvProgram("c1cr_su3", "canal1cr", "Musicales", "Música para acompañar el amanecer.", 3, 0, 6, 0, "Música"),
+            TvProgram("c1cr_su4", "canal1cr", "Animado Retro", "Caricaturas familiares para el despertar dominical.", 6, 0, 8, 0, "Infantil"),
+            TvProgram("c1cr_su5", "canal1cr", "Cosas Que Pasas", "Historias humanas y vivencias cotidianas.", 8, 0, 8, 30, "Variedades"),
+            TvProgram("c1cr_su6", "canal1cr", "Movilidad Sin Mitos", "Seguridad vial y transporte urbano.", 8, 30, 9, 0, "Cultura"),
+            TvProgram("c1cr_su7", "canal1cr", "Santa Misa Dominical", "Solemne misa dominical.", 9, 0, 10, 30, "Religión"),
+            TvProgram("c1cr_su8", "canal1cr", "Animado Retro", "Dibujos animados clásicos.", 10, 30, 11, 0, "Infantil"),
+            TvProgram("c1cr_su9", "canal1cr", "Más Que Música", "Espacio musical con los mejores éxitos.", 11, 0, 12, 0, "Música"),
+            TvProgram("c1cr_su10", "canal1cr", "Serie Retro", "Clásicos de televisión para el mediodía.", 12, 0, 13, 0, "Series"),
+            TvProgram("c1cr_su11", "canal1cr", "Retro Hits", "Las mejores canciones retro.", 13, 0, 14, 0, "Música"),
+            TvProgram("c1cr_su12", "canal1cr", "Cine del 1", "Películas de aventura y comedia para la tarde.", 14, 0, 16, 0, "Cine"),
+            TvProgram("c1cr_su13", "canal1cr", "Serie Retro", "Aventuras clásicas familiares.", 16, 0, 16, 30, "Series"),
+            TvProgram("c1cr_su14", "canal1cr", "Back Up", "Entretenimiento y música.", 16, 30, 17, 0, "Variedades"),
+            TvProgram("c1cr_su15", "canal1cr", "Animado Retro", "Bloque infantil de la tarde.", 17, 0, 17, 30, "Infantil"),
+            TvProgram("c1cr_su16", "canal1cr", "Música CR", "Talento nacional costarricense y videos musicales.", 17, 30, 18, 0, "Música"),
+            TvProgram("c1cr_su17", "canal1cr", "Serie Retro", "Producciones retro en la sobremesa dominical.", 18, 0, 19, 30, "Series"),
+            TvProgram("c1cr_su18", "canal1cr", "Sorteo JPS en Vivo", "Transmisión en directo del Sorteo de la Lotería Nacional de la Junta de Protección Social.", 19, 30, 20, 30, "Especiales"),
+            TvProgram("c1cr_su19", "canal1cr", "Cine del 1 Estelar", "Película estelar de domingo para cerrar la semana.", 20, 30, 23, 0, "Cine"),
+            TvProgram("c1cr_su20", "canal1cr", "Retro Hits Noche", "Música retro para despedir el domingo.", 23, 0, 0, 0, "Música")
         )
     )
 
@@ -501,20 +562,31 @@ object CostaRicaEpgData {
         ),
 
         "canal1cr" to listOf(
-            TvProgram("c1cr_0", "canal1cr", "Serie Retro", "Clásicos televisivos y series legendarias para la madrugada.", 0, 0, 1, 0, "Series"),
-            TvProgram("c1cr_1", "canal1cr", "Dramas Internacionales", "Grandes producciones dramáticas y suspenso.", 1, 0, 2, 0, "Drama"),
-            TvProgram("c1cr_2", "canal1cr", "Cómo Han Pasado Los Años", "Recorrido nostálgico por la historia, música y momentos que marcaron época.", 2, 0, 3, 0, "Cultura"),
-            TvProgram("c1cr_3", "canal1cr", "Musicales del 1", "Videoclips de baladas, pop latino y música del recuerdo.", 3, 0, 6, 0, "Música"),
-            TvProgram("c1cr_4", "canal1cr", "Amanecer Ciudadano & Dibujos Retro", "Animaciones clásicas para iniciar la mañana y noticias matutinas.", 6, 0, 7, 30, "Infantil"),
-            TvProgram("c1cr_5", "canal1cr", "Primero Noticias (Primera Emisión)", "El primer contacto informativo del día en Canal 1 con las noticias del país.", 7, 30, 9, 30, "Noticias"),
-            TvProgram("c1cr_6", "canal1cr", "Revista Mañanera del 1", "Salud, cocina costarricense, consejos del hogar y entrevistas de actualidad.", 9, 30, 12, 0, "Revista"),
-            TvProgram("c1cr_7", "canal1cr", "Pulso y Voces de Costa Rica", "Reportajes sobre comunidades, pequeñas y medianas empresas y turismo.", 12, 0, 13, 30, "Cultura"),
-            TvProgram("c1cr_8", "canal1cr", "Primero Noticias (Edición Mediodía)", "Toda la actualidad nacional, economía y deportes de mitad de jornada.", 13, 30, 15, 0, "Noticias"),
-            TvProgram("c1cr_9", "canal1cr", "Las Tardes del 1", "El programa vespertino de entretenimiento, entrevistas en vivo y farándula.", 15, 0, 18, 0, "Entretenimiento"),
-            TvProgram("c1cr_10", "canal1cr", "Primero Noticias (Vespertina)", "Resumen informativo al final de la tarde antes del horario estelar.", 18, 0, 19, 0, "Noticias"),
-            TvProgram("c1cr_11", "canal1cr", "Debate Costa Rica & Opinión", "Mesa redonda sobre política, leyes, asamblea legislativa y economía.", 19, 0, 21, 0, "Debate"),
-            TvProgram("c1cr_12", "canal1cr", "Primero Noticias (Edición Estelar)", "El noticiero principal de Canal 1 con Paul Ulloa y los hechos de fondo.", 21, 0, 22, 30, "Noticias"),
-            TvProgram("c1cr_13", "canal1cr", "Noche de Opinión y Cierre", "Análisis con analistas políticos y resumen del acontecer nacional.", 22, 30, 0, 0, "Opinión")
+            TvProgram("c1cr_0", "canal1cr", "Serie Retro", "Las mejores series clásicas y producciones retro de la televisión internacional.", 0, 0, 1, 0, "Series"),
+            TvProgram("c1cr_1", "canal1cr", "Dramas", "Producciones dramáticas y telenovelas internacionales de gran audiencia.", 1, 0, 2, 0, "Novela"),
+            TvProgram("c1cr_2", "canal1cr", "Cómo Han Pasado Los Años", "Recorrido nostálgico con historia, música y recuerdos inolvidables.", 2, 0, 3, 0, "Cultura"),
+            TvProgram("c1cr_3", "canal1cr", "Musicales", "Los mejores videoclips y música variada para disfrutar la madrugada.", 3, 0, 6, 0, "Música"),
+            TvProgram("c1cr_4", "canal1cr", "Santa Misa", "Celebración eucarística matutina.", 6, 0, 7, 30, "Religión"),
+            TvProgram("c1cr_5", "canal1cr", "Animado Retro", "Dibujos animados y caricaturas clásicas familiares.", 7, 30, 8, 0, "Infantil"),
+            TvProgram("c1cr_6", "canal1cr", "RT En Vivo", "Noticias internacionales y actualidad en directo.", 8, 0, 8, 30, "Noticias"),
+            TvProgram("c1cr_7", "canal1cr", "Cómo Han Pasado Los Años", "Historias de antaño, anécdotas y música del recuerdo.", 8, 30, 9, 30, "Cultura"),
+            TvProgram("c1cr_8", "canal1cr", "Animado Retro", "Aventuras animadas clásicas para la mañana.", 9, 30, 10, 0, "Infantil"),
+            TvProgram("c1cr_9", "canal1cr", "Reinventados", "Espacio de innovación, emprendimientos y superación en Costa Rica.", 10, 0, 11, 0, "Revista"),
+            TvProgram("c1cr_10", "canal1cr", "Novela China", "Superproducción dramática y romance de época.", 11, 0, 12, 0, "Novela"),
+            TvProgram("c1cr_11", "canal1cr", "RT En Vivo", "Transmisión informativa internacional al mediodía.", 12, 0, 12, 30, "Noticias"),
+            TvProgram("c1cr_12", "canal1cr", "Primero Deportes", "Toda la actualidad del fútbol nacional y deportes ticos.", 12, 30, 13, 0, "Deportes"),
+            TvProgram("c1cr_13", "canal1cr", "Serie Retro", "Clásicos televisivos de la pantalla chica.", 13, 0, 13, 30, "Series"),
+            TvProgram("c1cr_14", "canal1cr", "Primero Noticias - Mediodía", "Noticiero con las noticias clave de la jornada.", 13, 30, 14, 0, "Noticias"),
+            TvProgram("c1cr_15", "canal1cr", "Dramas", "Emisión vespertina de telenovela dramática internacional.", 14, 0, 15, 0, "Novela"),
+            TvProgram("c1cr_16", "canal1cr", "Serie Retro", "Historias, acción y comedia de series de culto.", 15, 0, 16, 0, "Series"),
+            TvProgram("c1cr_17", "canal1cr", "Animado Retro", "Bloque infantil y juvenil de la tarde.", 16, 0, 17, 0, "Infantil"),
+            TvProgram("c1cr_18", "canal1cr", "Cómo Han Pasado Los Años", "Crónicas y momentos históricos inolvidables.", 17, 0, 18, 0, "Cultura"),
+            TvProgram("c1cr_19", "canal1cr", "Primero Noticias - Edición Central", "Edición estelar del noticiero principal de Canal 1.", 18, 0, 20, 0, "Noticias"),
+            TvProgram("c1cr_20", "canal1cr", "Primero Deportes Estelar", "Análisis, debate deportivo y polémica futbolera.", 20, 0, 20, 30, "Deportes"),
+            TvProgram("c1cr_21", "canal1cr", "Marcelo Castro Presenta", "Entrevistas de fondo e investigación con Marcelo Castro.", 20, 30, 21, 0, "Opinión"),
+            TvProgram("c1cr_22", "canal1cr", "Primero Noticias - Resumen Noche", "La información de cierre y acontecimientos de última hora.", 21, 0, 22, 0, "Noticias"),
+            TvProgram("c1cr_23", "canal1cr", "Kick Off", "Fútbol nacional, debate picante y análisis de fondo.", 22, 0, 23, 0, "Deportes"),
+            TvProgram("c1cr_24", "canal1cr", "CGTN En Vivo", "Noticias internacionales y actualidad global en directo.", 23, 0, 0, 0, "Noticias")
         ),
 
         "lossantostv" to listOf(

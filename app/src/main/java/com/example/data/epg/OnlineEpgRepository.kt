@@ -133,6 +133,19 @@ class OnlineEpgRepository(private val context: Context) {
             lastError = e.message
         }
 
+        // 2. OFFICIAL DIRECT SOURCE: CANAL 1 COSTA RICA (canal1cr.com/programacion/)
+        try {
+            Log.d(tag, "Fetching official live schedule for Canal 1 directly from ${Canal1Scraper.URL}...")
+            val canal1Progs = Canal1Scraper.fetchCanal1Schedule(httpClient)
+            if (canal1Progs.isNotEmpty()) {
+                Log.d(tag, "Loaded ${canal1Progs.size} programs directly from canal1cr.com/programacion/")
+                aggregatedSchedules["canal1cr"] = canal1Progs
+                success = true
+            }
+        } catch (e: Exception) {
+            Log.w(tag, "Canal1Scraper error: ${e.message}")
+        }
+
         // 2. SECONDARY / SUPPLEMENTARY SOURCES: XMLTV Feeds
         val sources = OnlineEpgSources.allSources
         for (source in sources) {
