@@ -53,11 +53,8 @@ object CostaRicaChannelsData {
             callsign = "FUTV",
             category = ChannelCategory.DEPORTES,
             streamUrls = listOf(
-                "http://190.61.90.17:40000/play/a03v/index.m3u8",
-                "http://45.186.106.207:8000/play/a03v/index.m3u8",
                 "https://futvcr.com/wp-content/uploads/2026/09/RESUMEN-FECHA-JORNADA-9-A-26.mp4",
-                "https://futvcr.com/wp-content/uploads/2026/09/RESUMEN-LDA-5-0-ISC.mp4",
-                "https://futvcr.com/wp-content/uploads/2026/09/resumen-SAP-vs-CSH-1.mp4"
+                "https://futvcr.com/wp-content/uploads/2026/09/RESUMEN-LDA-5-0-ISC.mp4"
             ),
             logoUrl = "https://i.imgur.com/f8BkLql.png",
             description = "El canal oficial del fútbol costarricense. Partidos exclusivos de la Liga Promerica, previas y análisis deportivo de primera.",

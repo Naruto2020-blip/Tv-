@@ -419,35 +419,6 @@ fun VideoPlayerView(
                         fontSize = 13.sp,
                         fontWeight = FontWeight.Medium
                     )
-                    if (activeStreams.size > 1) {
-                        Spacer(modifier = Modifier.height(14.dp))
-                        Surface(
-                            onClick = {
-                                activeStreamIndex = (activeStreamIndex + 1) % activeStreams.size
-                            },
-                            shape = RoundedCornerShape(16.dp),
-                            color = Color.White.copy(alpha = 0.25f)
-                        ) {
-                            Row(
-                                verticalAlignment = Alignment.CenterVertically,
-                                modifier = Modifier.padding(horizontal = 14.dp, vertical = 7.dp)
-                            ) {
-                                Icon(
-                                    Icons.Default.Refresh,
-                                    contentDescription = null,
-                                    tint = Color.White,
-                                    modifier = Modifier.size(15.dp)
-                                )
-                                Spacer(modifier = Modifier.width(6.dp))
-                                Text(
-                                    text = "Cambiar a señal alternativa (${activeStreamIndex + 1}/${activeStreams.size})",
-                                    color = Color.White,
-                                    fontSize = 12.sp,
-                                    fontWeight = FontWeight.SemiBold
-                                )
-                            }
-                        }
-                    }
                 }
             }
         }
@@ -504,7 +475,7 @@ fun VideoPlayerView(
                                 )
                                 Spacer(modifier = Modifier.width(8.dp))
                                 Text(
-                                    text = if (activeStreams.size > 1) "Probar otra señal (${activeStreamIndex + 1}/${activeStreams.size})" else "Reintentar",
+                                    text = "Reintentar",
                                     color = Color.White,
                                     fontSize = 13.sp,
                                     fontWeight = FontWeight.SemiBold
@@ -689,41 +660,6 @@ fun VideoPlayerView(
                             tint = Color.White,
                             modifier = Modifier.size(28.dp)
                         )
-                    }
-                }
-
-                // Signal Selector row (when multiple signals available)
-                if (activeStreams.size > 1) {
-                    Row(
-                        modifier = Modifier
-                            .align(Alignment.BottomCenter)
-                            .padding(bottom = 54.dp),
-                        horizontalArrangement = Arrangement.spacedBy(8.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        activeStreams.take(4).forEachIndexed { idx, url ->
-                            val isSelected = activeStreamIndex == idx
-                            val label = when {
-                                url.contains("40000") -> "En vivo 1"
-                                url.contains("8000") -> "En vivo 2"
-                                url.contains("futvcr.com") -> "FUTV HD"
-                                else -> "Señal ${idx + 1}"
-                            }
-                            Surface(
-                                onClick = { activeStreamIndex = idx },
-                                shape = RoundedCornerShape(12.dp),
-                                color = if (isSelected) MaterialTheme.colorScheme.primary else Color.Black.copy(alpha = 0.55f),
-                                border = if (isSelected) null else androidx.compose.foundation.BorderStroke(1.dp, Color.White.copy(alpha = 0.35f))
-                            ) {
-                                Text(
-                                    text = label,
-                                    color = Color.White,
-                                    fontSize = 11.sp,
-                                    fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal,
-                                    modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp)
-                                )
-                            }
-                        }
                     }
                 }
 
