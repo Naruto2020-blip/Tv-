@@ -153,27 +153,19 @@ object CostaRicaEpgData {
 
         // TRECE COSTA RICA / SINART CANAL 13 (sinartdigital.com)
         "canal13sinart" to listOf(
-            TvProgram("c13_w0", "canal13sinart", "Música de la Patria / Madrugada", "Música instrumental costarricense y apertura de señal.", 0, 0, 7, 0, "Música"),
-            TvProgram("c13_w1", "canal13sinart", "Santo Rosario / Desiderata", "Espacio de espiritualidad, reflexión y paz matutina.", 7, 0, 7, 30, "Religión"),
-            TvProgram("c13_w2", "canal13sinart", "Trece Noticias - Emisión Matutina", "Noticiero público con cobertura integral de todo el territorio nacional.", 7, 30, 8, 30, "Noticias"),
-            TvProgram("c13_w3", "canal13sinart", "Nexos", "Programa referente en derechos humanos, inclusión y accesibilidad en Costa Rica.", 8, 30, 9, 0, "Educativo"),
-            TvProgram("c13_w4", "canal13sinart", "Comunidad PAS", "Contenidos dedicados al bienestar, salud y recreación de la persona adulta mayor.", 9, 0, 10, 0, "Cultura"),
-            TvProgram("c13_w5", "canal13sinart", "El payaso Plim Plim un héroe del corazón", "Animación educativa con valores de solidaridad y amistad para los niños.", 10, 0, 10, 30, "Infantil"),
-            TvProgram("c13_w6", "canal13sinart", "Robocar Poli", "Equipo de rescate animado que enseña seguridad vial y trabajo en equipo.", 10, 30, 11, 0, "Infantil"),
-            TvProgram("c13_w7", "canal13sinart", "FrienZoo Duda & Dada", "Aventuras fantásticas en el bosque aprendiendo sobre la naturaleza.", 11, 0, 11, 30, "Infantil"),
-            TvProgram("c13_w8", "canal13sinart", "El mundo de Arcadio", "Creatividad, dibujo y artes visuales con el reconocido artista costarricense.", 11, 30, 12, 0, "Educativo"),
-            TvProgram("c13_w9", "canal13sinart", "Visión Futuro", "Innovación científica y nuevas tecnologías para el desarrollo del país.", 12, 0, 12, 30, "Ciencia"),
-            TvProgram("c13_w10", "canal13sinart", "Date un Vlog", "Divulgación científica entretenida y curiosidades del universo.", 12, 30, 13, 0, "Ciencia"),
-            TvProgram("c13_w11", "canal13sinart", "Protectores de Vida", "Medio ambiente, protección de parques nacionales y fauna tica.", 13, 0, 13, 30, "Ecológico"),
-            TvProgram("c13_w12", "canal13sinart", "Sin Escalas / Matéria Prima", "Reportajes sobre industrias creativas y artesanía costarricense.", 13, 30, 14, 30, "Cultura"),
-            TvProgram("c13_w13", "canal13sinart", "Asamblea Legislativa al Día", "Transmisión en directo del plenario legislativo y comisiones parlamentarias.", 14, 30, 16, 0, "Política"),
-            TvProgram("c13_w14", "canal13sinart", "Fuera de Juego", "El deporte nacional con enfoque analítico y cobertura de atletas olímpicos ticos.", 16, 0, 17, 0, "Deportes"),
-            TvProgram("c13_w15", "canal13sinart", "Trece Noticias - Emisión Vespertina", "Actualización informativa de mitad de tarde.", 17, 0, 18, 0, "Noticias"),
-            TvProgram("c13_w16", "canal13sinart", "Costa Rica Silvestre", "Documentales sobre la riqueza biológica de nuestros mares y selvas.", 18, 0, 19, 0, "Documental"),
-            TvProgram("c13_w17", "canal13sinart", "Trece Noticias - Emisión Estelar", "Edición central con las noticias más determinantes de la República.", 19, 0, 20, 0, "Noticias"),
-            TvProgram("c13_w18", "canal13sinart", "Arte 13 / Cine de Costa Rica", "Muestra del talento audiovisual costarricense y cine independiente latino.", 20, 0, 22, 0, "Cultura"),
-            TvProgram("c13_w19", "canal13sinart", "Trece Noticias - Emisión Nocturna", "El cierre informativo del día de la televisión pública de Costa Rica.", 22, 0, 23, 0, "Noticias"),
-            TvProgram("c13_w20", "canal13sinart", "Música de Cámara y Fin de Transmisión", "Conciertos de la Orquesta Sinfónica Nacional y música clásica.", 23, 0, 0, 0, "Música")
+            TvProgram("c13_w0", "canal13sinart", "Himno Nacional y Madrugada Cultural", "Música instrumental costarricense y apertura de señal pública.", 0, 0, 6, 0, "Música"),
+            TvProgram("c13_w1", "canal13sinart", "Trece Noticias - Edición Matutina", "Primer contacto con la actualidad nacional, sucesos y tránsito.", 6, 0, 8, 0, "Noticias"),
+            TvProgram("c13_w2", "canal13sinart", "Su Lado Positivo", "Revista matutina de superación, bienestar, psicología y entrevistas con Luis Carlos Méndez.", 8, 0, 10, 0, "Variedades"),
+            TvProgram("c13_w3", "canal13sinart", "Materia Prima", "Producción agrícola nacional, exportaciones costarricenses y tecnología de campo con Enrique Mora.", 10, 0, 11, 0, "Educativo"),
+            TvProgram("c13_w4", "canal13sinart", "Consulta en Directo", "Consultas médicas y ciudadanas atendidas en vivo por especialistas.", 11, 0, 12, 0, "Salud"),
+            TvProgram("c13_w5", "canal13sinart", "Trece Noticias - Edición Meridiana", "El noticiero completo de mediodía de la televisión pública costarricense.", 12, 0, 13, 30, "Noticias"),
+            TvProgram("c13_w6", "canal13sinart", "Documentales UNED / Animalia", "Series científicas, investigación ambiental, volcanes y biodiversidad.", 13, 30, 15, 0, "Documental"),
+            TvProgram("c13_w7", "canal13sinart", "Dominio Documental / Tatamundo", "Patrimonio cultural, comunidades e identidad costarricense.", 15, 0, 16, 30, "Cultura"),
+            TvProgram("c13_w8", "canal13sinart", "Arte 13 / La Senda Ignorada", "Historia, artes escénicas, música costarricense y literatura.", 16, 30, 18, 0, "Cultura"),
+            TvProgram("c13_w9", "canal13sinart", "Trece Noticias - Edición Estelar", "Análisis a profundidad y reportajes especiales con cobertura nacional.", 18, 0, 19, 30, "Noticias"),
+            TvProgram("c13_w10", "canal13sinart", "Deportivas del 13", "Toda la actualidad del fútbol nacional y deportes olímpicos de Costa Rica.", 19, 30, 20, 30, "Deportes"),
+            TvProgram("c13_w11", "canal13sinart", "Especiales SINART & Debate Público", "Mesas redondas, coyuntura política y programas de opinión.", 20, 30, 22, 0, "Opinión"),
+            TvProgram("c13_w12", "canal13sinart", "Noche Cultural del 13 / Cine Iberoamericano", "Cine independiente y conciertos de la Orquesta Sinfónica Nacional.", 22, 0, 0, 0, "Cine")
         ),
 
         // CANAL 8 MULTIMEDIOS COSTA RICA (telediario.cr)
@@ -192,19 +184,26 @@ object CostaRicaEpgData {
             TvProgram("c8_w11", "canal8multimedios", "Al Cierre Telediario", "El resumen final con los acontecimientos de la noche.", 22, 30, 0, 0, "Noticias")
         ),
 
-        // FUTV COSTA RICA (futvcr.com)
+        // FUTV COSTA RICA (futvcr.com/programacion/)
         "futv" to listOf(
-            TvProgram("fu_w0", "futv", "Archivo de Oro del Fútbol Tico", "Los mejores partidos y clásicos de la historia del fútbol costarricense.", 0, 0, 6, 0, "Deportes"),
-            TvProgram("fu_w1", "futv", "Goles de la Liga Promerica", "Repaso de todas las anotaciones de la última jornada del campeonato nacional.", 6, 0, 8, 30, "Deportes"),
-            TvProgram("fu_w2", "futv", "FUTV Noticias", "Novedades de los equipos de primera división, entrenamientos y entrevistas.", 8, 30, 10, 0, "Deportes"),
-            TvProgram("fu_w3", "futv", "Clásicos Inolvidables de Costa Rica", "Revive los partidos históricos entre Saprissa, Alajuelense, Herediano y Cartaginés.", 10, 0, 11, 30, "Deportes"),
-            TvProgram("fu_w4", "futv", "Partido en Directo / Repetición Liga Promerica", "Transmisión de partidos con narración y comentarios oficiales.", 11, 30, 13, 30, "Deportes"),
-            TvProgram("fu_w5", "futv", "Grada 12 / La Platea", "Debate apasionado sobre el rendimiento arbitral y táctico.", 13, 30, 15, 0, "Deportes"),
-            TvProgram("fu_w6", "futv", "Partido de la Jornada", "El choque más electrizante de la fecha futbolera.", 15, 0, 17, 30, "Deportes"),
-            TvProgram("fu_w7", "futv", "Zona Técnica / Previa FUTV", "Análisis estratégico y desglose táctico de jugadas clave con entrenadores expertos.", 17, 30, 19, 0, "Deportes"),
-            TvProgram("fu_w8", "futv", "Partido Estelar en Vivo: Liga Promerica", "Fútbol en vivo de primera división con toda la emoción de las gradas.", 19, 0, 21, 30, "Deportes"),
-            TvProgram("fu_w9", "futv", "Línea de 4 / Tercer Tiempo", "Debate ardiente sobre la fecha, conferencias de prensa y la tabla de posiciones.", 21, 30, 23, 0, "Deportes"),
-            TvProgram("fu_w10", "futv", "Resumen de la Jornada Promerica", "Todas las estadísticas, tabla de goleadores y tabla acumulada.", 23, 0, 0, 0, "Deportes")
+            TvProgram("fu_w0", "futv", "Juego Liga Promerica / Futsal / Femenino", "Transmisiones oficiales y repeticiones de la Primera División costarricense.", 0, 0, 2, 0, "Deportes"),
+            TvProgram("fu_w1", "futv", "Tiempo Final / Al Ritmo del Deporte", "El análisis deportivo de las jornadas y atletas costarricenses.", 2, 0, 3, 0, "Deportes"),
+            TvProgram("fu_w2", "futv", "Un Recuerdo Maravilloso", "El exjugador Roy Myers y sus invitados reviven momentos históricos del fútbol tico.", 3, 0, 4, 0, "Deportes"),
+            TvProgram("fu_w3", "futv", "Fútbol TV & Más / Los 11 Titulares", "Análisis táctico, semblanzas y entrevistas exclusivas.", 4, 0, 5, 0, "Deportes"),
+            TvProgram("fu_w4", "futv", "Fútbol en 60: Resumen Liga Promerica", "Resumen compacto de 60 minutos con todas las jugadas del fútbol nacional.", 5, 0, 7, 0, "Deportes"),
+            TvProgram("fu_w5", "futv", "Mundo de Fútbol Menor", "Academias de fútbol menor, semillero y talentos emergentes de Costa Rica.", 7, 0, 8, 0, "Deportes"),
+            TvProgram("fu_w6", "futv", "Somos el Team / Los Saprissa", "Programas oficiales de los clubes grandes del balompié costarricense.", 8, 0, 10, 0, "Deportes"),
+            TvProgram("fu_w7", "futv", "El Negocio del Fútbol", "Análisis del mercado deportivo, fichajes y finanzas de la industria.", 10, 0, 11, 0, "Deportes"),
+            TvProgram("fu_w8", "futv", "La Previa de la Jornada Promerica", "Conexión en vivo desde los estadios con alineaciones y ambiente.", 11, 0, 12, 0, "Deportes"),
+            TvProgram("fu_w9", "futv", "Partido en Vivo: Liga Promerica (Mediodía)", "Transmisión del campeonato nacional de primera división en directo.", 12, 0, 14, 0, "Deportes"),
+            TvProgram("fu_w10", "futv", "Marcador y Reacciones de Cancha", "Entrevistas en caliente desde el terreno de juego con protagonistas.", 14, 0, 15, 0, "Deportes"),
+            TvProgram("fu_w11", "futv", "Partido Vespertino: Liga Promerica", "Fútbol en directo de primera división de Costa Rica.", 15, 0, 17, 0, "Deportes"),
+            TvProgram("fu_w12", "futv", "Futsal 360 / Únicamente Fútbol", "El futsal costarricense desde todos los ángulos y debate futbolero.", 17, 0, 18, 0, "Deportes"),
+            TvProgram("fu_w13", "futv", "La Jornada (Edición Central)", "30 minutos con la información más relevante de Primera División y Liga de Ascenso.", 18, 0, 19, 0, "Deportes"),
+            TvProgram("fu_w14", "futv", "Partido Estelar en Vivo: Liga Promerica", "El encuentro estelar de la fecha con narración y comentarios oficiales.", 19, 0, 21, 0, "Deportes"),
+            TvProgram("fu_w15", "futv", "Acercándonos - Fútbol Femenino", "El crecimiento, esfuerzo y partidos del fútbol femenino en Costa Rica.", 21, 0, 22, 0, "Deportes"),
+            TvProgram("fu_w16", "futv", "A Fondo Con…", "Entrevistas en profundidad con personajes y leyendas del fútbol.", 22, 0, 23, 0, "Deportes"),
+            TvProgram("fu_w17", "futv", "Cierre de Jornada / Lo Mejor de la Fecha", "Resumen de goles, tabla de posiciones y goles destacados.", 23, 0, 0, 0, "Deportes")
         ),
 
         // EXTRA TV 42 (extratv42.com)
@@ -222,20 +221,21 @@ object CostaRicaEpgData {
             TvProgram("ex_w10", "extratv42", "Cierre Informativo Extra", "Resumen de las noticias de última hora.", 22, 30, 0, 0, "Noticias")
         ),
 
-        // ¡OPA! CANAL 38 (genteopa.com)
+        // ¡OPA! CANAL 38 (genteopa.com/programas/)
         "opacanal38" to listOf(
             TvProgram("opa_w0", "opacanal38", "Madrugada OPA", "Lo mejor de la programación musical y urbana durante la madrugada.", 0, 0, 6, 0, "Música"),
-            TvProgram("opa_w1", "opacanal38", "Amanecer con ¡OPA!", "Música, energía positiva y las primeras novedades del día.", 6, 0, 7, 0, "Música"),
-            TvProgram("opa_w2", "opacanal38", "Central Noticias Mañana", "Noticias sin rodeos con un enfoque fresco e innovador.", 7, 0, 9, 0, "Noticias"),
-            TvProgram("opa_w3", "opacanal38", "Gente OPA", "Espacio dinámico con entrevistas a emprendedores, tendencias de moda y gastronomía.", 9, 0, 11, 30, "Revista"),
-            TvProgram("opa_w4", "opacanal38", "Con Permiso", "Diálogos abiertos y comentarios sobre temas de actualidad nacional.", 11, 30, 12, 30, "Opinión"),
-            TvProgram("opa_w5", "opacanal38", "Central Noticias Mediodía", "Edición del mediodía con cobertura inmediata.", 12, 30, 14, 0, "Noticias"),
-            TvProgram("opa_w6", "opacanal38", "Tardes Dinámicas", "Cine, series y entretenimiento contemporáneo.", 14, 0, 17, 0, "Entretenimiento"),
-            TvProgram("opa_w7", "opacanal38", "La Previa OPA", "Mesa de discusión previa a la noche de entretenimiento.", 17, 0, 19, 0, "Variedades"),
-            TvProgram("opa_w8", "opacanal38", "Central Noticias Edición Central", "Las noticias más relevantes del día en formato ágil y visual.", 19, 0, 20, 30, "Noticias"),
-            TvProgram("opa_w9", "opacanal38", "¡OPA! Deportes", "Análisis de la jornada deportiva de Costa Rica y el mundo.", 20, 30, 22, 0, "Deportes"),
-            TvProgram("opa_w10", "opacanal38", "Noche Abierta", "Entrevistas nocturnas y cultura urbana.", 22, 0, 23, 30, "Opinión"),
-            TvProgram("opa_w11", "opacanal38", "Cierre y Madrugada OPA", "Música continua y especiales.", 23, 30, 0, 0, "Variedades")
+            TvProgram("opa_w1", "opacanal38", "Central Noticias - Primera Emisión", "Las noticias tempraneras de Costa Rica con cobertura ágil y directa.", 6, 0, 8, 0, "Noticias"),
+            TvProgram("opa_w2", "opacanal38", "Gente OPA Revista Matutina", "Moda, bienestar, entretenimiento, farándula y creadores de contenido.", 8, 0, 10, 30, "Variedades"),
+            TvProgram("opa_w3", "opacanal38", "Tarde Dinámica OPA", "Series, tendencias de streaming y tecnología para la juventud.", 10, 30, 12, 0, "Entretenimiento"),
+            TvProgram("opa_w4", "opacanal38", "Central Noticias Mediodía", "Edición meridiana con los sucesos e información en vivo.", 12, 0, 13, 30, "Noticias"),
+            TvProgram("opa_w5", "opacanal38", "Miss Universe Costa Rica & Estilo", "Actualidad de pasarela, belleza y estilo de vida.", 13, 30, 15, 0, "Moda"),
+            TvProgram("opa_w6", "opacanal38", "Tarde de Cine y Variedades OPA", "Cine de acción, comedia y entretenimiento para la familia.", 15, 0, 17, 0, "Cine"),
+            TvProgram("opa_w7", "opacanal38", "A Doble Nudo / Alma de Mujer", "Temas de economía, innovación y empoderamiento de la mujer.", 17, 0, 18, 0, "Variedades"),
+            TvProgram("opa_w8", "opacanal38", "Central Noticias Edición Central", "La edición estelar con las noticias más impactantes del día en Costa Rica.", 18, 0, 19, 0, "Noticias"),
+            TvProgram("opa_w9", "opacanal38", "Está Pasando", "La noticia ocurre en cualquier momento y Está Pasando está ahí para contarla.", 19, 0, 20, 0, "Noticias"),
+            TvProgram("opa_w10", "opacanal38", "¡OPA! Deportes", "Debate futbolero, Liga Promerica y atletas de Costa Rica.", 20, 0, 22, 0, "Deportes"),
+            TvProgram("opa_w11", "opacanal38", "Equilibrio con Yaxún / Noche Abierta", "Balance de mente, cuerpo y espíritu, entrevistas sin filtro.", 22, 0, 23, 30, "Opinión"),
+            TvProgram("opa_w12", "opacanal38", "Cierre de Emisión OPA", "Música continua para cerrar la jornada.", 23, 30, 0, 0, "Música")
         ),
 
         // VM LATINO (Canal 29 - vmlatino.com)

@@ -39,10 +39,11 @@ object CostaRicaChannelsData {
             callsign = "Canal 38",
             category = ChannelCategory.ENTRETENIMIENTO,
             streamUrls = listOf(
+                "https://5f1af61612fb5.streamlock.net/genteopa/smil:genteopa.smil/playlist.m3u8?wowzatokenendtime=1790211874&wowzatokenhash=ILPRDt5LIKM_soLg4bda6Ouj7bil9EPv9gIJJjZiMwo%3D",
                 "https://5f1af61612fb5.streamlock.net/genteopa/videogenteopa_720p/playlist.m3u8"
             ),
             logoUrl = "https://i.imgur.com/300c1ZH.png",
-            description = "La nueva televisión de Costa Rica con Central Noticias, Gente OPA, programas de debate, moda y actualidad nacional.",
+            description = "La nueva televisión de Costa Rica con Central Noticias, Está Pasando, Equilibrio con Yaxún, A Doble Nudo, Alma de Mujer y Miss Universe.",
             location = "San José",
             quality = "720p HD"
         ),
@@ -52,7 +53,10 @@ object CostaRicaChannelsData {
             callsign = "FUTV",
             category = ChannelCategory.DEPORTES,
             streamUrls = listOf(
-                "http://190.61.90.17:40000/play/a03v/index.m3u8"
+                "http://45.186.106.207:8000/play/a03v/index.m3u8",
+                "http://190.61.90.17:40000/play/a03v/index.m3u8",
+                "https://futvcr.com/wp-content/uploads/2026/09/RESUMEN-FECHA-JORNADA-9-A-26.mp4",
+                "https://cloudvideo.servers10.com:8081/8230/index.m3u8"
             ),
             logoUrl = "https://i.imgur.com/f8BkLql.png",
             description = "El canal oficial del fútbol costarricense. Partidos exclusivos de la Liga Promerica, previas y análisis deportivo de primera.",
@@ -118,11 +122,11 @@ object CostaRicaChannelsData {
             callsign = "Canal 13",
             category = ChannelCategory.NACIONALES,
             streamUrls = listOf(
-                "https://59ef525c24caa.streamlock.net/sinart/sinart/playlist.m3u8",
-                "https://stream.sinart.go.cr/live/canal13.m3u8"
+                "https://cdndirector.dailymotion.com/cdn/live/video/x7vh8g3.m3u8?sec=ATXTcXasM3wfMsIIX7mepddpGuOV-0FGXrbWcEZ9ttXvXdP91hV4E5lxcyZY8tbAg1x3OIdM7G72-d2qC1rUSw&dmTs=366146&dmV1st=4ED7C90AE0F8D97E49192507D33B7A92",
+                "https://cdndirector.dailymotion.com/cdn/live/video/x7vh8g3.m3u8"
             ),
             logoUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Trece_Costa_Rica_Televisi%C3%B3n_logo.svg/800px-Trece_Costa_Rica_Televisi%C3%B3n_logo.svg.png",
-            description = "Televisión pública de Costa Rica con Trece Noticias, Arte 13, Fuera de Juego, cultura, ciencia e historia nacional.",
+            description = "Televisión pública de Costa Rica con Trece Noticias, Su Lado Positivo, Materia Prima, Consulta en Directo, Arte 13 y Deportivas del 13.",
             location = "La Uruca, San José",
             quality = "1080p HD"
         ),

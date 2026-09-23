@@ -146,6 +146,45 @@ class OnlineEpgRepository(private val context: Context) {
             Log.w(tag, "Canal1Scraper error: ${e.message}")
         }
 
+        // 3. OFFICIAL DIRECT SOURCE: FUTV COSTA RICA (futvcr.com/programacion/)
+        try {
+            Log.d(tag, "Fetching official schedule for FUTV directly from ${FutvScraper.URL}...")
+            val futvProgs = FutvScraper.fetchFutvSchedule(httpClient)
+            if (futvProgs.isNotEmpty()) {
+                Log.d(tag, "Loaded ${futvProgs.size} programs directly from futvcr.com/programacion/")
+                aggregatedSchedules["futv"] = futvProgs
+                success = true
+            }
+        } catch (e: Exception) {
+            Log.w(tag, "FutvScraper error: ${e.message}")
+        }
+
+        // 4. OFFICIAL DIRECT SOURCE: TRECE COSTA RICA / SINART (sinartdigital.com/canaltrece/programas)
+        try {
+            Log.d(tag, "Fetching official schedule for Canal 13 SINART directly from ${SinartScraper.URL}...")
+            val sinartProgs = SinartScraper.fetchSinartSchedule(httpClient)
+            if (sinartProgs.isNotEmpty()) {
+                Log.d(tag, "Loaded ${sinartProgs.size} programs directly from sinartdigital.com")
+                aggregatedSchedules["canal13sinart"] = sinartProgs
+                success = true
+            }
+        } catch (e: Exception) {
+            Log.w(tag, "SinartScraper error: ${e.message}")
+        }
+
+        // 5. OFFICIAL DIRECT SOURCE: ¡OPA! CANAL 38 (genteopa.com/programas/)
+        try {
+            Log.d(tag, "Fetching official schedule for OPA Canal 38 directly from ${OpaScraper.URL}...")
+            val opaProgs = OpaScraper.fetchOpaSchedule(httpClient)
+            if (opaProgs.isNotEmpty()) {
+                Log.d(tag, "Loaded ${opaProgs.size} programs directly from genteopa.com")
+                aggregatedSchedules["opacanal38"] = opaProgs
+                success = true
+            }
+        } catch (e: Exception) {
+            Log.w(tag, "OpaScraper error: ${e.message}")
+        }
+
         // 2. SECONDARY / SUPPLEMENTARY SOURCES: XMLTV Feeds
         val sources = OnlineEpgSources.allSources
         for (source in sources) {

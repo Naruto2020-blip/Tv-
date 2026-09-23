@@ -68,6 +68,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.media3.common.MediaItem
+import androidx.media3.common.MimeTypes
 import androidx.media3.common.PlaybackException
 import androidx.media3.common.Player
 import androidx.media3.common.util.UnstableApi
@@ -77,6 +78,7 @@ import androidx.media3.exoplayer.source.DefaultMediaSourceFactory
 import androidx.media3.ui.AspectRatioFrameLayout
 import androidx.media3.ui.PlayerView
 import com.example.data.model.TvChannel
+import com.example.data.repository.LiveStreamResolver
 import com.example.ui.theme.LiveRed
 import kotlinx.coroutines.delay
 
@@ -105,8 +107,17 @@ fun VideoPlayerView(
     var isBuffering by remember { mutableStateOf(true) }
     var playbackError by remember { mutableStateOf<String?>(null) }
     var controlsVisible by remember { mutableStateOf(true) }
+    var activeStreams by remember(channel.id) { mutableStateOf(channel.streamUrls) }
     var activeStreamIndex by remember(channel.id) { mutableIntStateOf(0) }
     var resizeMode by remember { mutableStateOf(ResizeMode.FIT) }
+
+    // Resolve freshest dynamic live streams (for ¡OPA! Canal 38, Trece SINART, FUTV, etc.)
+    LaunchedEffect(channel.id) {
+        val resolved = LiveStreamResolver.resolveStreams(channel)
+        if (resolved.isNotEmpty() && resolved != activeStreams) {
+            activeStreams = resolved
+        }
+    }
 
     // Auto-hide controls after 4 seconds of inactivity
     LaunchedEffect(controlsVisible, isPlaying) {
@@ -170,7 +181,7 @@ fun VideoPlayerView(
 
             override fun onPlayerError(error: PlaybackException) {
                 isBuffering = false
-                val availableStreams = channel.streamUrls
+                val availableStreams = activeStreams
                 if (activeStreamIndex + 1 < availableStreams.size) {
                     // Try next fallback stream
                     activeStreamIndex++
@@ -209,15 +220,22 @@ fun VideoPlayerView(
     }
 
     // Update MediaItem when channel or stream index changes
-    LaunchedEffect(channel.id, activeStreamIndex) {
+    LaunchedEffect(channel.id, activeStreamIndex, activeStreams) {
         playbackError = null
         isBuffering = true
-        val streamUrl = channel.streamUrls.getOrNull(activeStreamIndex) ?: channel.streamUrls.firstOrNull()
+        val streamUrl = activeStreams.getOrNull(activeStreamIndex) ?: activeStreams.firstOrNull()
         if (streamUrl != null) {
             try {
                 val mediaItem = MediaItem.Builder()
                     .setUri(streamUrl)
                     .setMediaId(channel.id)
+                    .apply {
+                        if (streamUrl.contains(".m3u8", ignoreCase = true)) {
+                            setMimeType(MimeTypes.APPLICATION_M3U8)
+                        } else if (streamUrl.contains(".mp4", ignoreCase = true)) {
+                            setMimeType(MimeTypes.APPLICATION_MP4)
+                        }
+                    }
                     .build()
                 exoPlayer.setMediaItem(mediaItem)
                 exoPlayer.prepare()
@@ -317,9 +335,19 @@ fun VideoPlayerView(
                             playbackError = null
                             isBuffering = true
                             activeStreamIndex = 0
-                            val streamUrl = channel.streamUrls.firstOrNull()
+                            val streamUrl = activeStreams.firstOrNull() ?: channel.streamUrls.firstOrNull()
                             if (streamUrl != null) {
-                                val item = MediaItem.fromUri(streamUrl)
+                                val item = MediaItem.Builder()
+                                    .setUri(streamUrl)
+                                    .setMediaId(channel.id)
+                                    .apply {
+                                        if (streamUrl.contains(".m3u8", ignoreCase = true)) {
+                                            setMimeType(MimeTypes.APPLICATION_M3U8)
+                                        } else if (streamUrl.contains(".mp4", ignoreCase = true)) {
+                                            setMimeType(MimeTypes.APPLICATION_MP4)
+                                        }
+                                    }
+                                    .build()
                                 exoPlayer.setMediaItem(item)
                                 exoPlayer.prepare()
                                 exoPlayer.play()
