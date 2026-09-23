@@ -80,6 +80,7 @@ import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.exoplayer.hls.DefaultHlsExtractorFactory
 import androidx.media3.exoplayer.hls.HlsMediaSource
 import androidx.media3.exoplayer.source.DefaultMediaSourceFactory
+import androidx.media3.exoplayer.upstream.DefaultLoadErrorHandlingPolicy
 import androidx.media3.extractor.ts.DefaultTsPayloadReaderFactory
 import androidx.media3.ui.AspectRatioFrameLayout
 import androidx.media3.ui.PlayerView
@@ -141,9 +142,11 @@ fun VideoPlayerView(
     val exoPlayer = remember(context) {
         val httpDataSourceFactory = DefaultHttpDataSource.Factory()
             .setUserAgent("Mozilla/5.0 (Linux; Android 14; Mobile) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Mobile Safari/537.36")
-            .setConnectTimeoutMs(15000)
-            .setReadTimeoutMs(20000)
+            .setConnectTimeoutMs(6000)
+            .setReadTimeoutMs(8000)
             .setAllowCrossProtocolRedirects(true)
+
+        val fastRetryPolicy = DefaultLoadErrorHandlingPolicy(1)
 
         val hlsExtractorFactory = DefaultHlsExtractorFactory(
             DefaultTsPayloadReaderFactory.FLAG_ALLOW_NON_IDR_KEYFRAMES or
@@ -154,8 +157,10 @@ fun VideoPlayerView(
         val hlsMediaSourceFactory = HlsMediaSource.Factory(httpDataSourceFactory)
             .setExtractorFactory(hlsExtractorFactory)
             .setAllowChunklessPreparation(false)
+            .setLoadErrorHandlingPolicy(fastRetryPolicy)
 
         val mediaSourceFactory = DefaultMediaSourceFactory(httpDataSourceFactory)
+            .setLoadErrorHandlingPolicy(fastRetryPolicy)
 
         ExoPlayer.Builder(context)
             .setMediaSourceFactory(mediaSourceFactory)
@@ -164,6 +169,20 @@ fun VideoPlayerView(
                 playWhenReady = true
                 repeatMode = Player.REPEAT_MODE_OFF
             }
+    }
+
+    // Fast failover watchdog: if stuck buffering for > 6.5s, auto-try next available stream
+    LaunchedEffect(isBuffering, activeStreamIndex, channel.id, isWebStream) {
+        if (isBuffering && !isWebStream) {
+            delay(6500)
+            if (isBuffering && playbackError == null) {
+                if (activeStreamIndex + 1 < activeStreams.size) {
+                    activeStreamIndex++
+                } else {
+                    playbackError = "Señal en reconexión (${channel.name})"
+                }
+            }
+        }
     }
 
     // Manage activity fullscreen system bars and orientation
@@ -263,9 +282,11 @@ fun VideoPlayerView(
 
                     val httpDataSourceFactory = DefaultHttpDataSource.Factory()
                         .setUserAgent("Mozilla/5.0 (Linux; Android 14; Mobile) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Mobile Safari/537.36")
-                        .setConnectTimeoutMs(15000)
-                        .setReadTimeoutMs(20000)
+                        .setConnectTimeoutMs(6000)
+                        .setReadTimeoutMs(8000)
                         .setAllowCrossProtocolRedirects(true)
+
+                    val fastRetryPolicy = DefaultLoadErrorHandlingPolicy(1)
 
                     val hlsExtractorFactory = DefaultHlsExtractorFactory(
                         DefaultTsPayloadReaderFactory.FLAG_ALLOW_NON_IDR_KEYFRAMES or
@@ -276,11 +297,14 @@ fun VideoPlayerView(
                     val hlsMediaSourceFactory = HlsMediaSource.Factory(httpDataSourceFactory)
                         .setExtractorFactory(hlsExtractorFactory)
                         .setAllowChunklessPreparation(false)
+                        .setLoadErrorHandlingPolicy(fastRetryPolicy)
 
                     val mediaSource = if (streamUrl.contains(".m3u8", ignoreCase = true)) {
                         hlsMediaSourceFactory.createMediaSource(mediaItem)
                     } else {
-                        DefaultMediaSourceFactory(httpDataSourceFactory).createMediaSource(mediaItem)
+                        DefaultMediaSourceFactory(httpDataSourceFactory)
+                            .setLoadErrorHandlingPolicy(fastRetryPolicy)
+                            .createMediaSource(mediaItem)
                     }
 
                     exoPlayer.setMediaSource(mediaSource)
@@ -395,6 +419,35 @@ fun VideoPlayerView(
                         fontSize = 13.sp,
                         fontWeight = FontWeight.Medium
                     )
+                    if (activeStreams.size > 1) {
+                        Spacer(modifier = Modifier.height(14.dp))
+                        Surface(
+                            onClick = {
+                                activeStreamIndex = (activeStreamIndex + 1) % activeStreams.size
+                            },
+                            shape = RoundedCornerShape(16.dp),
+                            color = Color.White.copy(alpha = 0.25f)
+                        ) {
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                modifier = Modifier.padding(horizontal = 14.dp, vertical = 7.dp)
+                            ) {
+                                Icon(
+                                    Icons.Default.Refresh,
+                                    contentDescription = null,
+                                    tint = Color.White,
+                                    modifier = Modifier.size(15.dp)
+                                )
+                                Spacer(modifier = Modifier.width(6.dp))
+                                Text(
+                                    text = "Cambiar a señal alternativa (${activeStreamIndex + 1}/${activeStreams.size})",
+                                    color = Color.White,
+                                    fontSize = 12.sp,
+                                    fontWeight = FontWeight.SemiBold
+                                )
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -424,70 +477,39 @@ fun VideoPlayerView(
                         fontSize = 12.sp
                     )
                     Spacer(modifier = Modifier.height(16.dp))
-                    Surface(
-                        onClick = {
-                            playbackError = null
-                            isBuffering = true
-                            activeStreamIndex = 0
-                            if (!isWebStream) {
-                                val streamUrl = activeStreams.firstOrNull() ?: channel.streamUrls.firstOrNull()
-                                if (streamUrl != null) {
-                                    val item = MediaItem.Builder()
-                                        .setUri(streamUrl)
-                                        .setMediaId(channel.id)
-                                        .apply {
-                                            if (streamUrl.contains(".m3u8", ignoreCase = true)) {
-                                                setMimeType(MimeTypes.APPLICATION_M3U8)
-                                            } else if (streamUrl.contains(".mp4", ignoreCase = true)) {
-                                                setMimeType(MimeTypes.APPLICATION_MP4)
-                                            }
-                                        }
-                                        .build()
-                                    val httpDataSourceFactory = DefaultHttpDataSource.Factory()
-                                        .setUserAgent("Mozilla/5.0 (Linux; Android 14; Mobile) AppleWebKit/537.36")
-                                        .setConnectTimeoutMs(15000)
-                                        .setReadTimeoutMs(20000)
-                                        .setAllowCrossProtocolRedirects(true)
-                                    val hlsExtractorFactory = DefaultHlsExtractorFactory(
-                                        DefaultTsPayloadReaderFactory.FLAG_ALLOW_NON_IDR_KEYFRAMES or
-                                        DefaultTsPayloadReaderFactory.FLAG_DETECT_ACCESS_UNITS or
-                                        DefaultTsPayloadReaderFactory.FLAG_IGNORE_SPLICE_INFO_STREAM,
-                                        true
-                                    )
-                                    val hlsMediaSourceFactory = HlsMediaSource.Factory(httpDataSourceFactory)
-                                        .setExtractorFactory(hlsExtractorFactory)
-                                        .setAllowChunklessPreparation(false)
-                                    val mediaSource = if (streamUrl.contains(".m3u8", ignoreCase = true)) {
-                                        hlsMediaSourceFactory.createMediaSource(item)
-                                    } else {
-                                        DefaultMediaSourceFactory(httpDataSourceFactory).createMediaSource(item)
-                                    }
-                                    exoPlayer.setMediaSource(mediaSource)
-                                    exoPlayer.prepare()
-                                    exoPlayer.play()
-                                }
-                            }
-                        },
-                        shape = RoundedCornerShape(20.dp),
-                        color = MaterialTheme.colorScheme.primary
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(10.dp),
+                        verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
+                        Surface(
+                            onClick = {
+                                playbackError = null
+                                isBuffering = true
+                                if (activeStreams.size > 1) {
+                                    activeStreamIndex = (activeStreamIndex + 1) % activeStreams.size
+                                }
+                            },
+                            shape = RoundedCornerShape(20.dp),
+                            color = MaterialTheme.colorScheme.primary
                         ) {
-                            Icon(
-                                Icons.Default.Refresh,
-                                contentDescription = "Reintentar señal",
-                                tint = Color.White,
-                                modifier = Modifier.size(18.dp)
-                            )
-                            Spacer(modifier = Modifier.width(8.dp))
-                            Text(
-                                text = "Reintentar señal",
-                                color = Color.White,
-                                fontSize = 13.sp,
-                                fontWeight = FontWeight.SemiBold
-                            )
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
+                            ) {
+                                Icon(
+                                    Icons.Default.Refresh,
+                                    contentDescription = "Reintentar señal",
+                                    tint = Color.White,
+                                    modifier = Modifier.size(18.dp)
+                                )
+                                Spacer(modifier = Modifier.width(8.dp))
+                                Text(
+                                    text = if (activeStreams.size > 1) "Probar otra señal (${activeStreamIndex + 1}/${activeStreams.size})" else "Reintentar",
+                                    color = Color.White,
+                                    fontSize = 13.sp,
+                                    fontWeight = FontWeight.SemiBold
+                                )
+                            }
                         }
                     }
                 }
@@ -667,6 +689,41 @@ fun VideoPlayerView(
                             tint = Color.White,
                             modifier = Modifier.size(28.dp)
                         )
+                    }
+                }
+
+                // Signal Selector row (when multiple signals available)
+                if (activeStreams.size > 1) {
+                    Row(
+                        modifier = Modifier
+                            .align(Alignment.BottomCenter)
+                            .padding(bottom = 54.dp),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        activeStreams.take(4).forEachIndexed { idx, url ->
+                            val isSelected = activeStreamIndex == idx
+                            val label = when {
+                                url.contains("40000") -> "En vivo 1"
+                                url.contains("8000") -> "En vivo 2"
+                                url.contains("futvcr.com") -> "FUTV HD"
+                                else -> "Señal ${idx + 1}"
+                            }
+                            Surface(
+                                onClick = { activeStreamIndex = idx },
+                                shape = RoundedCornerShape(12.dp),
+                                color = if (isSelected) MaterialTheme.colorScheme.primary else Color.Black.copy(alpha = 0.55f),
+                                border = if (isSelected) null else androidx.compose.foundation.BorderStroke(1.dp, Color.White.copy(alpha = 0.35f))
+                            ) {
+                                Text(
+                                    text = label,
+                                    color = Color.White,
+                                    fontSize = 11.sp,
+                                    fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal,
+                                    modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp)
+                                )
+                            }
+                        }
                     }
                 }
 

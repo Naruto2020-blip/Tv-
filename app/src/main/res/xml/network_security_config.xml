@@ -6,4 +6,17 @@
             <certificates src="user" />
         </trust-anchors>
     </base-config>
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">190.61.90.17</domain>
+        <domain includeSubdomains="true">45.186.106.207</domain>
+        <domain includeSubdomains="true">futvcr.com</domain>
+        <domain includeSubdomains="true">sinartdigital.com</domain>
+        <domain includeSubdomains="true">dailymotion.com</domain>
+        <domain includeSubdomains="true">servers10.com</domain>
+        <domain includeSubdomains="true">bozztv.com</domain>
+        <domain includeSubdomains="true">streamlock.net</domain>
+        <domain includeSubdomains="true">teleame.com</domain>
+        <domain includeSubdomains="true">mdstrm.com</domain>
+    </domain-config>
 </network-security-config>
+

@@ -101,12 +101,47 @@ object LiveStreamResolver {
     }
 
     private fun resolveFutvStreams(channel: TvChannel): List<String> {
-        val streams = mutableListOf<String>()
-        // Prioritize active live feeds
-        streams.add("http://190.61.90.17:40000/play/a03v/index.m3u8")
-        streams.add("http://45.186.106.207:8000/play/a03v/index.m3u8")
+        val candidates = listOf(
+            "http://190.61.90.17:40000/play/a03v/index.m3u8",
+            "http://45.186.106.207:8000/play/a03v/index.m3u8"
+        )
+        val workingStreams = mutableListOf<String>()
+        val unreachableStreams = mutableListOf<String>()
 
-        // Dynamically scrape freshest match videos and summaries from futvcr.com
+        // Fast connectivity probe on current device network (checks if mobile carrier blocks high ports)
+        for (url in candidates) {
+            var reachable = false
+            try {
+                val checkReq = Request.Builder()
+                    .url(url)
+                    .head()
+                    .header("User-Agent", "Mozilla/5.0")
+                    .build()
+                val probeClient = httpClient.newBuilder()
+                    .connectTimeout(2500, TimeUnit.MILLISECONDS)
+                    .readTimeout(2500, TimeUnit.MILLISECONDS)
+                    .build()
+                probeClient.newCall(checkReq).execute().use { res ->
+                    if (res.isSuccessful || res.code in 200..399) {
+                        reachable = true
+                    }
+                }
+            } catch (e: Exception) {
+                reachable = false
+            }
+
+            if (reachable) {
+                workingStreams.add(url)
+            } else {
+                unreachableStreams.add(url)
+            }
+        }
+
+        val result = mutableListOf<String>()
+        // Prioritize streams confirmed reachable on this device network
+        result.addAll(workingStreams)
+
+        // Always add official FUTV match videos & broadcasts (served over Cloudflare HTTPS port 443, never blocked by carriers)
         try {
             val request = Request.Builder()
                 .url("https://futvcr.com")
@@ -119,8 +154,8 @@ object LiveStreamResolver {
                 var count = 0
                 while (mp4Matcher.find() && count < 5) {
                     val url = mp4Matcher.group()
-                    if (!streams.contains(url)) {
-                        streams.add(url)
+                    if (!result.contains(url)) {
+                        result.add(url)
                         count++
                     }
                 }
@@ -130,11 +165,19 @@ object LiveStreamResolver {
             Log.w(TAG, "Error fetching futvcr videos: ${e.message}")
         }
 
+        // Add channel default streams that aren't yet in result
         for (url in channel.streamUrls) {
-            if (!streams.contains(url)) {
-                streams.add(url)
+            if (!result.contains(url) && !unreachableStreams.contains(url)) {
+                result.add(url)
             }
         }
-        return streams
+        // Finally append any streams that failed probe at the tail end
+        for (url in unreachableStreams) {
+            if (!result.contains(url)) {
+                result.add(url)
+            }
+        }
+
+        return result
     }
 }
