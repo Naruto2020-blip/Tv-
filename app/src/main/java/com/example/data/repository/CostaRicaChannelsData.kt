@@ -53,10 +53,11 @@ object CostaRicaChannelsData {
             callsign = "FUTV",
             category = ChannelCategory.DEPORTES,
             streamUrls = listOf(
-                "http://45.186.106.207:8000/play/a03v/index.m3u8",
                 "http://190.61.90.17:40000/play/a03v/index.m3u8",
+                "http://45.186.106.207:8000/play/a03v/index.m3u8",
                 "https://futvcr.com/wp-content/uploads/2026/09/RESUMEN-FECHA-JORNADA-9-A-26.mp4",
-                "https://cloudvideo.servers10.com:8081/8230/index.m3u8"
+                "https://futvcr.com/wp-content/uploads/2026/09/RESUMEN-LDA-5-0-ISC.mp4",
+                "https://futvcr.com/wp-content/uploads/2026/09/resumen-SAP-vs-CSH-1.mp4"
             ),
             logoUrl = "https://i.imgur.com/f8BkLql.png",
             description = "El canal oficial del fútbol costarricense. Partidos exclusivos de la Liga Promerica, previas y análisis deportivo de primera.",
@@ -122,8 +123,9 @@ object CostaRicaChannelsData {
             callsign = "Canal 13",
             category = ChannelCategory.NACIONALES,
             streamUrls = listOf(
-                "https://cdndirector.dailymotion.com/cdn/live/video/x7vh8g3.m3u8?sec=ATXTcXasM3wfMsIIX7mepddpGuOV-0FGXrbWcEZ9ttXvXdP91hV4E5lxcyZY8tbAg1x3OIdM7G72-d2qC1rUSw&dmTs=366146&dmV1st=4ED7C90AE0F8D97E49192507D33B7A92",
-                "https://cdndirector.dailymotion.com/cdn/live/video/x7vh8g3.m3u8"
+                "https://geo.dailymotion.com/player/xcdvm.html?video=x7vh8g3",
+                "https://www.dailymotion.com/embed/video/x7vh8g3?autoplay=1&mute=0",
+                "https://sinartdigital.com/envivo-canaltrece"
             ),
             logoUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Trece_Costa_Rica_Televisi%C3%B3n_logo.svg/800px-Trece_Costa_Rica_Televisi%C3%B3n_logo.svg.png",
             description = "Televisión pública de Costa Rica con Trece Noticias, Su Lado Positivo, Materia Prima, Consulta en Directo, Arte 13 y Deportivas del 13.",

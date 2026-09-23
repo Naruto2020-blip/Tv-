@@ -5,6 +5,9 @@ import android.content.Context
 import android.content.pm.ActivityInfo
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import android.webkit.WebChromeClient
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import androidx.annotation.OptIn
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
@@ -74,7 +77,10 @@ import androidx.media3.common.Player
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.datasource.DefaultHttpDataSource
 import androidx.media3.exoplayer.ExoPlayer
+import androidx.media3.exoplayer.hls.DefaultHlsExtractorFactory
+import androidx.media3.exoplayer.hls.HlsMediaSource
 import androidx.media3.exoplayer.source.DefaultMediaSourceFactory
+import androidx.media3.extractor.ts.DefaultTsPayloadReaderFactory
 import androidx.media3.ui.AspectRatioFrameLayout
 import androidx.media3.ui.PlayerView
 import com.example.data.model.TvChannel
@@ -127,16 +133,29 @@ fun VideoPlayerView(
         }
     }
 
-    // Initialize ExoPlayer
+    val isWebStream = channel.id == "canal13sinart" || (activeStreams.getOrNull(activeStreamIndex)?.let {
+        it.contains("dailymotion.com") || it.contains("player.html") || it.contains("sinartdigital.com/envivo")
+    } ?: false)
+
+    // Initialize ExoPlayer with HLS TS and Astra IPTV support
     val exoPlayer = remember(context) {
         val httpDataSourceFactory = DefaultHttpDataSource.Factory()
-            .setUserAgent("Mozilla/5.0 (Linux; Android 14; Pixel 8) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36")
-            .setConnectTimeoutMs(12000)
-            .setReadTimeoutMs(15000)
+            .setUserAgent("Mozilla/5.0 (Linux; Android 14; Mobile) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Mobile Safari/537.36")
+            .setConnectTimeoutMs(15000)
+            .setReadTimeoutMs(20000)
             .setAllowCrossProtocolRedirects(true)
 
-        val mediaSourceFactory = DefaultMediaSourceFactory(context)
-            .setDataSourceFactory(httpDataSourceFactory)
+        val hlsExtractorFactory = DefaultHlsExtractorFactory(
+            DefaultTsPayloadReaderFactory.FLAG_ALLOW_NON_IDR_KEYFRAMES or
+            DefaultTsPayloadReaderFactory.FLAG_DETECT_ACCESS_UNITS or
+            DefaultTsPayloadReaderFactory.FLAG_IGNORE_SPLICE_INFO_STREAM,
+            true
+        )
+        val hlsMediaSourceFactory = HlsMediaSource.Factory(httpDataSourceFactory)
+            .setExtractorFactory(hlsExtractorFactory)
+            .setAllowChunklessPreparation(false)
+
+        val mediaSourceFactory = DefaultMediaSourceFactory(httpDataSourceFactory)
 
         ExoPlayer.Builder(context)
             .setMediaSourceFactory(mediaSourceFactory)
@@ -206,7 +225,7 @@ fun VideoPlayerView(
                     exoPlayer.pause()
                 }
                 Lifecycle.Event.ON_RESUME -> {
-                    if (isPlaying) {
+                    if (isPlaying && !isWebStream) {
                         exoPlayer.play()
                     }
                 }
@@ -220,31 +239,59 @@ fun VideoPlayerView(
     }
 
     // Update MediaItem when channel or stream index changes
-    LaunchedEffect(channel.id, activeStreamIndex, activeStreams) {
+    LaunchedEffect(channel.id, activeStreamIndex, activeStreams, isWebStream) {
         playbackError = null
-        isBuffering = true
-        val streamUrl = activeStreams.getOrNull(activeStreamIndex) ?: activeStreams.firstOrNull()
-        if (streamUrl != null) {
-            try {
-                val mediaItem = MediaItem.Builder()
-                    .setUri(streamUrl)
-                    .setMediaId(channel.id)
-                    .apply {
-                        if (streamUrl.contains(".m3u8", ignoreCase = true)) {
-                            setMimeType(MimeTypes.APPLICATION_M3U8)
-                        } else if (streamUrl.contains(".mp4", ignoreCase = true)) {
-                            setMimeType(MimeTypes.APPLICATION_MP4)
-                        }
-                    }
-                    .build()
-                exoPlayer.setMediaItem(mediaItem)
-                exoPlayer.prepare()
-                exoPlayer.play()
-            } catch (e: Exception) {
-                playbackError = "Error al iniciar reproducción"
-            }
+        if (isWebStream) {
+            exoPlayer.stop()
+            isBuffering = false
         } else {
-            playbackError = "No hay señal disponible"
+            isBuffering = true
+            val streamUrl = activeStreams.getOrNull(activeStreamIndex) ?: activeStreams.firstOrNull()
+            if (streamUrl != null) {
+                try {
+                    val mediaItem = MediaItem.Builder()
+                        .setUri(streamUrl)
+                        .setMediaId(channel.id)
+                        .apply {
+                            if (streamUrl.contains(".m3u8", ignoreCase = true)) {
+                                setMimeType(MimeTypes.APPLICATION_M3U8)
+                            } else if (streamUrl.contains(".mp4", ignoreCase = true)) {
+                                setMimeType(MimeTypes.APPLICATION_MP4)
+                            }
+                        }
+                        .build()
+
+                    val httpDataSourceFactory = DefaultHttpDataSource.Factory()
+                        .setUserAgent("Mozilla/5.0 (Linux; Android 14; Mobile) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Mobile Safari/537.36")
+                        .setConnectTimeoutMs(15000)
+                        .setReadTimeoutMs(20000)
+                        .setAllowCrossProtocolRedirects(true)
+
+                    val hlsExtractorFactory = DefaultHlsExtractorFactory(
+                        DefaultTsPayloadReaderFactory.FLAG_ALLOW_NON_IDR_KEYFRAMES or
+                        DefaultTsPayloadReaderFactory.FLAG_DETECT_ACCESS_UNITS or
+                        DefaultTsPayloadReaderFactory.FLAG_IGNORE_SPLICE_INFO_STREAM,
+                        true
+                    )
+                    val hlsMediaSourceFactory = HlsMediaSource.Factory(httpDataSourceFactory)
+                        .setExtractorFactory(hlsExtractorFactory)
+                        .setAllowChunklessPreparation(false)
+
+                    val mediaSource = if (streamUrl.contains(".m3u8", ignoreCase = true)) {
+                        hlsMediaSourceFactory.createMediaSource(mediaItem)
+                    } else {
+                        DefaultMediaSourceFactory(httpDataSourceFactory).createMediaSource(mediaItem)
+                    }
+
+                    exoPlayer.setMediaSource(mediaSource)
+                    exoPlayer.prepare()
+                    exoPlayer.play()
+                } catch (e: Exception) {
+                    playbackError = "Error al iniciar reproducción"
+                }
+            } else {
+                playbackError = "No hay señal disponible"
+            }
         }
     }
 
@@ -260,24 +307,71 @@ fun VideoPlayerView(
             }
             .testTag("video_player_container")
     ) {
-        // ExoPlayer AndroidView
-        AndroidView(
-            modifier = Modifier.fillMaxSize(),
-            factory = { ctx ->
-                PlayerView(ctx).apply {
-                    this.player = exoPlayer
-                    this.useController = false
-                    this.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FIT)
-                    this.layoutParams = FrameLayout.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.MATCH_PARENT
-                    )
+        if (isWebStream) {
+            val webUrl = activeStreams.getOrNull(activeStreamIndex)
+                ?: "https://geo.dailymotion.com/player/xcdvm.html?video=x7vh8g3"
+            AndroidView(
+                modifier = Modifier.fillMaxSize(),
+                factory = { ctx ->
+                    WebView(ctx).apply {
+                        layoutParams = FrameLayout.LayoutParams(
+                            ViewGroup.LayoutParams.MATCH_PARENT,
+                            ViewGroup.LayoutParams.MATCH_PARENT
+                        )
+                        settings.apply {
+                            javaScriptEnabled = true
+                            domStorageEnabled = true
+                            mediaPlaybackRequiresUserGesture = false
+                            useWideViewPort = true
+                            loadWithOverviewMode = true
+                            databaseEnabled = true
+                            userAgentString = "Mozilla/5.0 (Linux; Android 14; Mobile) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Mobile Safari/537.36"
+                        }
+                        webChromeClient = WebChromeClient()
+                        webViewClient = object : WebViewClient() {
+                            override fun onPageFinished(view: WebView?, url: String?) {
+                                isBuffering = false
+                            }
+                            override fun onReceivedError(
+                                view: WebView?,
+                                errorCode: Int,
+                                description: String?,
+                                failingUrl: String?
+                            ) {
+                                if (failingUrl == url) {
+                                    playbackError = "Error de conexión con la señal"
+                                }
+                            }
+                        }
+                        loadUrl(webUrl)
+                    }
+                },
+                update = { webView ->
+                    if (webView.url != webUrl) {
+                        webView.loadUrl(webUrl)
+                    }
                 }
-            },
-            update = { playerView ->
-                playerView.setResizeMode(resizeMode.modeInt)
-            }
-        )
+            )
+        } else {
+            // ExoPlayer AndroidView
+            AndroidView(
+                modifier = Modifier.fillMaxSize(),
+                factory = { ctx ->
+                    PlayerView(ctx).apply {
+                        this.player = exoPlayer
+                        this.useController = false
+                        this.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FIT)
+                        this.layoutParams = FrameLayout.LayoutParams(
+                            ViewGroup.LayoutParams.MATCH_PARENT,
+                            ViewGroup.LayoutParams.MATCH_PARENT
+                        )
+                    }
+                },
+                update = { playerView ->
+                    playerView.setResizeMode(resizeMode.modeInt)
+                }
+            )
+        }
 
         // Buffering Indicator
         if (isBuffering && playbackError == null) {
@@ -335,22 +429,43 @@ fun VideoPlayerView(
                             playbackError = null
                             isBuffering = true
                             activeStreamIndex = 0
-                            val streamUrl = activeStreams.firstOrNull() ?: channel.streamUrls.firstOrNull()
-                            if (streamUrl != null) {
-                                val item = MediaItem.Builder()
-                                    .setUri(streamUrl)
-                                    .setMediaId(channel.id)
-                                    .apply {
-                                        if (streamUrl.contains(".m3u8", ignoreCase = true)) {
-                                            setMimeType(MimeTypes.APPLICATION_M3U8)
-                                        } else if (streamUrl.contains(".mp4", ignoreCase = true)) {
-                                            setMimeType(MimeTypes.APPLICATION_MP4)
+                            if (!isWebStream) {
+                                val streamUrl = activeStreams.firstOrNull() ?: channel.streamUrls.firstOrNull()
+                                if (streamUrl != null) {
+                                    val item = MediaItem.Builder()
+                                        .setUri(streamUrl)
+                                        .setMediaId(channel.id)
+                                        .apply {
+                                            if (streamUrl.contains(".m3u8", ignoreCase = true)) {
+                                                setMimeType(MimeTypes.APPLICATION_M3U8)
+                                            } else if (streamUrl.contains(".mp4", ignoreCase = true)) {
+                                                setMimeType(MimeTypes.APPLICATION_MP4)
+                                            }
                                         }
+                                        .build()
+                                    val httpDataSourceFactory = DefaultHttpDataSource.Factory()
+                                        .setUserAgent("Mozilla/5.0 (Linux; Android 14; Mobile) AppleWebKit/537.36")
+                                        .setConnectTimeoutMs(15000)
+                                        .setReadTimeoutMs(20000)
+                                        .setAllowCrossProtocolRedirects(true)
+                                    val hlsExtractorFactory = DefaultHlsExtractorFactory(
+                                        DefaultTsPayloadReaderFactory.FLAG_ALLOW_NON_IDR_KEYFRAMES or
+                                        DefaultTsPayloadReaderFactory.FLAG_DETECT_ACCESS_UNITS or
+                                        DefaultTsPayloadReaderFactory.FLAG_IGNORE_SPLICE_INFO_STREAM,
+                                        true
+                                    )
+                                    val hlsMediaSourceFactory = HlsMediaSource.Factory(httpDataSourceFactory)
+                                        .setExtractorFactory(hlsExtractorFactory)
+                                        .setAllowChunklessPreparation(false)
+                                    val mediaSource = if (streamUrl.contains(".m3u8", ignoreCase = true)) {
+                                        hlsMediaSourceFactory.createMediaSource(item)
+                                    } else {
+                                        DefaultMediaSourceFactory(httpDataSourceFactory).createMediaSource(item)
                                     }
-                                    .build()
-                                exoPlayer.setMediaItem(item)
-                                exoPlayer.prepare()
-                                exoPlayer.play()
+                                    exoPlayer.setMediaSource(mediaSource)
+                                    exoPlayer.prepare()
+                                    exoPlayer.play()
+                                }
                             }
                         },
                         shape = RoundedCornerShape(20.dp),

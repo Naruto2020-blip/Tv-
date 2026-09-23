@@ -87,32 +87,11 @@ object LiveStreamResolver {
     }
 
     private fun resolveSinartStream(channel: TvChannel): List<String> {
-        val streams = mutableListOf<String>()
-        try {
-            val request = Request.Builder()
-                .url("https://www.dailymotion.com/player/metadata/video/x7vh8g3")
-                .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
-                .build()
-
-            val response = httpClient.newCall(request).execute()
-            if (response.isSuccessful) {
-                val jsonStr = response.body?.string() ?: ""
-                val root = JSONObject(jsonStr)
-                val qualities = root.optJSONObject("qualities")
-                val autoArray = qualities?.optJSONArray("auto")
-                if (autoArray != null && autoArray.length() > 0) {
-                    val streamObj = autoArray.optJSONObject(0)
-                    val liveUrl = streamObj?.optString("url")
-                    if (!liveUrl.isNullOrBlank()) {
-                        streams.add(liveUrl)
-                    }
-                }
-            }
-            response.close()
-        } catch (e: Exception) {
-            Log.w(TAG, "Error resolving SINART Dailymotion stream: ${e.message}")
-        }
-
+        val streams = mutableListOf(
+            "https://geo.dailymotion.com/player/xcdvm.html?video=x7vh8g3",
+            "https://www.dailymotion.com/embed/video/x7vh8g3?autoplay=1&mute=0",
+            "https://sinartdigital.com/envivo-canaltrece"
+        )
         for (url in channel.streamUrls) {
             if (!streams.contains(url)) {
                 streams.add(url)
@@ -123,11 +102,33 @@ object LiveStreamResolver {
 
     private fun resolveFutvStreams(channel: TvChannel): List<String> {
         val streams = mutableListOf<String>()
-        // Prioritize verified active ports and reliable fallbacks
-        streams.add("http://45.186.106.207:8000/play/a03v/index.m3u8")
+        // Prioritize active live feeds
         streams.add("http://190.61.90.17:40000/play/a03v/index.m3u8")
-        streams.add("https://futvcr.com/wp-content/uploads/2026/09/RESUMEN-FECHA-JORNADA-9-A-26.mp4")
-        streams.add("https://cloudvideo.servers10.com:8081/8230/index.m3u8")
+        streams.add("http://45.186.106.207:8000/play/a03v/index.m3u8")
+
+        // Dynamically scrape freshest match videos and summaries from futvcr.com
+        try {
+            val request = Request.Builder()
+                .url("https://futvcr.com")
+                .header("User-Agent", "Mozilla/5.0 (Linux; Android 14; Mobile) AppleWebKit/537.36")
+                .build()
+            val response = httpClient.newCall(request).execute()
+            if (response.isSuccessful) {
+                val html = response.body?.string() ?: ""
+                val mp4Matcher = Pattern.compile("https?://futvcr\\.com/wp-content/uploads/[^\"'\\s]+\\.mp4").matcher(html)
+                var count = 0
+                while (mp4Matcher.find() && count < 5) {
+                    val url = mp4Matcher.group()
+                    if (!streams.contains(url)) {
+                        streams.add(url)
+                        count++
+                    }
+                }
+            }
+            response.close()
+        } catch (e: Exception) {
+            Log.w(TAG, "Error fetching futvcr videos: ${e.message}")
+        }
 
         for (url in channel.streamUrls) {
             if (!streams.contains(url)) {
