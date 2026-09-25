@@ -224,13 +224,72 @@ fun EpgTimelineView(
             }
         }
 
+        val isNoProg = schedule.isEmpty() || CostaRicaEpgData.isNoProgramming(currentProgram)
+
         LazyColumn(
             modifier = Modifier.fillMaxSize(),
             contentPadding = PaddingValues(16.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            // Live Now Hero Section
-            if (currentProgram != null) {
+            if (isNoProg) {
+                item {
+                    Card(
+                        shape = RoundedCornerShape(16.dp),
+                        colors = CardDefaults.cardColors(containerColor = CardBackground),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .border(1.dp, BorderColor, RoundedCornerShape(16.dp))
+                    ) {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(28.dp),
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            Box(
+                                modifier = Modifier
+                                    .size(56.dp)
+                                    .clip(CircleShape)
+                                    .background(Color(0xFF1E293B)),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Icon(
+                                    Icons.Outlined.Tv,
+                                    contentDescription = null,
+                                    tint = TextMuted,
+                                    modifier = Modifier.size(30.dp)
+                                )
+                            }
+                            Spacer(modifier = Modifier.height(14.dp))
+                            Text(
+                                text = "Sin programación disponible",
+                                color = TextPrimary,
+                                fontSize = 16.sp,
+                                fontWeight = FontWeight.Bold
+                            )
+                            Spacer(modifier = Modifier.height(6.dp))
+                            Text(
+                                text = "${selectedChannel.name} no cuenta con guía de programación. La señal en directo está activa y disponible para sintonizar.",
+                                color = TextSecondary,
+                                fontSize = 12.sp,
+                                textAlign = androidx.compose.ui.text.style.TextAlign.Center,
+                                modifier = Modifier.padding(horizontal = 12.dp)
+                            )
+                            Spacer(modifier = Modifier.height(18.dp))
+                            Button(
+                                onClick = { onTuneInChannel(selectedChannel) },
+                                colors = ButtonDefaults.buttonColors(containerColor = CrBlue),
+                                shape = RoundedCornerShape(10.dp)
+                            ) {
+                                Icon(Icons.Default.PlayArrow, contentDescription = null, modifier = Modifier.size(18.dp))
+                                Spacer(modifier = Modifier.width(6.dp))
+                                Text("Sintonizar ${selectedChannel.callsign}")
+                            }
+                        }
+                    }
+                }
+            } else {
+                // Live Now Hero Section
                 item {
                     Text(
                         text = "TRANSMITIENDO AHORA",
@@ -289,20 +348,10 @@ fun EpgTimelineView(
                             Spacer(modifier = Modifier.height(10.dp))
 
                             Text(
-                                text = currentProgram.title,
+                                text = CostaRicaEpgData.cleanTitle(currentProgram.title),
                                 color = TextPrimary,
                                 fontSize = 17.sp,
                                 fontWeight = FontWeight.Bold
-                            )
-
-                            Spacer(modifier = Modifier.height(6.dp))
-
-                            Text(
-                                text = currentProgram.description,
-                                color = TextSecondary,
-                                fontSize = 12.sp,
-                                maxLines = 2,
-                                overflow = TextOverflow.Ellipsis
                             )
 
                             Spacer(modifier = Modifier.height(12.dp))
@@ -374,7 +423,6 @@ fun EpgTimelineView(
                         letterSpacing = 1.sp
                     )
                 }
-            }
 
             // Schedule Items
             items(schedule) { program ->
@@ -443,7 +491,7 @@ fun EpgTimelineView(
                                 }
 
                                 Text(
-                                    text = program.title,
+                                    text = CostaRicaEpgData.cleanTitle(program.title),
                                     color = TextPrimary,
                                     fontSize = 13.sp,
                                     fontWeight = FontWeight.SemiBold,
@@ -451,16 +499,6 @@ fun EpgTimelineView(
                                     overflow = TextOverflow.Ellipsis
                                 )
                             }
-
-                            Spacer(modifier = Modifier.height(2.dp))
-
-                            Text(
-                                text = program.description,
-                                color = TextSecondary,
-                                fontSize = 11.sp,
-                                maxLines = 2,
-                                overflow = TextOverflow.Ellipsis
-                            )
                         }
 
                         // Reminder button
@@ -477,6 +515,7 @@ fun EpgTimelineView(
                         }
                     }
                 }
+            }
             }
         }
     }
@@ -505,7 +544,7 @@ fun EpgTimelineView(
                         )
                     }
                     Text(
-                        text = prog.title,
+                        text = CostaRicaEpgData.cleanTitle(prog.title),
                         color = TextPrimary,
                         fontSize = 18.sp,
                         fontWeight = FontWeight.Bold
@@ -529,15 +568,6 @@ fun EpgTimelineView(
                             fontWeight = FontWeight.Medium
                         )
                     }
-
-                    Spacer(modifier = Modifier.height(12.dp))
-
-                    Text(
-                        text = prog.description,
-                        color = TextSecondary,
-                        fontSize = 13.sp,
-                        lineHeight = 18.sp
-                    )
 
                     Spacer(modifier = Modifier.height(14.dp))
 

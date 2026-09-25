@@ -77,7 +77,7 @@ object OpaScraper {
 
             listOf(
                 TvProgram("opa_d0", "opacanal38", "Madrugada OPA", "Música continua y tendencias de redes sociales.", 0, 0, 6, 0, "Música"),
-                TvProgram("opa_d1", "opacanal38", "Central Noticias - Primera Emisión", "Las noticias tempraneras de Costa Rica con cobertura ágil.", 6, 0, 8, 0, "Noticias"),
+                TvProgram("opa_d1", "opacanal38", "Central Noticias", "Las noticias tempraneras de Costa Rica con cobertura ágil.", 6, 0, 8, 0, "Noticias"),
                 TvProgram("opa_d2", "opacanal38", "Gente OPA Revista Matutina", "Moda, bienestar, entretenimiento, farándula y creadores de contenido.", 8, 0, 10, 30, "Variedades"),
                 TvProgram("opa_d3", "opacanal38", "Tarde Dinámica OPA", "Series, tendencias de streaming y tecnología para la juventud.", 10, 30, 12, 0, "Entretenimiento"),
                 TvProgram("opa_d4", "opacanal38", "Central Noticias Mediodía", "Edición meridiana con los sucesos e información en vivo.", 12, 0, 13, 30, "Noticias"),
@@ -88,7 +88,7 @@ object OpaScraper {
                 TvProgram("opa_d9", "opacanal38", "Está Pasando", "La noticia ocurre en cualquier momento y Está Pasando está ahí para contarla.", 19, 0, 20, 0, "Noticias"),
                 TvProgram("opa_d10", "opacanal38", "¡OPA! Deportes", "Debate futbolero, Liga Promerica y atletas de Costa Rica.", 20, 0, 22, 0, "Deportes"),
                 TvProgram("opa_d11", "opacanal38", "Noche Abierta con Gente OPA", "Entrevistas sin filtro y debate con los televidentes.", 22, 0, 23, 30, "Opinión"),
-                TvProgram("opa_d12", "opacanal38", "Cierre de Emisión OPA", "Música para cerrar la jornada.", 23, 30, 0, 0, "Música")
+                TvProgram("opa_d12", "opacanal38", "Cierre de Programación OPA", "Música para cerrar la jornada.", 23, 30, 0, 0, "Música")
             )
         }
     }

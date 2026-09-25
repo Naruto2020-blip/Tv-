@@ -80,8 +80,7 @@ object CostaRicaChannelsData {
             callsign = "Canal 6",
             category = ChannelCategory.NACIONALES,
             streamUrls = listOf(
-                "https://d3xpfoln9sj56.cloudfront.net/ts:abr.m3u8",
-                "http://190.61.90.17:40000/play/a06v/index.m3u8"
+                "https://d3xpfoln9sj56.cloudfront.net/ts:abr.m3u8"
             ),
             logoUrl = "https://i.imgur.com/nfKJftW.png",
             description = "Noticias Repretel, revista matutina Giros, Conexión Fútbol, series estelares y grandes eventos deportivos.",

@@ -139,7 +139,8 @@ fun ChannelCard(
                 Spacer(modifier = Modifier.height(3.dp))
 
                 // Current show on air
-                if (currentProgram != null) {
+                val isNoProg = com.example.data.repository.CostaRicaEpgData.isNoProgramming(currentProgram)
+                if (currentProgram != null && !isNoProg) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Box(
                             modifier = Modifier
@@ -148,7 +149,7 @@ fun ChannelCard(
                         )
                         Spacer(modifier = Modifier.width(5.dp))
                         Text(
-                            text = currentProgram.title,
+                            text = com.example.data.repository.CostaRicaEpgData.cleanTitle(currentProgram.title),
                             color = TextSecondary,
                             fontSize = 12.sp,
                             maxLines = 1,
@@ -171,13 +172,28 @@ fun ChannelCard(
                         trackColor = Color(0xFF334155),
                     )
                 } else {
-                    Text(
-                        text = channel.category.displayName + " • " + channel.location,
-                        color = TextMuted,
-                        fontSize = 11.sp,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis
-                    )
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Box(
+                            modifier = Modifier
+                                .size(5.dp)
+                                .background(TextMuted.copy(alpha = 0.6f), CircleShape)
+                        )
+                        Spacer(modifier = Modifier.width(5.dp))
+                        Text(
+                            text = "Sin programación",
+                            color = TextMuted,
+                            fontSize = 11.sp,
+                            fontWeight = FontWeight.Medium
+                        )
+                        Spacer(modifier = Modifier.width(6.dp))
+                        Text(
+                            text = "• ${channel.location}",
+                            color = TextMuted.copy(alpha = 0.7f),
+                            fontSize = 11.sp,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
+                        )
+                    }
                 }
             }
 

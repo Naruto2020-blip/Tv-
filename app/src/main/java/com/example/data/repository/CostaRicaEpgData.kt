@@ -209,7 +209,7 @@ object CostaRicaEpgData {
         // EXTRA TV 42 (extratv42.com)
         "extratv42" to listOf(
             TvProgram("ex_w0", "extratv42", "Transmisión Nocturna Extra", "Programas de opinión y repeticiones de interés público.", 0, 0, 6, 0, "General"),
-            TvProgram("ex_w1", "extratv42", "Noticias Extra Primera Emisión", "Sucesos ocurridos en la noche y madrugada en las calles de Costa Rica.", 6, 0, 8, 30, "Noticias"),
+            TvProgram("ex_w1", "extratv42", "Noticias Extra", "Sucesos ocurridos en la noche y madrugada en las calles de Costa Rica.", 6, 0, 8, 30, "Noticias"),
             TvProgram("ex_w2", "extratv42", "Actualidad Nacional Tica", "Problemas comunales, denuncias vecinales y la voz del pueblo costarricense.", 8, 30, 10, 30, "Opinión"),
             TvProgram("ex_w3", "extratv42", "Mundo Extra", "Noticias insólitas, descubrimientos y reportajes de interés general.", 10, 30, 12, 0, "Variedades"),
             TvProgram("ex_w4", "extratv42", "Noticias Extra Edición Mediodía", "La información de sucesos y tribunalicia más completa del país.", 12, 0, 13, 30, "Noticias"),
@@ -224,7 +224,7 @@ object CostaRicaEpgData {
         // ¡OPA! CANAL 38 (genteopa.com/programas/)
         "opacanal38" to listOf(
             TvProgram("opa_w0", "opacanal38", "Madrugada OPA", "Lo mejor de la programación musical y urbana durante la madrugada.", 0, 0, 6, 0, "Música"),
-            TvProgram("opa_w1", "opacanal38", "Central Noticias - Primera Emisión", "Las noticias tempraneras de Costa Rica con cobertura ágil y directa.", 6, 0, 8, 0, "Noticias"),
+            TvProgram("opa_w1", "opacanal38", "Central Noticias", "Las noticias tempraneras de Costa Rica con cobertura ágil y directa.", 6, 0, 8, 0, "Noticias"),
             TvProgram("opa_w2", "opacanal38", "Gente OPA Revista Matutina", "Moda, bienestar, entretenimiento, farándula y creadores de contenido.", 8, 0, 10, 30, "Variedades"),
             TvProgram("opa_w3", "opacanal38", "Tarde Dinámica OPA", "Series, tendencias de streaming y tecnología para la juventud.", 10, 30, 12, 0, "Entretenimiento"),
             TvProgram("opa_w4", "opacanal38", "Central Noticias Mediodía", "Edición meridiana con los sucesos e información en vivo.", 12, 0, 13, 30, "Noticias"),
@@ -235,7 +235,7 @@ object CostaRicaEpgData {
             TvProgram("opa_w9", "opacanal38", "Está Pasando", "La noticia ocurre en cualquier momento y Está Pasando está ahí para contarla.", 19, 0, 20, 0, "Noticias"),
             TvProgram("opa_w10", "opacanal38", "¡OPA! Deportes", "Debate futbolero, Liga Promerica y atletas de Costa Rica.", 20, 0, 22, 0, "Deportes"),
             TvProgram("opa_w11", "opacanal38", "Equilibrio con Yaxún / Noche Abierta", "Balance de mente, cuerpo y espíritu, entrevistas sin filtro.", 22, 0, 23, 30, "Opinión"),
-            TvProgram("opa_w12", "opacanal38", "Cierre de Emisión OPA", "Música continua para cerrar la jornada.", 23, 30, 0, 0, "Música")
+            TvProgram("opa_w12", "opacanal38", "Cierre de Programación OPA", "Música continua para cerrar la jornada.", 23, 30, 0, 0, "Música")
         ),
 
         // VM LATINO (Canal 29 - vmlatino.com)
@@ -268,7 +268,7 @@ object CostaRicaEpgData {
             TvProgram("c1cr_w12", "canal1cr", "Primero Deportes", "Toda la actualidad del fútbol nacional y deportes ticos.", 12, 30, 13, 0, "Deportes"),
             TvProgram("c1cr_w13", "canal1cr", "Serie Retro", "Clásicos televisivos de la pantalla chica.", 13, 0, 13, 30, "Series"),
             TvProgram("c1cr_w14", "canal1cr", "Primero Noticias - Mediodía", "Noticiero con las noticias clave de la jornada.", 13, 30, 14, 0, "Noticias"),
-            TvProgram("c1cr_w15", "canal1cr", "Dramas", "Emisión vespertina de telenovela dramática internacional.", 14, 0, 15, 0, "Novela"),
+            TvProgram("c1cr_w15", "canal1cr", "Dramas", "Telenovela dramática internacional.", 14, 0, 15, 0, "Novela"),
             TvProgram("c1cr_w16", "canal1cr", "Serie Retro", "Historias, acción y comedia de series de culto.", 15, 0, 16, 0, "Series"),
             TvProgram("c1cr_w17", "canal1cr", "Animado Retro", "Bloque infantil y juvenil de la tarde.", 16, 0, 17, 0, "Infantil"),
             TvProgram("c1cr_w18", "canal1cr", "Cómo Han Pasado Los Años", "Crónicas y momentos históricos inolvidables.", 17, 0, 18, 0, "Cultura"),
@@ -278,22 +278,6 @@ object CostaRicaEpgData {
             TvProgram("c1cr_w22", "canal1cr", "Primero Noticias - Resumen Noche", "La información de cierre y acontecimientos de última hora.", 21, 0, 22, 0, "Noticias"),
             TvProgram("c1cr_w23", "canal1cr", "Kick Off", "Fútbol nacional, debate picante y análisis de fondo.", 22, 0, 23, 0, "Deportes"),
             TvProgram("c1cr_w24", "canal1cr", "CGTN En Vivo", "Noticias internacionales y actualidad global en directo.", 23, 0, 0, 0, "Noticias")
-        ),
-
-        // CANAL 14 SAN CARLOS (tvn14.com)
-        "canal14sancarlos" to listOf(
-            TvProgram("c14_w0", "canal14sancarlos", "Madrugada Norteña", "Música costarricense y serenata campesina.", 0, 0, 6, 0, "Música"),
-            TvProgram("c14_w1", "canal14sancarlos", "Despertar Sancarleño", "El amanecer en la Región Huetar Norte, clima y café matutino.", 6, 0, 7, 30, "Regional"),
-            TvProgram("c14_w2", "canal14sancarlos", "Noticias En Contacto Matutina", "Noticias locales de Ciudad Quesada, Los Chiles, Upala y Guatuso.", 7, 30, 9, 0, "Noticias"),
-            TvProgram("c14_w3", "canal14sancarlos", "San Carlos y su Gente", "Historias de esfuerzo, cooperativas, emprendimientos y tradiciones.", 9, 0, 11, 30, "Comunidad"),
-            TvProgram("c14_w4", "canal14sancarlos", "Noticias En Contacto Mediodía", "Edición del mediodía con las noticias de la región norte.", 11, 30, 13, 0, "Noticias"),
-            TvProgram("c14_w5", "canal14sancarlos", "Campo y Ganadería del Norte", "Técnicas agrícolas, subastas ganaderas y precios de cosechas.", 13, 0, 14, 30, "Agro"),
-            TvProgram("c14_w6", "canal14sancarlos", "Tardes de la Zona Norte", "Música, llamadas al aire y felicitaciones comunales.", 14, 30, 16, 30, "Variedades"),
-            TvProgram("c14_w7", "canal14sancarlos", "Cultura y Raíces Norteñas", "Folclore sancarleño, bailes típicos y recuerdos de pioneros.", 16, 30, 18, 0, "Cultura"),
-            TvProgram("c14_w8", "canal14sancarlos", "Noticias En Contacto Central", "El noticiero estelar más influyente de la zona norte.", 18, 0, 19, 30, "Noticias"),
-            TvProgram("c14_w9", "canal14sancarlos", "Pasión Deportiva Norteña", "Cobertura de AD San Carlos en Primera División y ligas cantonales.", 19, 30, 21, 0, "Deportes"),
-            TvProgram("c14_w10", "canal14sancarlos", "Diálogo Abierto Regional", "Debates con alcaldes, diputados y líderes comunales de la zona.", 21, 0, 22, 30, "Opinión"),
-            TvProgram("c14_w11", "canal14sancarlos", "Cierre y Serenata del Arenal", "Melodías relajantes para despedir la noche.", 22, 30, 0, 0, "Música")
         )
     )
 
@@ -304,7 +288,7 @@ object CostaRicaEpgData {
         // TELETICA CANAL 7 - SÁBADO (teletica.com)
         "teletica7" to listOf(
             TvProgram("t7_s0", "teletica7", "Cine Nocturno de Madrugada", "Películas y series continuas durante la madrugada.", 0, 0, 5, 45, "Cine"),
-            TvProgram("t7_s1", "teletica7", "Amanecer Costarricense", "Música tradicional de Costa Rica e inicio de emisiones sabatinas.", 5, 45, 6, 0, "Cultura"),
+            TvProgram("t7_s1", "teletica7", "Amanecer Costarricense", "Música tradicional de Costa Rica para iniciar el sábado.", 5, 45, 6, 0, "Cultura"),
             TvProgram("t7_s2", "teletica7", "Aventuras Animadas Sabatinas", "Dibujos animados clásicos y series familiares para comenzar el fin de semana.", 6, 0, 8, 30, "Infantil"),
             TvProgram("t7_s3", "teletica7", "Cine Matineé Familiar", "Películas de comedia y aventura para compartir en el hogar.", 8, 30, 11, 0, "Cine"),
             TvProgram("t7_s4", "teletica7", "Más Que Noticias (+QN Especial)", "Historias inspiradoras de personajes y rincones costarricenses.", 11, 0, 12, 0, "Revista"),
@@ -489,302 +473,122 @@ object CostaRicaEpgData {
     )
 
     // =========================================================================
-    // PARRILLAS COMPLETAS DE TODOS LOS CANALES REGIONALES Y TEMÁTICOS
+    // CANALES CON PROGRAMACIÓN OFICIAL VERIFICADA
     // =========================================================================
-    private val allChannelsBaseSchedules: Map<String, List<TvProgram>> = mapOf(
-        "vmlatino" to listOf(
-            TvProgram("vm_b0", "vmlatino", "After Party VM Latino", "Música continua sin pausas para la madrugada.", 0, 0, 6, 0, "Música"),
-            TvProgram("vm_b1", "vmlatino", "Iniciando VM / El Despertador", "Los videos más prendidos para iniciar el día con toda la energía.", 6, 0, 9, 0, "Música"),
-            TvProgram("vm_b2", "vmlatino", "El Brunch Musical & Top Latino", "Los éxitos más sonados del pop latino y novedades musicales.", 9, 0, 11, 30, "Música"),
-            TvProgram("vm_b3", "vmlatino", "La Micro / Los + Pedidos", "El playlist interactivo armado en vivo con los mensajes y peticiones de la audiencia.", 11, 30, 14, 0, "Música"),
-            TvProgram("vm_b4", "vmlatino", "La Mancha VM / Tarde Urbana", "Espacio juvenil con reggaetón, trap, tendencias virales y farándula.", 14, 0, 16, 30, "Música"),
-            TvProgram("vm_b5", "vmlatino", "Talento Nacional Tico", "Espacio exclusivo dedicado a bandas, solistas y productores costarricenses.", 16, 30, 18, 30, "Música"),
-            TvProgram("vm_b6", "vmlatino", "El Bunker VM", "Los mejores himnos de reggaetón clásico, remixes y perreo intenso.", 18, 30, 20, 30, "Música"),
-            TvProgram("vm_b7", "vmlatino", "A la Kma Con... / Estelares VM", "Programa estelar de entrevistas, chismes juveniles y exclusivas con los VJs.", 20, 30, 22, 30, "Variedades"),
-            TvProgram("vm_b8", "vmlatino", "Noche de Plancha & Pop Latino", "Grandes baladas y pop latino para cerrar la noche.", 22, 30, 0, 0, "Música")
-        ),
-
-        "colosaltv" to listOf(
-            TvProgram("co_0", "colosaltv", "Madrugada Colosal", "Música y repeticiones de interés comunitario.", 0, 0, 6, 0, "Música"),
-            TvProgram("co_1", "colosaltv", "Amanecer Sureño", "Pronóstico del tiempo, mareas en Golfito y noticias de la frontera sur.", 6, 0, 8, 0, "Regional"),
-            TvProgram("co_2", "colosaltv", "Revista Colosal de la Mañana", "Agricultura, cooperativas de Corredores y emprendimientos de la Zona Sur.", 8, 0, 10, 30, "Revista"),
-            TvProgram("co_3", "colosaltv", "Frontera y Comunidad", "Espacio comunitario con líderes de Paso Canoas, Ciudad Neily y Golfito.", 10, 30, 12, 0, "Comunidad"),
-            TvProgram("co_4", "colosaltv", "Colosal Informa Edición Mediodía en Vivo", "Noticiero principal con los sucesos de la Zona Sur de Costa Rica.", 12, 0, 13, 30, "Noticias"),
-            TvProgram("co_5", "colosaltv", "Música del Sur", "Selección de baladas populares y música de nuestra región.", 13, 30, 15, 30, "Música"),
-            TvProgram("co_6", "colosaltv", "Colosal Deportes", "Fútbol regional, torneos de canchas abiertas y ligas cantonales.", 15, 30, 18, 0, "Deportes"),
-            TvProgram("co_7", "colosaltv", "Colosal Informa Edición Estelar en Vivo", "Edición nocturna con la información de mayor impacto de la Región Brunca.", 18, 0, 19, 30, "Noticias"),
-            TvProgram("co_8", "colosaltv", "Colosal en su Cantón", "Reportajes de Osa, Golfito, Corredores y Coto Brus.", 19, 30, 21, 30, "Variedades"),
-            TvProgram("co_9", "colosaltv", "Noche Colosal", "Variedades, cultura sureña y música para cerrar la noche.", 21, 30, 0, 0, "Variedades")
-        ),
-
-        "tvsur14" to listOf(
-            TvProgram("sur_0", "tvsur14", "Madrugada Musical & Clásicos de TV Sur", "Selección musical ininterrumpida y repeticiones de programas culturales.", 0, 0, 6, 0, "Música"),
-            TvProgram("sur_1", "tvsur14", "Santo Rosario & Oración Matutina", "Espacio de devoción y reflexión para comenzar la jornada.", 6, 0, 7, 0, "Religión"),
-            TvProgram("sur_2", "tvsur14", "Despertar del Valle", "Noticias del Valle de El General, clima, café y producción agropecuaria.", 7, 0, 8, 30, "Noticias"),
-            TvProgram("sur_3", "tvsur14", "Revista PZ Actual", "Emprendimientos generaleños, salud comunitaria, gastronomía y hogar.", 8, 30, 10, 0, "Revista"),
-            TvProgram("sur_4", "tvsur14", "ConCiencia & Documentales", "Producciones científicas, historia y educación en convenio con universidades.", 10, 0, 11, 30, "Educativo"),
-            TvProgram("sur_5", "tvsur14", "Avances Informativos TV Sur", "Resumen rápido con los hechos más recientes en Pérez Zeledón.", 11, 30, 12, 0, "Noticias"),
-            TvProgram("sur_6", "tvsur14", "TV Sur Noticias Edición Mediodía en Vivo", "El noticiero principal de la Región Brunca con cobertura en directo.", 12, 0, 13, 30, "Noticias"),
-            TvProgram("sur_7", "tvsur14", "Complacencias Musicales TV Sur", "Peticiones de videos de la audiencia vía WhatsApp y mensajes en vivo.", 13, 30, 15, 0, "Música"),
-            TvProgram("sur_8", "tvsur14", "Nexos & Una Mirada", "Cultura, derechos humanos, inclusión y debates de interés social.", 15, 0, 16, 30, "Cultura"),
-            TvProgram("sur_9", "tvsur14", "Tardes del Valle Brunca", "Música costarricense, deportes comunales y seguimiento al Municipal Pérez Zeledón.", 16, 30, 18, 0, "Variedades"),
-            TvProgram("sur_10", "tvsur14", "TV Sur Noticias Edición Estelar en Vivo", "Edición central informativa con los acontecimientos del sur costarricense.", 18, 0, 19, 30, "Noticias"),
-            TvProgram("sur_11", "tvsur14", "Economía y Sociedad & Diálogos del Sur", "Entrevistas en profundidad con alcaldes, productores y líderes del cantón.", 19, 30, 21, 0, "Opinión"),
-            TvProgram("sur_12", "tvsur14", "TV Sur Noticias Edición Nocturna", "Balance nocturno de informaciones y análisis de los sucesos.", 21, 0, 22, 30, "Noticias"),
-            TvProgram("sur_13", "tvsur14", "Santa Misa & Coronilla de la Divina Misericordia", "Celebración eucarística y oración para el descanso nocturno.", 22, 30, 0, 0, "Santa Misa")
-        ),
-
-        "canal14sancarlos" to listOf(
-            TvProgram("sc_0", "canal14sancarlos", "Noche Norteña", "Música instrumental y especiales campesinos.", 0, 0, 6, 0, "Música"),
-            TvProgram("sc_1", "canal14sancarlos", "Amanecer de la Zona Norte", "Clima, lecherías y agricultura en Ciudad Quesada y llanuras.", 6, 0, 8, 0, "Regional"),
-            TvProgram("sc_2", "canal14sancarlos", "Revista San Carlos Hoy", "Vida cotidiana, cooperativismo y emprendimientos locales.", 8, 0, 10, 30, "Revista"),
-            TvProgram("sc_3", "canal14sancarlos", "Mundo Agropecuario TVN", "Tecnología agrícola, ganadería y producción sostenible.", 10, 30, 12, 0, "Educativo"),
-            TvProgram("sc_4", "canal14sancarlos", "Noticias 14 Mediodía", "Información veraz de San Carlos, Upala, Los Chiles y Guatuso.", 12, 0, 13, 30, "Noticias"),
-            TvProgram("sc_5", "canal14sancarlos", "Tardes del Norte", "Espacio familiar con música norteña y folclor.", 13, 30, 16, 0, "Cultura"),
-            TvProgram("sc_6", "canal14sancarlos", "Ruta de los Volcanes", "Turismo y maravillas de La Fortuna y el Volcán Arenal.", 16, 0, 18, 0, "Turismo"),
-            TvProgram("sc_7", "canal14sancarlos", "Noticias 14 Central", "Edición estelar con los sucesos de la zona norte de Costa Rica.", 18, 0, 19, 30, "Noticias"),
-            TvProgram("sc_8", "canal14sancarlos", "AD San Carlos: Orgullo Norteño", "Programa dedicado a 'Los Toros del Norte' y deportes locales.", 19, 30, 21, 0, "Deportes"),
-            TvProgram("sc_9", "canal14sancarlos", "Noches de San Carlos", "Variedades y repeticiones de programas especiales.", 21, 0, 0, 0, "Variedades")
-        ),
-
-        "cotobrustv" to listOf(
-            TvProgram("cb_0", "cotobrustv", "Noche de Coto Brus", "Música de montaña y descanso.", 0, 0, 6, 0, "Música"),
-            TvProgram("cb_1", "cotobrustv", "Amanecer en San Vito y Coto Brus", "Noticias cantonales, clima de montaña, café y frontera sur con Panamá.", 6, 0, 8, 30, "Regional"),
-            TvProgram("cb_2", "cotobrustv", "Revista Comunal Nuestra Gente", "Entrevistas a familias pioneras, cultura italo-costarricense y vida de campo.", 8, 30, 10, 30, "Revista"),
-            TvProgram("cb_3", "cotobrustv", "Tradiciones de Coto Brus y Café de Altura", "Historia de la colonia de San Vito, cooperativas cafetaleras y agricultura.", 10, 30, 12, 0, "Cultura"),
-            TvProgram("cb_4", "cotobrustv", "Noticias Coto Brus Mediodía", "Edición en vivo desde San Vito con hechos comunales y de la Zona Sur.", 12, 0, 13, 30, "Noticias"),
-            TvProgram("cb_5", "cotobrustv", "Música y Tradición Sureña", "Baladas, música popular y memoria histórica de Coto Brus.", 13, 30, 15, 30, "Música"),
-            TvProgram("cb_6", "cotobrustv", "Deportes Coto Brus y Ligas Menores", "Fútbol de los distritos de Sabalito, Agua Buena, Pittier y San Vito.", 15, 30, 17, 30, "Deportes"),
-            TvProgram("cb_7", "cotobrustv", "Horizontes de Coto Brus y Naturaleza", "El Parque La Amistad, senderos de montaña y biodiversidad tica.", 17, 30, 19, 0, "Ecológico"),
-            TvProgram("cb_8", "cotobrustv", "Noticias Coto Brus Edición Central", "Noticiero principal de la noche con el acontecer de San Vito y la frontera.", 19, 0, 20, 30, "Noticias"),
-            TvProgram("cb_9", "cotobrustv", "Mesa de Diálogo y Desarrollo Local", "Debates cantonales, líderes comunitarios y obras municipales.", 20, 30, 22, 0, "Opinión"),
-            TvProgram("cb_10", "cotobrustv", "Madrugada en las Montañas de Coto Brus", "Música instrumental y repeticiones de programas culturales.", 22, 0, 0, 0, "Variedades")
-        ),
-
-        "canal1cr" to listOf(
-            TvProgram("c1cr_0", "canal1cr", "Serie Retro", "Las mejores series clásicas y producciones retro de la televisión internacional.", 0, 0, 1, 0, "Series"),
-            TvProgram("c1cr_1", "canal1cr", "Dramas", "Producciones dramáticas y telenovelas internacionales de gran audiencia.", 1, 0, 2, 0, "Novela"),
-            TvProgram("c1cr_2", "canal1cr", "Cómo Han Pasado Los Años", "Recorrido nostálgico con historia, música y recuerdos inolvidables.", 2, 0, 3, 0, "Cultura"),
-            TvProgram("c1cr_3", "canal1cr", "Musicales", "Los mejores videoclips y música variada para disfrutar la madrugada.", 3, 0, 6, 0, "Música"),
-            TvProgram("c1cr_4", "canal1cr", "Santa Misa", "Celebración eucarística matutina.", 6, 0, 7, 30, "Religión"),
-            TvProgram("c1cr_5", "canal1cr", "Animado Retro", "Dibujos animados y caricaturas clásicas familiares.", 7, 30, 8, 0, "Infantil"),
-            TvProgram("c1cr_6", "canal1cr", "RT En Vivo", "Noticias internacionales y actualidad en directo.", 8, 0, 8, 30, "Noticias"),
-            TvProgram("c1cr_7", "canal1cr", "Cómo Han Pasado Los Años", "Historias de antaño, anécdotas y música del recuerdo.", 8, 30, 9, 30, "Cultura"),
-            TvProgram("c1cr_8", "canal1cr", "Animado Retro", "Aventuras animadas clásicas para la mañana.", 9, 30, 10, 0, "Infantil"),
-            TvProgram("c1cr_9", "canal1cr", "Reinventados", "Espacio de innovación, emprendimientos y superación en Costa Rica.", 10, 0, 11, 0, "Revista"),
-            TvProgram("c1cr_10", "canal1cr", "Novela China", "Superproducción dramática y romance de época.", 11, 0, 12, 0, "Novela"),
-            TvProgram("c1cr_11", "canal1cr", "RT En Vivo", "Transmisión informativa internacional al mediodía.", 12, 0, 12, 30, "Noticias"),
-            TvProgram("c1cr_12", "canal1cr", "Primero Deportes", "Toda la actualidad del fútbol nacional y deportes ticos.", 12, 30, 13, 0, "Deportes"),
-            TvProgram("c1cr_13", "canal1cr", "Serie Retro", "Clásicos televisivos de la pantalla chica.", 13, 0, 13, 30, "Series"),
-            TvProgram("c1cr_14", "canal1cr", "Primero Noticias - Mediodía", "Noticiero con las noticias clave de la jornada.", 13, 30, 14, 0, "Noticias"),
-            TvProgram("c1cr_15", "canal1cr", "Dramas", "Emisión vespertina de telenovela dramática internacional.", 14, 0, 15, 0, "Novela"),
-            TvProgram("c1cr_16", "canal1cr", "Serie Retro", "Historias, acción y comedia de series de culto.", 15, 0, 16, 0, "Series"),
-            TvProgram("c1cr_17", "canal1cr", "Animado Retro", "Bloque infantil y juvenil de la tarde.", 16, 0, 17, 0, "Infantil"),
-            TvProgram("c1cr_18", "canal1cr", "Cómo Han Pasado Los Años", "Crónicas y momentos históricos inolvidables.", 17, 0, 18, 0, "Cultura"),
-            TvProgram("c1cr_19", "canal1cr", "Primero Noticias - Edición Central", "Edición estelar del noticiero principal de Canal 1.", 18, 0, 20, 0, "Noticias"),
-            TvProgram("c1cr_20", "canal1cr", "Primero Deportes Estelar", "Análisis, debate deportivo y polémica futbolera.", 20, 0, 20, 30, "Deportes"),
-            TvProgram("c1cr_21", "canal1cr", "Marcelo Castro Presenta", "Entrevistas de fondo e investigación con Marcelo Castro.", 20, 30, 21, 0, "Opinión"),
-            TvProgram("c1cr_22", "canal1cr", "Primero Noticias - Resumen Noche", "La información de cierre y acontecimientos de última hora.", 21, 0, 22, 0, "Noticias"),
-            TvProgram("c1cr_23", "canal1cr", "Kick Off", "Fútbol nacional, debate picante y análisis de fondo.", 22, 0, 23, 0, "Deportes"),
-            TvProgram("c1cr_24", "canal1cr", "CGTN En Vivo", "Noticias internacionales y actualidad global en directo.", 23, 0, 0, 0, "Noticias")
-        ),
-
-        "lossantostv" to listOf(
-            TvProgram("ls_0", "lossantostv", "Serenata en las Alturas", "Música de descanso y noches de montaña.", 0, 0, 6, 0, "Música"),
-            TvProgram("ls_1", "lossantostv", "Amanecer en Los Santos", "Clima de altura, lecherías y noticias de Tarrazú, Dota y León Cortés.", 6, 0, 8, 30, "Regional"),
-            TvProgram("ls_2", "lossantostv", "La Hora del Café de Los Santos", "El proceso del mejor café del mundo, cooperativas y productores.", 8, 30, 11, 0, "Agro"),
-            TvProgram("ls_3", "lossantostv", "Noticias Los Santos Mediodía", "Acontecimientos comunitarios en los pueblos de la zona.", 11, 0, 12, 30, "Noticias"),
-            TvProgram("ls_4", "lossantostv", "Tradiciones Cafetaleras y Campesinas", "Historias de cosecheros, trapiches y costumbres de la cordillera.", 12, 30, 15, 30, "Cultura"),
-            TvProgram("ls_5", "lossantostv", "Voces Comunales de Los Santos", "Espacio de los vecinos de San Marcos, Santa María y San Pablo.", 15, 30, 18, 0, "Comunidad"),
-            TvProgram("ls_6", "lossantostv", "Noticias Los Santos Central", "Resumen estelar de los sucesos de la zona de Los Santos.", 18, 0, 19, 30, "Noticias"),
-            TvProgram("ls_7", "lossantostv", "Cultura y Folclor de Nuestra Sierra", "Música campesina, poesía y leyendas de la montaña.", 19, 30, 21, 30, "Cultura"),
-            TvProgram("ls_8", "lossantostv", "Noche en la Cordillera", "Cierre y música tranquila.", 21, 30, 0, 0, "Música")
-        ),
-
-        "garabitotv" to listOf(
-            TvProgram("gb_0", "garabitotv", "Brisas del Pacífico Madrugada", "Música relajante y paisajes de los atardeceres de Jacó.", 0, 0, 6, 0, "Música"),
-            TvProgram("gb_1", "garabitotv", "Olas del Pacífico Central", "Condiciones marítimas, olas de Jacó, mareas y clima del litoral.", 6, 0, 8, 30, "Turismo"),
-            TvProgram("gb_2", "garabitotv", "Revista Jacó y Herradura Hoy", "Emprendimientos turísticos, gastronomía de mar y vida costera.", 8, 30, 11, 0, "Revista"),
-            TvProgram("gb_3", "garabitotv", "Garabito Noticias Mediodía", "Noticias locales del cantón de Garabito y Puntarenas.", 11, 0, 12, 30, "Noticias"),
-            TvProgram("gb_4", "garabitotv", "Surf, Turismo y Playas de Costa Rica", "Competiciones de surf, aventuras en catamarán y reservas naturales.", 12, 30, 15, 30, "Deportes"),
-            TvProgram("gb_5", "garabitotv", "Actualidad Porteña y Comunal", "Desarrollo local, comercio y comunidad de la costa pacífica.", 15, 30, 18, 0, "Comunidad"),
-            TvProgram("gb_6", "garabitotv", "Garabito Noticias Central", "Edición central con la información del cantón y el pacífico central.", 18, 0, 19, 30, "Noticias"),
-            TvProgram("gb_7", "garabitotv", "Vida Nocturna y Turismo Responsable", "Guía de entretenimiento, cultura y seguridad ciudadana.", 19, 30, 21, 30, "Variedades"),
-            TvProgram("gb_8", "garabitotv", "Noche en el Pacífico", "Música y paisajes nocturnos de la costa.", 21, 30, 0, 0, "Música")
-        ),
-
-        "costaricachannel" to listOf(
-            TvProgram("crc_0", "costaricachannel", "Naturaleza en la Noche", "Sonidos del bosque lluvioso y vida nocturna en la selva.", 0, 0, 6, 0, "Naturaleza"),
-            TvProgram("crc_1", "costaricachannel", "Despertar en el Paraíso Verde", "Aves del trópico, sonidos del bosque nuboso y amaneceres en Costa Rica.", 6, 0, 9, 0, "Ecológico"),
-            TvProgram("crc_2", "costaricachannel", "Parques Nacionales y Selvas Tropicales", "Expedición a Manuel Antonio, Corcovado, Tortuguero y Monteverde.", 9, 0, 12, 0, "Naturaleza"),
-            TvProgram("crc_3", "costaricachannel", "Volcanes, Ríos y Cascadas", "Aventuras en el Volcán Poás, Arenal, Río Celeste y rafting nacional.", 12, 0, 15, 0, "Aventura"),
-            TvProgram("crc_4", "costaricachannel", "Playas de Guanacaste y el Caribe", "Aguas cristalinas, arrecifes de Cahuita y playas doradas del pacífico.", 15, 0, 18, 0, "Turismo"),
-            TvProgram("crc_5", "costaricachannel", "Fauna y Conservación Costarricense", "Jaguares, perezosos, tortugas marinas y esfuerzos de sostenibilidad.", 18, 0, 21, 0, "Documental"),
-            TvProgram("crc_6", "costaricachannel", "Maravillas Naturales de Costa Rica", "El 5% de la biodiversidad del planeta resumido en alta definición.", 21, 0, 0, 0, "Naturaleza")
-        ),
-
-        "soyplanchatv" to listOf(
-            TvProgram("sp_0", "soyplanchatv", "Serenata Nocturna", "La mejor compañía musical para descansar y cantar.", 0, 0, 6, 0, "Música"),
-            TvProgram("sp_1", "soyplanchatv", "Baladas del Despertar", "Música suave en español para comenzar la mañana con nostalgia.", 6, 0, 9, 0, "Música"),
-            TvProgram("sp_2", "soyplanchatv", "Los Reyes de la Plancha", "Grandes baladas de Juan Gabriel, Amanda Miguel, Rocío Dúrcal y Camilo Sesto.", 9, 0, 12, 0, "Música"),
-            TvProgram("sp_3", "soyplanchatv", "Cantando al Mediodía", "Éxitos para cantar a todo pulmón.", 12, 0, 15, 0, "Música"),
-            TvProgram("sp_4", "soyplanchatv", "Tardes de Romance y Recuerdos", "Las mejores baladas románticas de los 80s y 90s.", 15, 0, 18, 0, "Música"),
-            TvProgram("sp_5", "soyplanchatv", "El Gran Especial de Plancha", "Biografías musicales y conciertos legendarios.", 18, 0, 21, 0, "Música"),
-            TvProgram("sp_6", "soyplanchatv", "Grandes Voces de Siempre", "Inolvidables himnos románticos.", 21, 0, 0, 0, "Música")
-        ),
-
-        "urbanotv" to listOf(
-            TvProgram("ur_0", "urbanotv", "Clubbing Urbano Night", "Sesiones ininterrumpidas de DJs costarricenses.", 0, 0, 6, 0, "Música"),
-            TvProgram("ur_1", "urbanotv", "Urbano Flow Mañana", "Reggaetón y ritmo para activar el cuerpo.", 6, 0, 9, 0, "Música"),
-            TvProgram("ur_2", "urbanotv", "Reggaetón Clásico y Nuevo", "Desde los pioneros hasta los temas número uno del año.", 9, 0, 12, 0, "Música"),
-            TvProgram("ur_3", "urbanotv", "El Imperio del Trap Tico", "Nuevas promesas del movimiento urbano de Costa Rica.", 12, 0, 15, 0, "Música"),
-            TvProgram("ur_4", "urbanotv", "Batallas de Freestyle y Beats", "Lo mejor del rap improvisado y producciones musicales.", 15, 0, 18, 0, "Música"),
-            TvProgram("ur_5", "urbanotv", "Urbano Prime Time", "Los videos oficiales en alta definición con el mejor sonido.", 18, 0, 22, 0, "Música"),
-            TvProgram("ur_6", "urbanotv", "Sesión Nocturna Urbana", "Música continua y estrenos de videoclips.", 22, 0, 0, 0, "Música")
-        ),
-
-        "gextv" to listOf(
-            TvProgram("gex_0", "gextv", "Noche Geek & Synthwave", "Debates sobre películas de ciencia ficción y música lofi.", 0, 0, 7, 0, "Cultura Pop"),
-            TvProgram("gex_1", "gextv", "Anime & Gaming News", "Novedades de la industria de videojuegos y estrenos de anime.", 7, 0, 10, 0, "Tecnología"),
-            TvProgram("gex_2", "gextv", "Tech & Gadgets Ticos", "Reseñas de smartphones, consolas y accesorios de computación.", 10, 0, 13, 0, "Tecnología"),
-            TvProgram("gex_3", "gextv", "Pop Culture Express", "Cine de superhéroes, cómics y series de streaming.", 13, 0, 16, 0, "Cultura Pop"),
-            TvProgram("gex_4", "gextv", "Speedruns y Desafíos Gamer", "Partidas épicas y trucos para tus juegos favoritos.", 16, 0, 19, 0, "Videojuegos"),
-            TvProgram("gex_5", "gextv", "Gex Music & Chill", "Bandas sonoras de videojuegos y sintetizadores.", 19, 0, 22, 0, "Música"),
-            TvProgram("gex_6", "gextv", "Cierre Geek de la Noche", "Repaso de las mejores noticias de tecnología.", 22, 0, 0, 0, "Tecnología")
-        ),
-
-        "vintagemusic" to listOf(
-            TvProgram("vm_v0", "vintagemusic", "Noches Vintage en Estéreo", "Sonido clásico para terminar la velada con los mejores recuerdos.", 0, 0, 6, 0, "Música"),
-            TvProgram("vm_v1", "vintagemusic", "Clásicos Matinales de los 70s y 80s", "Grandes melodías del pop y rock que marcaron una época.", 6, 0, 9, 0, "Música"),
-            TvProgram("vm_v2", "vintagemusic", "La Era Dorada del Pop & Rock", "Videoclips remasterizados de Queen, Michael Jackson, Madonna y The Beatles.", 9, 0, 12, 0, "Música"),
-            TvProgram("vm_v3", "vintagemusic", "Rock Clásico y Baladas Anglosajonas", "Guitarras legendarias y coros inolvidables del siglo XX.", 12, 0, 15, 0, "Música"),
-            TvProgram("vm_v4", "vintagemusic", "Grandes Conciertos Históricos", "Grabaciones míticas en estadios y teatros de todo el mundo.", 15, 0, 18, 0, "Música"),
-            TvProgram("vm_v5", "vintagemusic", "Vintage Prime Time: Hits Inmortales", "Los temas número uno de los años dorados de la música.", 18, 0, 22, 0, "Música"),
-            TvProgram("vm_v6", "vintagemusic", "Grandes Éxitos de Todos los Tiempos", "Sesión continua de música legendaria.", 22, 0, 0, 0, "Música")
-        ),
-
-        "88stereotv" to listOf(
-            TvProgram("st88_0", "88stereotv", "Música Continua 88 Stereo", "Programación musical ininterrumpida para la noche.", 0, 0, 6, 0, "Música"),
-            TvProgram("st88_1", "88stereotv", "El Mañanero 88 en Vivo", "Transmisión visual de la cabina de radio con música alegre y notas matinales.", 6, 0, 9, 0, "Radio Visual"),
-            TvProgram("st88_2", "88stereotv", "Lo Mejor de la Radio Visual", "Mensajes de la audiencia, saludos en vivo y éxitos del momento.", 9, 0, 12, 0, "Radio Visual"),
-            TvProgram("st88_3", "88stereotv", "Éxitos Musicales del Momento", "Los temas más sonados en la frecuencia de 88 Stereo en Costa Rica.", 12, 0, 15, 0, "Música"),
-            TvProgram("st88_4", "88stereotv", "Tardes de Interacción Sureña", "Participación de oyentes de Pérez Zeledón y todo el país.", 15, 0, 18, 0, "Interactivo"),
-            TvProgram("st88_5", "88stereotv", "Especial 88 Stereo en Concierto", "Grandes temas en vivo y mezclas exclusivas de cabina.", 18, 0, 21, 0, "Música"),
-            TvProgram("st88_6", "88stereotv", "Noche de Cabina Abierta", "Música continua y complacencias.", 21, 0, 0, 0, "Música")
-        ),
-
-        "sanjosetv" to listOf(
-            TvProgram("sj_0", "sanjosetv", "Oración de la Noche y Madrugada en Paz", "Completas y meditación nocturna.", 0, 0, 6, 0, "Religión"),
-            TvProgram("sj_1", "sanjosetv", "Oración de la Mañana y Laudes", "Comienzo espiritual del día con lecturas bíblicas y cánticos.", 6, 0, 7, 0, "Religión"),
-            TvProgram("sj_2", "sanjosetv", "Santa Misa desde la Catedral Metropolitana", "Eucaristía en vivo desde San José, Costa Rica.", 7, 0, 8, 30, "Santa Misa"),
-            TvProgram("sj_3", "sanjosetv", "Evangelio y Reflexión Pastoral", "Mensaje del Arzobispo y sacerdotes de la arquidiócesis.", 8, 30, 10, 0, "Reflexión"),
-            TvProgram("sj_4", "sanjosetv", "Vida y Familia Católica", "Orientación cristiana para matrimonios y jóvenes.", 10, 0, 12, 0, "Familia"),
-            TvProgram("sj_5", "sanjosetv", "El Ángelus y Santa Misa Mediodía", "La oración tradicional del mediodía y eucaristía solemne.", 12, 0, 13, 30, "Santa Misa"),
-            TvProgram("sj_6", "sanjosetv", "Formación en la Fe y Doctrina", "Catequesis, encíclicas papales e historia de la Iglesia.", 13, 30, 16, 0, "Educativo"),
-            TvProgram("sj_7", "sanjosetv", "Santo Rosario Comunitario", "El rezo del rosario con intenciones por los enfermos y Costa Rica.", 16, 0, 17, 0, "Oración"),
-            TvProgram("sj_8", "sanjosetv", "Santa Misa Vespertina de la Catedral", "Eucaristía de la tarde celebrada en la Catedral Metropolitana.", 17, 0, 18, 30, "Santa Misa"),
-            TvProgram("sj_9", "sanjosetv", "Testimonios y Evangelización", "Historias de conversión y caridad en las parroquias ticas.", 18, 30, 21, 0, "Testimonios"),
-            TvProgram("sj_10", "sanjosetv", "Completas y Descanso", "Oración comunitaria para finalizar la jornada.", 21, 0, 0, 0, "Religión")
-        ),
-
-        "cristovision31" to listOf(
-            TvProgram("cv_0", "cristovision31", "Noche de Promesas y Paz", "Música instrumental de adoración y versículos bíblicos.", 0, 0, 6, 0, "Religión"),
-            TvProgram("cv_1", "cristovision31", "Salmos y Alabanzas del Despertar", "Adoración y palabras de ánimo para comenzar la jornada.", 6, 0, 8, 0, "Alabanza"),
-            TvProgram("cv_2", "cristovision31", "Prédica y Edificación Espiritual", "Estudio bíblico y conferencias pastorales.", 8, 0, 10, 30, "Enseñanza"),
-            TvProgram("cv_3", "cristovision31", "Mujeres de Fe y Hogar Cristiano", "Consejos para madres y fortalecimiento familiar.", 10, 30, 12, 0, "Familia"),
-            TvProgram("cv_4", "cristovision31", "Clamor e Intercesión por Costa Rica", "Tiempo de oración por la paz, los enfermos y la nación.", 12, 0, 13, 30, "Oración"),
-            TvProgram("cv_5", "cristovision31", "Música Cristiana Contemporánea", "Alabanzas de grupos costarricenses e internacionales.", 13, 30, 16, 0, "Música"),
-            TvProgram("cv_6", "cristovision31", "Mensajes de Esperanza", "Predicación y testimonios de sanidad y salvación.", 16, 0, 18, 30, "Prédica"),
-            TvProgram("cv_7", "cristovision31", "Gran Culto y Adoración en Directo", "Servicio congregacional con música y predicación en vivo.", 18, 30, 21, 0, "Culto"),
-            TvProgram("cv_8", "cristovision31", "Palabra de Dios para la Noche", "Predicación nocturna y alabanzas.", 21, 0, 0, 0, "Prédica")
-        ),
-
-        "enlacejuvenil" to listOf(
-            TvProgram("ej_0", "enlacejuvenil", "Urban Gospel y Madrugada", "Música urbana inspiradora durante toda la noche.", 0, 0, 6, 0, "Música"),
-            TvProgram("ej_1", "enlacejuvenil", "Despierta con Ritmo Cristiano Juvenil", "Música pop y urbana cristiana para empezar con energía.", 6, 0, 9, 0, "Música"),
-            TvProgram("ej_2", "enlacejuvenil", "Top Videos Juveniles de Alabanza", "Los videos musicales más pedidos por los jóvenes.", 9, 0, 12, 0, "Música"),
-            TvProgram("ej_3", "enlacejuvenil", "Tendencias y Juventud", "Entrevistas a líderes de jóvenes, tecnología y retos virales positivos.", 12, 0, 14, 30, "Juvenil"),
-            TvProgram("ej_4", "enlacejuvenil", "Festivales y Conciertos Cristianos", "Las mejores presentaciones de bandas juveniles en vivo.", 14, 30, 17, 30, "Concierto"),
-            TvProgram("ej_5", "enlacejuvenil", "Podcast Juvenil y Debates", "Charlas francas sobre relaciones, universidad y fe.", 17, 30, 20, 0, "Podcast"),
-            TvProgram("ej_6", "enlacejuvenil", "Adoración Extrema en Concierto", "Noche de alabanza acústica y contemporánea.", 20, 0, 23, 0, "Alabanza"),
-            TvProgram("ej_7", "enlacejuvenil", "Cierre Juvenil y Música", "Melodías cristianas contemporáneas.", 23, 0, 0, 0, "Música")
-        ),
-
-        "extremakids" to listOf(
-            TvProgram("ek_0", "extremakids", "Sueños Dulces: Melodías Relajantes", "Música de cuna instrumental para la noche de los más pequeños.", 0, 0, 6, 0, "Infantil"),
-            TvProgram("ek_1", "extremakids", "Canciones Infantiles del Despertar", "Rondas, canciones con animalitos y alegría matinal.", 6, 0, 8, 30, "Infantil"),
-            TvProgram("ek_2", "extremakids", "Aventuras Animadas y Cuentos Mágicos", "Dibujos animados educativos con personajes coloridos.", 8, 30, 11, 30, "Animación"),
-            TvProgram("ek_3", "extremakids", "Aprendiendo Jugando: Letras y Números", "Programas didácticos para niños de preescolar y primaria.", 11, 30, 13, 30, "Educativo"),
-            TvProgram("ek_4", "extremakids", "Marionetas y Fábulas Divertidas", "Historias con valores sobre el respeto y la amistad.", 13, 30, 16, 0, "Infantil"),
-            TvProgram("ek_5", "extremakids", "Película Infantil de la Tarde", "Películas de animación y magia para compartir en casa.", 16, 0, 18, 30, "Cine Infantil"),
-            TvProgram("ek_6", "extremakids", "Canciones para Dormir y Cuentos", "Cuentos para conciliar el sueño y música tierna.", 18, 30, 21, 0, "Familiar"),
-            TvProgram("ek_7", "extremakids", "Descanso de los Pequeños", "Música instrumental de cuna.", 21, 0, 0, 0, "Infantil")
-        ),
-
-        "zurquitv" to listOf(
-            TvProgram("zq_0", "zurquitv", "Noches del Zurquí", "Música instrumental y serenatas costarricenses.", 0, 0, 6, 0, "Música"),
-            TvProgram("zq_1", "zurquitv", "Despertar Herediano", "Noticias de San Isidro, San Rafael, Barva y Heredia.", 6, 0, 8, 30, "Regional"),
-            TvProgram("zq_2", "zurquitv", "Tradiciones en las Faldas del Zurquí", "Flora, fauna de montaña, lecherías y costumbres heredianas.", 8, 30, 11, 0, "Cultura"),
-            TvProgram("zq_3", "zurquitv", "Informativo Heredia Mediodía", "Noticias del Valle Central y la provincia de las flores.", 11, 0, 12, 30, "Noticias"),
-            TvProgram("zq_4", "zurquitv", "Senderos del Braulio Carrillo", "Recorridos ecológicos por el parque nacional y bosques nubosos.", 12, 30, 15, 30, "Ecológico"),
-            TvProgram("zq_5", "zurquitv", "Cultura y Artesanos del Valle", "Pintura, escultura, mascaradas heredianas y música de cimarrona.", 15, 30, 18, 0, "Tradición"),
-            TvProgram("zq_6", "zurquitv", "Noticias Zurquí Central", "Resumen estelar de los sucesos comunales y cantonales.", 18, 0, 19, 30, "Noticias"),
-            TvProgram("zq_7", "zurquitv", "Tertulia Herediana", "Espacio de opinión con vecinos y líderes del cantón.", 19, 30, 21, 30, "Opinión"),
-            TvProgram("zq_8", "zurquitv", "Serenata Nocturna Herediana", "Melodías costarricenses para el reposo.", 21, 30, 0, 0, "Música")
-        )
+    val VERIFIED_CHANNELS_WITH_EPG: Set<String> = setOf(
+        "teletica7",
+        "canal6repretel",
+        "canal11repretel",
+        "canal4repretel",
+        "canal8multimedios",
+        "opacanal38",
+        "futv",
+        "extratv42",
+        "canal1cr",
+        "canal13sinart",
+        "vmlatino"
     )
+
+    fun normalizeChannelId(channelId: String): String {
+        return when (channelId.lowercase()) {
+            "teletica", "canal7", "t7" -> "teletica7"
+            "canal6", "c6", "repretel6" -> "canal6repretel"
+            "canal11", "c11", "repretel11" -> "canal11repretel"
+            "canal4", "c4", "repretel4" -> "canal4repretel"
+            "canal8", "c8", "multimedios" -> "canal8multimedios"
+            "sinart", "canal13", "c13", "trece" -> "canal13sinart"
+            "canal1", "c1", "canal1costarica" -> "canal1cr"
+            "canal42", "c42", "extra", "extratv" -> "extratv42"
+            "opa", "canal38", "c38" -> "opacanal38"
+            else -> channelId
+        }
+    }
+
+    fun hasVerifiedSchedule(channelId: String): Boolean {
+        val norm = normalizeChannelId(channelId)
+        return VERIFIED_CHANNELS_WITH_EPG.contains(norm)
+    }
+
+    fun cleanTitle(title: String): String {
+        return title
+            .replace(Regex("(?i)\\s*-\\s*primera\\s+emisi[oó]n"), "")
+            .replace(Regex("(?i)\\s*primera\\s+emisi[oó]n"), "")
+            .replace(Regex("(?i)\\s*-\\s*segunda\\s+emisi[oó]n"), "")
+            .replace(Regex("(?i)\\s*segunda\\s+emisi[oó]n"), "")
+            .replace(Regex("(?i)\\s*-\\s*tercera\\s+emisi[oó]n"), "")
+            .replace(Regex("(?i)\\s*tercera\\s+emisi[oó]n"), "")
+            .replace(Regex("(?i)\\s*cierre\\s+de\\s+emisi[oó]n"), "Cierre de Programación")
+            .replace(Regex("(?i)\\s*emisi[oó]n"), "")
+            .replace(Regex("(?i)\\s*emisiones"), "")
+            .trim()
+    }
+
+    const val NO_PROGRAMMING_TITLE = "Sin programación"
+
+    fun isNoProgramming(program: TvProgram?): Boolean {
+        if (program == null) return true
+        val title = program.title.trim().lowercase()
+        return title == "sin programación" ||
+               title == "no programación" ||
+               title == "programación no disponible" ||
+               program.id.endsWith("_no_prog")
+    }
+
+    fun createNoProgrammingItem(channelId: String, channelName: String): TvProgram {
+        return TvProgram(
+            id = "${channelId}_no_prog",
+            channelId = channelId,
+            title = NO_PROGRAMMING_TITLE,
+            description = "No hay programación disponible para este canal.",
+            startHour = 0,
+            startMinute = 0,
+            endHour = 23,
+            endMinute = 59,
+            category = "Sin programación"
+        )
+    }
 
     /**
      * Gets the full day programming for a channel, taking into account weekdays, Saturdays and Sundays.
+     * Returns empty list for channels that do not have verified programming.
      */
     fun getScheduleForChannel(channelId: String, channelName: String, categoryName: String): List<TvProgram> {
+        val normId = normalizeChannelId(channelId)
+        if (!hasVerifiedSchedule(normId)) {
+            return emptyList()
+        }
+
         val dayOfWeek = getCostaRicaDayOfWeek()
         val isSaturday = dayOfWeek == Calendar.SATURDAY
         val isSunday = dayOfWeek == Calendar.SUNDAY
         val isWeekday = !isSaturday && !isSunday
 
         // 1. Saturday-specific schedule
-        if (isSaturday && saturdayProgramsByChannel.containsKey(channelId)) {
-            return saturdayProgramsByChannel[channelId]!!
+        if (isSaturday && saturdayProgramsByChannel.containsKey(normId)) {
+            return saturdayProgramsByChannel[normId]!!
         }
 
         // 2. Sunday-specific schedule
-        if (isSunday && sundayProgramsByChannel.containsKey(channelId)) {
-            return sundayProgramsByChannel[channelId]!!
+        if (isSunday && sundayProgramsByChannel.containsKey(normId)) {
+            return sundayProgramsByChannel[normId]!!
         }
 
         // 3. Weekday-specific schedule
-        if (isWeekday && weekdayProgramsByChannel.containsKey(channelId)) {
-            return weekdayProgramsByChannel[channelId]!!
+        if (isWeekday && weekdayProgramsByChannel.containsKey(normId)) {
+            return weekdayProgramsByChannel[normId]!!
         }
 
-        // 4. Specific schedule across all regional and thematic channels
-        val specific = allChannelsBaseSchedules[channelId]
-        if (specific != null && specific.isNotEmpty()) {
-            return specific
+        // 4. Fallback to weekday for verified channels if weekend not defined specifically
+        if (weekdayProgramsByChannel.containsKey(normId)) {
+            return weekdayProgramsByChannel[normId]!!
         }
 
-        // 5. Check Saturday/Sunday fallback to weekday if weekend not defined specifically
-        if (weekdayProgramsByChannel.containsKey(channelId)) {
-            return weekdayProgramsByChannel[channelId]!!
-        }
-
-        // 6. Guaranteed continuous tailored schedule
-        return listOf(
-            TvProgram("${channelId}_1", channelId, "Amanecer en $channelName", "Inicio de transmisiones y música de apertura.", 6, 0, 8, 30, categoryName),
-            TvProgram("${channelId}_2", channelId, "Revista Matinal de Costa Rica", "Consejos de salud, cocina tica y entrevistas comunitarias.", 8, 30, 11, 0, "Revista"),
-            TvProgram("${channelId}_3", channelId, "Noticiero Mediodía en Vivo", "El acontecer de Costa Rica a mitad del día.", 11, 0, 13, 0, "Noticias"),
-            TvProgram("${channelId}_4", channelId, "Espacio de Entretenimiento y Tradición", "Música y documentales sobre costumbres costarricenses.", 13, 0, 16, 0, "Cultura"),
-            TvProgram("${channelId}_5", channelId, "Tarde Familiar Tica", "Variedades y contacto con los televidentes.", 16, 0, 18, 30, "Variedades"),
-            TvProgram("${channelId}_6", channelId, "Edición Central de Noticias", "La información más relevante del día en Costa Rica.", 18, 30, 20, 0, "Noticias"),
-            TvProgram("${channelId}_7", channelId, "Franja Estelar de $channelName", "Producciones especiales en horario estelar.", 20, 0, 22, 0, "Especial"),
-            TvProgram("${channelId}_8", channelId, "Cierre Informativo de la Noche", "Resumen de los principales acontecimientos del día.", 22, 0, 23, 30, "Noticias"),
-            TvProgram("${channelId}_9", channelId, "Madrugada en Vivo y Música", "Selección musical y repetición de los mejores especiales.", 23, 30, 6, 0, "Música")
-        )
+        return emptyList()
     }
 
     /**
-     * Gets currently playing program for a channel with foolproof matching
+     * Gets currently playing program for a channel.
+     * Returns a "Sin programación" placeholder if the channel has no schedule.
      */
     fun getCurrentProgram(
         channelId: String,
@@ -793,7 +597,16 @@ object CostaRicaEpgData {
         currentHour: Int? = null,
         currentMinute: Int? = null
     ): TvProgram {
-        val schedule = getScheduleForChannel(channelId, channelName, categoryName)
+        val normId = normalizeChannelId(channelId)
+        if (!hasVerifiedSchedule(normId)) {
+            return createNoProgrammingItem(channelId, channelName)
+        }
+
+        val schedule = getScheduleForChannel(normId, channelName, categoryName)
+        if (schedule.isEmpty()) {
+            return createNoProgrammingItem(channelId, channelName)
+        }
+
         val (h, m) = if (currentHour != null && currentMinute != null) {
             Pair(currentHour, currentMinute)
         } else {
@@ -813,11 +626,12 @@ object CostaRicaEpgData {
 
         return pastCandidate
             ?: schedule.lastOrNull()
-            ?: fallbackProgram(channelId, channelName, categoryName, h)
+            ?: createNoProgrammingItem(channelId, channelName)
     }
 
     /**
-     * Gets next upcoming program for a channel
+     * Gets next upcoming program for a channel.
+     * Returns null if the channel has no schedule or no next program.
      */
     fun getNextProgram(
         channelId: String,
@@ -826,14 +640,23 @@ object CostaRicaEpgData {
         currentHour: Int? = null,
         currentMinute: Int? = null
     ): TvProgram? {
-        val schedule = getScheduleForChannel(channelId, channelName, categoryName)
+        val normId = normalizeChannelId(channelId)
+        if (!hasVerifiedSchedule(normId)) {
+            return null
+        }
+
+        val schedule = getScheduleForChannel(normId, channelName, categoryName)
+        if (schedule.isEmpty()) return null
+
         val (h, m) = if (currentHour != null && currentMinute != null) {
             Pair(currentHour, currentMinute)
         } else {
             getCurrentCostaRicaTime()
         }
 
-        val currentProg = getCurrentProgram(channelId, channelName, categoryName, h, m)
+        val currentProg = getCurrentProgram(normId, channelName, categoryName, h, m)
+        if (isNoProgramming(currentProg)) return null
+
         val currentIndex = schedule.indexOfFirst { it.id == currentProg.id }
 
         return if (currentIndex != -1 && currentIndex + 1 < schedule.size) {
@@ -841,19 +664,5 @@ object CostaRicaEpgData {
         } else {
             schedule.firstOrNull()
         }
-    }
-
-    private fun fallbackProgram(channelId: String, channelName: String, categoryName: String, hour: Int): TvProgram {
-        return TvProgram(
-            id = "${channelId}_live",
-            channelId = channelId,
-            title = "Transmisión en Directo: $channelName",
-            description = "Señal en vivo transmitiendo para todo Costa Rica.",
-            startHour = hour,
-            startMinute = 0,
-            endHour = (hour + 1) % 24,
-            endMinute = 0,
-            category = categoryName
-        )
     }
 }

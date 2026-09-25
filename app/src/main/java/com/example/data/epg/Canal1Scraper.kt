@@ -220,7 +220,7 @@ object Canal1Scraper {
             lower.contains("mas que musica") -> "Especiales musicales, entrevistas y lo más sonado de la escena musical."
             lower.contains("retro hits") -> "Los grandes clásicos del pop, rock y baladas que marcaron generaciones."
             lower.contains("sorteo jps") -> "Transmisión en directo del Sorteo de la Lotería Nacional de la Junta de Protección Social de Costa Rica."
-            else -> "Emisión oficial de $title en la grilla de programación de Canal 1 Costa Rica."
+            else -> ""
         }
     }
 

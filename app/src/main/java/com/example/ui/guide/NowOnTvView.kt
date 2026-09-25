@@ -155,8 +155,9 @@ fun NowOnTvView(
                     hour,
                     minute
                 )
-                val progress = currentProgram.getProgress(hour, minute)
-                val remaining = currentProgram.remainingMinutes(hour, minute)
+                val isNoProg = CostaRicaEpgData.isNoProgramming(currentProgram)
+                val progress = if (isNoProg) 0f else currentProgram.getProgress(hour, minute)
+                val remaining = if (isNoProg) 0 else currentProgram.remainingMinutes(hour, minute)
 
                 Card(
                     modifier = Modifier
@@ -205,11 +206,11 @@ fun NowOnTvView(
                                 Row(verticalAlignment = Alignment.CenterVertically) {
                                     Surface(
                                         shape = RoundedCornerShape(4.dp),
-                                        color = LiveRed,
+                                        color = if (isNoProg) Color(0xFF334155) else LiveRed,
                                         modifier = Modifier.padding(end = 6.dp)
                                     ) {
                                         Text(
-                                            text = "EN VIVO",
+                                            text = if (isNoProg) "DIRECTO" else "EN VIVO",
                                             color = Color.White,
                                             fontSize = 9.sp,
                                             fontWeight = FontWeight.Bold,
@@ -229,14 +230,25 @@ fun NowOnTvView(
 
                                 Spacer(modifier = Modifier.height(2.dp))
 
-                                Text(
-                                    text = currentProgram.title,
-                                    color = Color(0xFF60A5FA),
-                                    fontSize = 14.sp,
-                                    fontWeight = FontWeight.SemiBold,
-                                    maxLines = 1,
-                                    overflow = TextOverflow.Ellipsis
-                                )
+                                if (isNoProg) {
+                                    Text(
+                                        text = "Sin programación",
+                                        color = TextMuted,
+                                        fontSize = 13.sp,
+                                        fontWeight = FontWeight.Medium,
+                                        maxLines = 1,
+                                        overflow = TextOverflow.Ellipsis
+                                    )
+                                } else {
+                                    Text(
+                                        text = CostaRicaEpgData.cleanTitle(currentProgram.title),
+                                        color = Color(0xFF60A5FA),
+                                        fontSize = 14.sp,
+                                        fontWeight = FontWeight.SemiBold,
+                                        maxLines = 1,
+                                        overflow = TextOverflow.Ellipsis
+                                    )
+                                }
                             }
 
                             // Sintonizar Play Button
@@ -255,49 +267,57 @@ fun NowOnTvView(
                             }
                         }
 
-                        Spacer(modifier = Modifier.height(10.dp))
+                        Spacer(modifier = Modifier.height(8.dp))
 
-                        // Progress and time remaining
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
+                        if (isNoProg) {
                             Text(
-                                text = "${currentProgram.timeSpanFormatted} • ${currentProgram.category}",
-                                color = TextMuted,
+                                text = "${channel.category.displayName} • ${channel.location} • Señal en vivo disponible",
+                                color = TextMuted.copy(alpha = 0.8f),
                                 fontSize = 11.sp
                             )
-                            Text(
-                                text = if (remaining > 0) "Quedan $remaining min" else "Finalizando",
-                                color = CrGold,
-                                fontSize = 11.sp,
-                                fontWeight = FontWeight.Medium
+                        } else {
+                            // Progress and time remaining
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Text(
+                                    text = "${currentProgram.timeSpanFormatted} • ${currentProgram.category}",
+                                    color = TextMuted,
+                                    fontSize = 11.sp
+                                )
+                                Text(
+                                    text = if (remaining > 0) "Quedan $remaining min" else "Finalizando",
+                                    color = CrGold,
+                                    fontSize = 11.sp,
+                                    fontWeight = FontWeight.Medium
+                                )
+                            }
+
+                            Spacer(modifier = Modifier.height(4.dp))
+
+                            LinearProgressIndicator(
+                                progress = { progress },
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(3.dp)
+                                    .clip(RoundedCornerShape(2.dp)),
+                                color = CrBlue,
+                                trackColor = Color(0xFF334155)
                             )
-                        }
 
-                        Spacer(modifier = Modifier.height(4.dp))
-
-                        LinearProgressIndicator(
-                            progress = { progress },
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .height(3.dp)
-                                .clip(RoundedCornerShape(2.dp)),
-                            color = CrBlue,
-                            trackColor = Color(0xFF334155)
-                        )
-
-                        // Next Program teaser
-                        if (nextProgram != null) {
-                            Spacer(modifier = Modifier.height(6.dp))
-                            Text(
-                                text = "A continuación: ${nextProgram.startTimeFormatted} - ${nextProgram.title}",
-                                color = TextSecondary.copy(alpha = 0.8f),
-                                fontSize = 10.sp,
-                                maxLines = 1,
-                                overflow = TextOverflow.Ellipsis
-                            )
+                            // Next Program teaser
+                            if (nextProgram != null && !CostaRicaEpgData.isNoProgramming(nextProgram)) {
+                                Spacer(modifier = Modifier.height(6.dp))
+                                Text(
+                                    text = "A continuación: ${nextProgram.startTimeFormatted} - ${nextProgram.title}",
+                                    color = TextSecondary.copy(alpha = 0.8f),
+                                    fontSize = 10.sp,
+                                    maxLines = 1,
+                                    overflow = TextOverflow.Ellipsis
+                                )
+                            }
                         }
                     }
                 }

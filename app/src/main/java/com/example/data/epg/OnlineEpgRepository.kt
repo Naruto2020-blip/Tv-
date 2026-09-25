@@ -35,23 +35,7 @@ enum class EpgMode(val displayName: String, val description: String) {
 class OnlineEpgRepository(private val context: Context) {
 
     companion object {
-        val PROTECTED_ONLINE_CHANNELS = setOf(
-            "teletica7",
-            "canal6repretel",
-            "canal11repretel",
-            "canal4repretel",
-            "canal8multimedios",
-            "opacanal38",
-            "futv",
-            "extratv42",
-            "canal1cr",
-            "canal13sinart",
-            "canal14sancarlos",
-            "vmlatino",
-            "sanjosetv",
-            "cristovision31",
-            "enlacejuvenil"
-        )
+        val PROTECTED_ONLINE_CHANNELS = CostaRicaEpgData.VERIFIED_CHANNELS_WITH_EPG
     }
 
     private val tag = "OnlineEpgRepository"
@@ -297,6 +281,9 @@ class OnlineEpgRepository(private val context: Context) {
         minute: Int
     ): TvProgram {
         val schedule = getScheduleForChannel(channelId, channelName, categoryName)
+        if (schedule.isEmpty()) {
+            return CostaRicaEpgData.createNoProgrammingItem(channelId, channelName)
+        }
         val currentMins = hour * 60 + minute
 
         // 1. Direct match with program currently airing
@@ -311,7 +298,7 @@ class OnlineEpgRepository(private val context: Context) {
 
         return pastCandidate
             ?: schedule.lastOrNull()
-            ?: CostaRicaEpgData.getCurrentProgram(channelId, channelName, categoryName, hour, minute)
+            ?: CostaRicaEpgData.createNoProgrammingItem(channelId, channelName)
     }
 
     /**
@@ -325,7 +312,11 @@ class OnlineEpgRepository(private val context: Context) {
         minute: Int
     ): TvProgram? {
         val schedule = getScheduleForChannel(channelId, channelName, categoryName)
+        if (schedule.isEmpty()) return null
+
         val current = getCurrentProgram(channelId, channelName, categoryName, hour, minute)
+        if (CostaRicaEpgData.isNoProgramming(current)) return null
+
         val idx = schedule.indexOfFirst { it.id == current.id }
         return if (idx != -1 && idx + 1 < schedule.size) {
             schedule[idx + 1]
@@ -386,12 +377,14 @@ class OnlineEpgRepository(private val context: Context) {
                 val progs = mutableListOf<TvProgram>()
                 for (i in 0 until array.length()) {
                     val pObj = array.optJSONObject(i) ?: continue
+                    val rawDesc = pObj.optString("description", "")
+                    val cleanDesc = if (rawDesc.contains("emisión", ignoreCase = true) || rawDesc.contains("programación oficial", ignoreCase = true)) "" else rawDesc
                     progs.add(
                         TvProgram(
                             id = pObj.optString("id", "${channelId}_$i"),
                             channelId = pObj.optString("channelId", channelId),
-                            title = pObj.optString("title", "Programa"),
-                            description = pObj.optString("description", ""),
+                            title = CostaRicaEpgData.cleanTitle(pObj.optString("title", "Programa")),
+                            description = cleanDesc,
                             startHour = pObj.optInt("startHour", 0),
                             startMinute = pObj.optInt("startMinute", 0),
                             endHour = pObj.optInt("endHour", 1),

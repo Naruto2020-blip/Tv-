@@ -231,6 +231,6 @@ object AmericaTvGuideScraper {
     }
 
     private fun generateDescription(title: String, category: String): String {
-        return "Emisión de $title en la programación oficial costarricense ($category)."
+        return ""
     }
 }

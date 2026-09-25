@@ -553,7 +553,9 @@ fun VideoPlayerView(
                             )
                         }
 
-                        if (currentProgramTitle.isNotBlank()) {
+                        if (currentProgramTitle.isNotBlank() && 
+                            !currentProgramTitle.equals("Sin programación", ignoreCase = true) && 
+                            !currentProgramTitle.equals("No programación", ignoreCase = true)) {
                             Text(
                                 text = currentProgramTitle,
                                 color = Color.White.copy(alpha = 0.85f),
